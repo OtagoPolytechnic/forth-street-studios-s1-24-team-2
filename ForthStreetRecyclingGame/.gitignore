@@ -73,6 +73,3 @@ crashlytics-build.properties
 
 # TextMesh Pro
 TextMesh Pro/
-
-# ds_store files in any folder
-*/.DS_Store
