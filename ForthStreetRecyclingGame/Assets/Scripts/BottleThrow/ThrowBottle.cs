@@ -1,3 +1,6 @@
+//Tutorial used for final help: https://www.youtube.com/watch?v=99yIg-A5eCw
+// Modified the direction of ball launch (away instead of towards camera)
+
 using UnityEngine;
 
 public class ThrowBottle : MonoBehaviour
@@ -6,6 +9,7 @@ public class ThrowBottle : MonoBehaviour
     private Vector3 mouseReleasePos;
     private Rigidbody rb;
     private bool bottleThrown;
+    private float forceMultiplier = 3;
 
     void Start()
     {
@@ -20,15 +24,13 @@ public class ThrowBottle : MonoBehaviour
     private void OnMouseUp()
     {
         mouseReleasePos = Input.mousePosition;
-        Shoot(mouseInitialPos - mouseReleasePos);
+        Throw(mouseInitialPos - mouseReleasePos);
+        rb.useGravity = true;
     }
 
-    private float forceMultiplier = 3;
-    void Shoot(Vector3 Force)
+    void Throw(Vector3 Force)
     {
-        if (bottleThrown)
-            return;
-
+        if (bottleThrown) { return; }
         rb.AddForce(new Vector3(Force.x, Force.y, Force.y) * forceMultiplier);
         bottleThrown = true;
     }
