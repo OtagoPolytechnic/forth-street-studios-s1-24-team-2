@@ -5,6 +5,7 @@ using UnityEngine;
 public class DragObject : MonoBehaviour
 {
     private Renderer rend;
+    private const int ZLIMIT = 4; //moves the 3d item to the back wall when clicked
     // Start is called before the first frame update
     void Start()
     {
@@ -16,18 +17,18 @@ public class DragObject : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //tracks the mouse position
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit)) //when it collides, out hit stores information about the object
             {
-                transform.position = new Vector3(hit.point.x, hit.point.y, 0);
+                transform.position = new Vector3(hit.point.x, hit.point.y, ZLIMIT);
             }
         }
     }
 
     void OnMouseEnter()
     {
-        rend.material.color = Color.red;
+        rend.material.color = Color.blue;
     }
 
     void OnMouseExit()
