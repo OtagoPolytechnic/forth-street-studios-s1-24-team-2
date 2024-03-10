@@ -1,6 +1,17 @@
 //Tutorial used for final help: https://www.youtube.com/watch?v=99yIg-A5eCw
 // Modified the direction of ball launch (away instead of towards camera)
 
+/*      FEATURES TO ADD
+ *      ---------------
+ *  1.1) Line renderer showing throw strength (towards mouse)
+ *       or
+ *  1.2) Line renderer showing throw trajectory (away from object)
+ *  2.1) Different items get thrown with differing force
+ *  3.1) Limit throw angle 
+ *      -  bottom 180° of object - remove throwing towards camera
+ *  4.1) What to do if throw is too weak to get near trigger area
+ */
+
 using UnityEngine;
 
 public class ThrowBottle : MonoBehaviour
