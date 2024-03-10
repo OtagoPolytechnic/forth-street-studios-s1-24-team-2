@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
-    private Renderer rend;
-    private const int ZLIMIT = 4; //moves the 3d item to the back wall when clicked
+    private Renderer rend; //temporary
+    private const int ZLIMIT = -5; // Sends it to the z axis when clicked
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,18 +22,18 @@ public class DragObject : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) //when it collides, out hit stores information about the object
             {
-                transform.position = new Vector3(hit.point.x, hit.point.y, ZLIMIT);
+                transform.position = new Vector3(hit.point.x, hit.point.y, ZLIMIT); // new position
             }
         }
     }
 
     void OnMouseEnter()
     {
-        rend.material.color = Color.blue;
+        rend.material.color = Color.blue; //visual cue
     }
 
     void OnMouseExit()
     {
-        rend.material.color = Color.white;
+        rend.material.color = Color.gray;
     }
 }
