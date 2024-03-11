@@ -6,6 +6,7 @@ public class DragObject : MonoBehaviour
 {
     private const int ZLIMIT = -5; // Sends it to the z axis when clicked
     private const int HALF = 2; // Used to divide the size of the object
+    private const int BORDERWIDTH = 6; // Used to set the border width
     private GameObject item;
 
     // Update is called once per frame
@@ -26,9 +27,13 @@ public class DragObject : MonoBehaviour
                     {
                         item.transform.position = new Vector3(hit.point.x, item.transform.localScale.y / HALF, ZLIMIT); //versatile for different sized items
                     }
-                    else if (item.transform.position.x < -5 || item.transform.position.x > 5)
+                    else if (item.transform.position.x < -BORDERWIDTH) //if items try to move beyond the left border, it will be stopped
                     {
-                        item.transform.position = new Vector3(0, item.transform.position.y, item.transform.position.z);
+                        item.transform.position = new Vector3(-BORDERWIDTH, item.transform.position.y, ZLIMIT);
+                    }
+                    else if (item.transform.position.x > BORDERWIDTH) //if items try to move beyond the right border, it will be stopped
+                    {
+                        item.transform.position = new Vector3(BORDERWIDTH, item.transform.position.y, ZLIMIT);
                     }
                 }
             }
