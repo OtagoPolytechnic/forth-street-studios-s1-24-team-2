@@ -26,6 +26,10 @@ public class DragObject : MonoBehaviour
                     {
                         item.transform.position = new Vector3(hit.point.x, item.transform.localScale.y / HALF, ZLIMIT); //versatile for different sized items
                     }
+                    else if (item.transform.position.x < -5 || item.transform.position.x > 5)
+                    {
+                        item.transform.position = new Vector3(0, item.transform.position.y, item.transform.position.z);
+                    }
                 }
             }
         }   
