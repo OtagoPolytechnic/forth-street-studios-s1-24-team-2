@@ -4,23 +4,28 @@ using UnityEngine.UI;
 
 public class WindowedSceneRenderer : MonoBehaviour
 {
+    public GameObject eventSystem;
+    public Camera mainCamera;
     public string sceneToRenderName; // Name of the scene to render
+    public RawImage rawImage; // Reference to the RawImage component where the scene will be rendered
 
-    // reference to the secondary canvas
-    public Canvas secondaryCanvas;
-
-    // reference to the raw image
-    public RawImage rawImage;
-
-    // reference to the render texture
     private RenderTexture renderTexture;
 
-    
     void Start()
     {
         // Load the scene asynchronously
         SceneManager.LoadSceneAsync(sceneToRenderName, LoadSceneMode.Additive);
+
+        // Disable the EventSystem in the scene to render
+        eventSystem.SetActive(false);
+
+        // Disable the audio listener
+        mainCamera.GetComponent<AudioListener>().enabled = false;
+
+
+
     }
+
 
     void Update()
     {
