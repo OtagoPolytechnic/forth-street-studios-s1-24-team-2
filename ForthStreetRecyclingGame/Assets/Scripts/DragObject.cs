@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
-    private Renderer rend; //temporary
     private const int ZLIMIT = -5; // Sends it to the z axis when clicked
+    private GameObject item;
 
     // Start is called before the first frame update
     void Start()
     {
-        rend = GetComponent<Renderer>();
+
     }
 
     // Update is called once per frame
@@ -20,20 +20,15 @@ public class DragObject : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //tracks the mouse position
             RaycastHit hit;
+
             if (Physics.Raycast(ray, out hit)) //when it collides, out hit stores information about the object
             {
-                transform.position = new Vector3(hit.point.x, hit.point.y, ZLIMIT); // new position
+                if (hit.rigidbody != null)
+                {
+                    item = hit.rigidbody.gameObject; //stores the object
+                    item.transform.position = new Vector3(hit.point.x, hit.point.y, ZLIMIT); // specific object moves to the raycast target
+                }
             }
-        }
-    }
-
-    void OnMouseEnter()
-    {
-        rend.material.color = Color.blue; //visual cue
-    }
-
-    void OnMouseExit()
-    {
-        rend.material.color = Color.gray;
+        }   
     }
 }
