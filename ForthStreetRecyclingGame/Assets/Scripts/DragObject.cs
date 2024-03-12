@@ -23,20 +23,13 @@ public class DragObject : MonoBehaviour
                 {
                     item = hit.rigidbody.gameObject; //stores the object
                     item.transform.position = new Vector3(hit.point.x, hit.point.y, ZLIMIT); // specific object moves to the raycast target
+
                     if (item.transform.position.y < item.transform.localScale.y / HALF) //if items try to move below half its size on the y axis, it will be stopped to prevent passing through the floor
                     {
                         item.transform.position = new Vector3(hit.point.x, item.transform.localScale.y / HALF, ZLIMIT); //versatile for different sized items
                     }
-                    else if (item.transform.position.x < -BORDERWIDTH) //if items try to move beyond the left border, it will be stopped
-                    {
-                        item.transform.position = new Vector3(-BORDERWIDTH, item.transform.position.y, ZLIMIT);
-                    }
-                    else if (item.transform.position.x > BORDERWIDTH) //if items try to move beyond the right border, it will be stopped
-                    {
-                        item.transform.position = new Vector3(BORDERWIDTH, item.transform.position.y, ZLIMIT);
-                    }
                 }
             }
-        }   
+        }
     }
 }
