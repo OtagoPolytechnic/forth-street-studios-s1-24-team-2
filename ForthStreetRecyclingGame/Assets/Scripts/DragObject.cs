@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
-    private const int ZLIMIT = -5; // Sends it to the z axis when clicked
-    private const int HALF = 2; // Used to divide the size of the object
     private GameObject item;
-    private float speed = 30f;
-    private Vector3 targetPos = new Vector3(2f, 2.5f, -10f);
+    private float speed;
+    private Vector3 targetPos;
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        if (Input.GetMouseButton(0))
+        speed = 30f;
+        targetPos = new Vector3(2f, 2.5f, -10f);
+    }
+
+    private void GetMouseClick()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //tracks the mouse position
             RaycastHit hit;
@@ -24,7 +27,7 @@ public class DragObject : MonoBehaviour
                 {
                     item = hit.rigidbody.gameObject; //stores the object
                     StartCoroutine(MoveToPosition(item.transform, targetPos, speed)); //starts the coroutine to move object
-                    Destroy(item.GetComponent<Rigidbody>()); //removes the rigidbody from the object
+                    item.GetComponent<Rigidbody>().isKinematic = true; //disables gravity
                 }
             }
         }
@@ -38,5 +41,11 @@ public class DragObject : MonoBehaviour
             item.position = Vector3.MoveTowards(item.position, target, speed * Time.deltaTime);
             yield return null;
         }
+    }
+
+    private void Throw()
+    {
+        item.GetComponent<Rigidbody>().isKinematic = false;
+        item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 20f);
     }
 }
