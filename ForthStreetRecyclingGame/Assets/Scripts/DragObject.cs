@@ -6,8 +6,9 @@ public class DragObject : MonoBehaviour
 {
     private const int ZLIMIT = -5; // Sends it to the z axis when clicked
     private const int HALF = 2; // Used to divide the size of the object
-    private const int BORDERWIDTH = 6; // Used to set the border width
     private GameObject item;
+    private float speed = 30f;
+    private Vector3 targetPos = new Vector3(2f, 2.5f, -10f);
 
     // Update is called once per frame
     void Update()
@@ -22,14 +23,20 @@ public class DragObject : MonoBehaviour
                 if (hit.rigidbody != null)
                 {
                     item = hit.rigidbody.gameObject; //stores the object
-                    item.transform.position = new Vector3(hit.point.x, hit.point.y, ZLIMIT); // specific object moves to the raycast target
-
-                    if (item.transform.position.y < item.transform.localScale.y / HALF) //if items try to move below half its size on the y axis, it will be stopped to prevent passing through the floor
-                    {
-                        item.transform.position = new Vector3(hit.point.x, item.transform.localScale.y / HALF, ZLIMIT); //versatile for different sized items
-                    }
+                    StartCoroutine(MoveToPosition(item.transform, targetPos, speed)); //starts the coroutine to move object
+                    Destroy(item.GetComponent<Rigidbody>()); //removes the rigidbody from the object
                 }
             }
+        }
+    }
+
+    //Moving the item over time
+    IEnumerator MoveToPosition (Transform item, Vector3 target, float speed)
+    {
+        while (item.position != target)
+        {
+            item.position = Vector3.MoveTowards(item.position, target, speed * Time.deltaTime);
+            yield return null;
         }
     }
 }
