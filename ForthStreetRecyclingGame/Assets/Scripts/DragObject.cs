@@ -7,20 +7,23 @@ public class DragObject : MonoBehaviour
     private GameObject item;
     private float speed;
     private Vector3 targetPos;
+    private bool pickedUp;
 
     void Start()
     {
         speed = 30f;
         targetPos = new Vector3(2f, 2.5f, -10f);
     }
+    
 
-    private void GetMouseClick()
+    void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && pickedUp == false)
         {
+            pickedUp = true;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //tracks the mouse position
             RaycastHit hit;
-
+            Debug.Log("Picked up");
             if (Physics.Raycast(ray, out hit)) //when it collides, out hit stores information about the object
             {
                 if (hit.rigidbody != null)
@@ -30,6 +33,9 @@ public class DragObject : MonoBehaviour
                     item.GetComponent<Rigidbody>().isKinematic = true; //disables gravity
                 }
             }
+        }else if (pickedUp == true)
+        {
+            Throw();
         }
     }
 
@@ -45,7 +51,13 @@ public class DragObject : MonoBehaviour
 
     private void Throw()
     {
-        item.GetComponent<Rigidbody>().isKinematic = false;
-        item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 20f);
+        if (pickedUp == true && Input.GetMouseButtonDown(0))
+        {
+            item.GetComponent<Rigidbody>().isKinematic = false;
+            item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 20f);
+            pickedUp = false;
+            Debug.Log("Thrown");
+
+        }
     }
 }
