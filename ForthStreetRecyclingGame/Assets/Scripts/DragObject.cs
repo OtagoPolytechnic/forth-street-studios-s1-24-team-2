@@ -8,7 +8,7 @@ public class DragObject : MonoBehaviour
     private GameObject cam;
     private Vector3 targetPos;
     private float speed;
-    private int force;
+    private float force;
     private bool pickedUp;
 
     void Start()
@@ -22,23 +22,33 @@ public class DragObject : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && pickedUp == false)
+        if (Input.GetMouseButtonDown(0)) //if the player clicks and there's no item in their hand, pick it up
         {
-            pickedUp = true;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //tracks the mouse position
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit)) //when it collides, out hit stores information about the object
+            if (pickedUp == false)
             {
-                if (hit.rigidbody != null)
-                {
-                    item = hit.rigidbody.gameObject; //stores the object
-                    StartCoroutine(MoveToPosition(item.transform, targetPos, speed)); //starts the coroutine to move object
-                    item.GetComponent<Rigidbody>().isKinematic = true; //disables gravity
-                }
+                PickUpItem();
             }
-        }else if (pickedUp == true) //if there's already an item in the player's hand, throw it
+            else if (pickedUp == true) //if there's already an item in the player's hand, throw it
+            {
+                Throw();
+            }
+            
+        }
+    }
+
+    private void PickUpItem()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //tracks the mouse position
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit) && !pickedUp) //when it collides, out hit stores information about the object
         {
-            Throw();
+            if (hit.rigidbody != null)
+            {
+                item = hit.rigidbody.gameObject; //stores the object
+                StartCoroutine(MoveToPosition(item.transform, targetPos, speed)); //starts the coroutine to move object
+                item.GetComponent<Rigidbody>().isKinematic = true; //disables gravity
+                pickedUp = true;
+            }
         }
     }
 
@@ -61,6 +71,7 @@ public class DragObject : MonoBehaviour
             item.GetComponent<Rigidbody>().isKinematic = false; //unfreezes item for gravity
             item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * force); //adds force to the item
             pickedUp = false; //resets the bool so another item can be picked up
+            PickUpItem(); //picks up the next item
         }
     }
 }
