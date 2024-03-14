@@ -5,14 +5,18 @@ using UnityEngine;
 public class DragObject : MonoBehaviour
 {
     private GameObject item;
-    private float speed;
+    private GameObject cam;
     private Vector3 targetPos;
+    private float speed;
+    private int force;
     private bool pickedUp;
 
     void Start()
     {
         speed = 30f;
-        targetPos = new Vector3(2f, 2.5f, -10f);
+        force = 300;
+        cam = GameObject.Find("Main Camera");
+        targetPos = new Vector3(cam.transform.position.x + 1.5f, cam.transform.position.y - 1f, cam.transform.position.z + 2.5f); //offset to the camera in a conventional gaming "held" position
     }
     
 
@@ -23,7 +27,6 @@ public class DragObject : MonoBehaviour
             pickedUp = true;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //tracks the mouse position
             RaycastHit hit;
-            Debug.Log("Picked up");
             if (Physics.Raycast(ray, out hit)) //when it collides, out hit stores information about the object
             {
                 if (hit.rigidbody != null)
@@ -33,7 +36,7 @@ public class DragObject : MonoBehaviour
                     item.GetComponent<Rigidbody>().isKinematic = true; //disables gravity
                 }
             }
-        }else if (pickedUp == true)
+        }else if (pickedUp == true) //if there's already an item in the player's hand, throw it
         {
             Throw();
         }
@@ -49,15 +52,15 @@ public class DragObject : MonoBehaviour
         }
     }
 
+    //Used for swapping two items - chucks it back on the conveyer
     private void Throw()
     {
-        if (pickedUp == true && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            item.GetComponent<Rigidbody>().isKinematic = false;
-            item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 20f);
-            pickedUp = false;
-            Debug.Log("Thrown");
-
+            item.transform.position = new Vector3(0, item.transform.position.y, item.transform.position.z); //moves xpos back to 0 so it gets thrown into the centre
+            item.GetComponent<Rigidbody>().isKinematic = false; //unfreezes item for gravity
+            item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * force); //adds force to the item
+            pickedUp = false; //resets the bool so another item can be picked up
         }
     }
 }
