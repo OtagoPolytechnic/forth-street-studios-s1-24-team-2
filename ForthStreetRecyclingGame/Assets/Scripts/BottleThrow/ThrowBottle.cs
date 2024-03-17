@@ -86,7 +86,7 @@ public class ThrowBottle : MonoBehaviour
         // Check if the angle is within the bottom 180 degrees
         if (angle <= 90)
         {
-            rb.AddForce(new Vector3(force.x, force.y-0.5f, force.y) * forceMultiplier);
+            rb.AddForce(new Vector3(force.x, force.y, force.y) * forceMultiplier);
             bottleThrown = true;
         }
     }
