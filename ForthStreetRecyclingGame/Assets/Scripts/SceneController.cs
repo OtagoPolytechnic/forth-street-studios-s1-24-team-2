@@ -15,10 +15,10 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
-        Vector3 startPos = originalCard.transform.position; //The position of the first card. All other cards are offset from here.
+        Vector3 startPos = originalCard.transform.position;
 
         int[] numbers = { 0, 0, 1, 1, 2, 2, 3, 3 };
-        numbers = ShuffleArray(numbers); //This is a function we will create in a minute!
+        numbers = ShuffleArray(numbers);
 
         for (int i = 0; i < gridCols; i++)
         {

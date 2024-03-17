@@ -25,7 +25,7 @@ public class MainCard : MonoBehaviour
     public void ChangeSprite(int id, Sprite image)
     {
         _id = id;
-        GetComponent<SpriteRenderer>().sprite = image; //This gets the sprite renderer component and changes the property of it's sprite!
+        GetComponent<SpriteRenderer>().sprite = image;
     }
 
     public void Unreveal()
