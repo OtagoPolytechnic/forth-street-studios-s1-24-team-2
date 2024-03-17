@@ -55,7 +55,7 @@ public class ThrowBottle : MonoBehaviour
 
     void Throw(Vector3 force)
     {
-        if (bottleThrown) { return; }
+        if (bottleThrown) { return; } //Only able to throw object once
 
         // Calculate angle between camera forward direction and mouse drag direction
         Vector3 camForward = mainCamera.transform.forward;
