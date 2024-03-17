@@ -16,11 +16,16 @@ using UnityEngine;
 
 public class ThrowBottle : MonoBehaviour
 {
-    private Vector3 mouseInitialPos;   //Mouse position when clicking object
-    private Camera mainCamera;         //Scene camera used to limit object throw angle
-    private Rigidbody rb;              //Object rb for Throw() force calculation
-    private bool bottleThrown;         //Changes after object is thrown
-    private float forceMultiplier = 3; //Added in Throw() force calculation
+    [Header("Components")]
+    public Rigidbody rb;              //Object rb for Throw() force calculation
+    public LineRenderer lr;           //Used to show Throw() trajectory
+    public Camera mainCamera;         //Scene camera used to limit object throw angle
+
+    [Header("Throw Variables")]
+    public Vector3 mouseInitialPos;   //Mouse position when clicking object
+    public Vector3 mouseReleasePos;   //Mouse position when releasing click
+    public bool bottleThrown;         //Changes after object is thrown
+    public float forceMultiplier = 3; //Added in Throw() force calculation
 
     /// <summary>
     /// Instantiate scene objects to variables
@@ -28,7 +33,9 @@ public class ThrowBottle : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        lr = GetComponent<LineRenderer>();
         mainCamera = Camera.main; //Likely need to change when we finalise loading of minigames in the main scene
+        lr.enabled = false; //Disable any line from object before clicking
     }
 
     /// <summary>
@@ -37,6 +44,7 @@ public class ThrowBottle : MonoBehaviour
     private void OnMouseDown()
     {
         mouseInitialPos = Input.mousePosition;
+        lr.enabled = true; //Show line only while clicking
     }
 
     /// <summary>
@@ -44,7 +52,9 @@ public class ThrowBottle : MonoBehaviour
     /// </summary>
     private void OnMouseUp()
     {
-        Vector3 mouseReleasePos = Input.mousePosition;
+        lr.enabled = false; //Disable trajectory line on release
+
+        mouseReleasePos = Input.mousePosition;
 
         if (mouseReleasePos.y < mouseInitialPos.y) // Ensure the mouse is dragged downward so object launches away from camera
         {
@@ -59,7 +69,7 @@ public class ThrowBottle : MonoBehaviour
 
         // Calculate angle between camera forward direction and mouse drag direction
         Vector3 camForward = mainCamera.transform.forward;
-        Vector3 mouseDragDir = (mouseInitialPos - Input.mousePosition).normalized;
+        Vector3 mouseDragDir = force.normalized;
         float angle = Vector3.Angle(camForward, mouseDragDir);
 
         // Check if the angle is within the bottom 180 degrees
