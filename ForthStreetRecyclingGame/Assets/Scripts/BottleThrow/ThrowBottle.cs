@@ -39,12 +39,23 @@ public class ThrowBottle : MonoBehaviour
     }
 
     /// <summary>
-    /// Save mouse position when clicking on gameobject (as Vector3)
+    /// Save mouse position when clicking on gameobject (as Vector3) <br />
+    /// Enable the line renderer and update with initial line position
     /// </summary>
     private void OnMouseDown()
     {
         mouseInitialPos = Input.mousePosition;
         lr.enabled = true; //Show line only while clicking
+
+        UpdateLineRenderer();
+    }
+
+    /// <summary>
+    /// Update line renderer positions during mouse drag
+    /// </summary>
+    private void OnMouseDrag()
+    {
+        UpdateLineRenderer();
     }
 
     /// <summary>
@@ -54,7 +65,7 @@ public class ThrowBottle : MonoBehaviour
     {
         lr.enabled = false; //Disable trajectory line on release
 
-        mouseReleasePos = Input.mousePosition;
+        mouseReleasePos = Input.mousePosition; //set to centre of object instead of mouse position within object
 
         if (mouseReleasePos.y < mouseInitialPos.y) // Ensure the mouse is dragged downward so object launches away from camera
         {
@@ -75,9 +86,22 @@ public class ThrowBottle : MonoBehaviour
         // Check if the angle is within the bottom 180 degrees
         if (angle <= 90)
         {
-            // Apply force only along the X and Z axes
-            rb.AddForce(new Vector3(force.x, force.y, force.y) * forceMultiplier);
+            rb.AddForce(new Vector3(force.x, force.y-0.5f, force.y) * forceMultiplier);
             bottleThrown = true;
         }
+    }
+
+    /// <summary>
+    /// Draws a line from the click position to the current mouse position,<br />
+    /// Help from ChatGPT for this (OnMouse events code sent along with prompt.),<br />
+    /// PROMPT: I need this function to draw a line from mouseInitialPos to the current Input.mousePosition while the mouse is clicked down
+    /// </summary>
+    void UpdateLineRenderer()
+    {
+        // Set the positions of the line renderer from mouseInitialPos to current mouse position
+        Vector3[] positions = new Vector3[2];
+        positions[0] = mainCamera.ScreenToWorldPoint(new Vector3(mouseInitialPos.x, mouseInitialPos.y, 10));
+        positions[1] = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        lr.SetPositions(positions);
     }
 }
