@@ -18,7 +18,6 @@ public class DragObject : MonoBehaviour
         cam = GameObject.Find("Main Camera");
         targetPos = new Vector3(cam.transform.position.x + 1.5f, cam.transform.position.y - 1f, cam.transform.position.z + 2.5f); //offset to the camera in a conventional gaming "held" position
     }
-    
 
     void Update()
     {
@@ -32,10 +31,10 @@ public class DragObject : MonoBehaviour
             {
                 Throw();
             }
-            
         }
     }
 
+    //raycast picking up objects with rigidbodies
     private void PickUpItem()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //tracks the mouse position
