@@ -8,6 +8,7 @@ public class WindowedSceneRenderer : MonoBehaviour
     public Camera mainCamera;
     public string sceneToRenderName; // Name of the scene to render
     public RawImage rawImage; // Reference to the RawImage component where the scene will be rendered
+    public ClickTranslator clickTranslator;
 
     private RenderTexture renderTexture;
 
@@ -15,6 +16,12 @@ public class WindowedSceneRenderer : MonoBehaviour
     {
         // Load the scene asynchronously
         SceneManager.LoadSceneAsync(sceneToRenderName, LoadSceneMode.Additive);
+
+        // when scene finishes loading, assign the camera and canvas
+        SceneManager.sceneLoaded += (scene, mode) =>
+        {
+            clickTranslator.AssignCameraAndCanvas();
+        };
 
         // Disable the EventSystem in the scene to render
         eventSystem.SetActive(false);
