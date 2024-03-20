@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class MouseWiggle : MonoBehaviour
 {
     private GameObject lid;
-    [SerializeField]private Image bar;
+    [SerializeField]private Slider fill;
 
     // Start is called before the first frame update
     void Start()
     {
         lid = GameObject.Find("Lid");
+        fill.value = 0;
     }
 
     // Update is called once per frame
@@ -31,6 +32,7 @@ public class MouseWiggle : MonoBehaviour
         if (Input.GetAxis("Mouse X") == 0)
         {
             //Debug.Log("Mouse stopped");
+            BarEmpty();
         }
     }
 
@@ -41,6 +43,11 @@ public class MouseWiggle : MonoBehaviour
 
     private void BarMovement()
     {
-        
+        fill.value = Mathf.MoveTowards(fill.value, 1, Time.deltaTime * 0.08f);
+    }
+
+    private void BarEmpty()
+    {
+        fill.value = Mathf.MoveTowards(fill.value, 0, Time.deltaTime * 0.1f);
     }
 }
