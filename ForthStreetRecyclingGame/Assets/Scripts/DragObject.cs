@@ -15,7 +15,7 @@ public class DragObject : MonoBehaviour
     {
         speed = 30f;
         force = 300;
-        cam = GameObject.Find("Main Camera");
+        cam = Camera.main.gameObject;
         targetPos = new Vector3(cam.transform.position.x + 1.5f, cam.transform.position.y - 1f, cam.transform.position.z + 2.5f); //offset to the camera in a conventional gaming "held" position
     }
 
@@ -68,7 +68,7 @@ public class DragObject : MonoBehaviour
         {
             item.transform.position = new Vector3(0, item.transform.position.y, item.transform.position.z); //moves xpos back to 0 so it gets thrown into the centre
             item.GetComponent<Rigidbody>().isKinematic = false; //unfreezes item for gravity
-            item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * force); //adds force to the item
+            item.GetComponent<Rigidbody>().AddForce(cam.transform.forward * force); //adds force to the item
             pickedUp = false; //resets the bool so another item can be picked up
             PickUpItem(); //picks up the next item
         }
