@@ -7,7 +7,7 @@ public class PopupText : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private Sprite[] sprites;
-    private float canvasRange = 500;
+    private float canvasRange = 400;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +27,8 @@ public class PopupText : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(1, 5)); //Randomly occurring popups
             Image image = new GameObject("PopupText", typeof(Image)).GetComponent<Image>(); //Create new image
             image.transform.SetParent(canvas.transform); 
-            image.rectTransform.anchoredPosition = new Vector2(Random.Range(-canvasRange, canvasRange), Random.Range(-canvasRange, canvasRange)); //Random position
-            float randScale = Random.Range(100f, 300f); //Random scale
+            image.rectTransform.anchoredPosition = new Vector2(Random.Range(-600, -200), Random.Range(-400, 400)); //Random position
+            float randScale = Random.Range(100f, 250f); //Random scale
             image.rectTransform.sizeDelta = new Vector2(randScale, randScale); //Applies the random scale
             image.sprite = sprites[Random.Range(0, sprites.Length)]; //Random sprite
 
