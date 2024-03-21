@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SceneController : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class SceneController : MonoBehaviour
     private MainCard _secondRevealed;
 
     private int _score = 0;
-    [SerializeField] private TextMesh scoreLabel;
+    public TextMeshPro scoreLabel;
 
     public bool canReveal
     {
