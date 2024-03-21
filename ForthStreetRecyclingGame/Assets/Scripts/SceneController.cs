@@ -7,7 +7,7 @@ using TMPro;
 public class SceneController : MonoBehaviour
 {
     public const int gridRows = 2;
-    public const int gridCols = 4;
+    public const int gridCols = 5;
     public const float offsetX = 4f;
     public const float offsetY = 5f;
 
@@ -18,7 +18,7 @@ public class SceneController : MonoBehaviour
     {
         Vector3 startPos = originalCard.transform.position;
 
-        int[] numbers = { 0, 0, 1, 1, 2, 2, 3, 3 };
+        int[] numbers = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4 };
         numbers = ShuffleArray(numbers);
 
         for (int i = 0; i < gridCols; i++)
