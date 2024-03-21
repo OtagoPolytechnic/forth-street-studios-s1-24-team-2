@@ -17,10 +17,10 @@ public class WindowedSceneRenderer : MonoBehaviour
         SceneManager.LoadSceneAsync(sceneToRenderName, LoadSceneMode.Additive);
 
         // when scene finishes loading, assign the camera and canvas
-        SceneManager.sceneLoaded += (scene, mode) =>
-        {
-            clickTranslator.AssignCameraAndCanvas();
-        };
+        // SceneManager.sceneLoaded += (scene, mode) =>
+        // {
+        //     clickTranslator.AssignCameraAndCanvas();
+        // };
 
         // Disable the EventSystem in the scene to render
         eventSystem.SetActive(false);
