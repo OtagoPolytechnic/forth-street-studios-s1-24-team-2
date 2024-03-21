@@ -41,7 +41,7 @@ public class MouseWiggle : MonoBehaviour
 
     private void MeterUp()
     {
-        fill.value = Mathf.MoveTowards(fill.value, 1, Time.deltaTime * 0.1f);
+        fill.value = Mathf.MoveTowards(fill.value, 1, Time.deltaTime * 0.15f);
         lid.transform.position = Vector3.MoveTowards(lid.transform.position, new Vector3(lid.transform.position.x, lid.transform.position.y + Time.deltaTime, lid.transform.position.z), Time.deltaTime * 0.01f);
         lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime);
     }

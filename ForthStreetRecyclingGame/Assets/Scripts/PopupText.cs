@@ -24,19 +24,27 @@ public class PopupText : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(1, 5));
-            Image image = new GameObject("PopupText", typeof(Image)).GetComponent<Image>();
-            image.transform.SetParent(canvas.transform);
-            image.rectTransform.anchoredPosition = new Vector2(Random.Range(-canvasRange, canvasRange), Random.Range(-canvasRange, canvasRange));
-            image.rectTransform.sizeDelta = new Vector2(Random.Range(50, 100), Random.Range(50, 100));
-            image.sprite = sprites[Random.Range(0, sprites.Length)];
+            yield return new WaitForSeconds(Random.Range(1, 5)); //Randomly occurring popups
+            Image image = new GameObject("PopupText", typeof(Image)).GetComponent<Image>(); //Create new image
+            image.transform.SetParent(canvas.transform); 
+            image.rectTransform.anchoredPosition = new Vector2(Random.Range(-canvasRange, canvasRange), Random.Range(-canvasRange, canvasRange)); //Random position
+            float randScale = Random.Range(100f, 300f); //Random scale
+            image.rectTransform.sizeDelta = new Vector2(randScale, randScale); //Applies the random scale
+            image.sprite = sprites[Random.Range(0, sprites.Length)]; //Random sprite
 
-            for (float i = 0; i < 1; i += Time.deltaTime)
+            for (float i = 0; i < 1; i += Time.deltaTime) //Fade in image
             {
-                image.color = new Color(1, 1, 1, 0 + i);
+                image.color = new Color(1, 1, 1, 0 + i); //Increase alpha
                 yield return null;
             }
             
+            yield return new WaitForSeconds(1); //Stay on screen for 1 second
+            for (float i = 0; i < 1; i += Time.deltaTime) //Fade out image
+            {
+                image.color = new Color(1, 1, 1, 1 - i); //Reduce alpha
+                yield return null;
+            }
+            Destroy(image.gameObject);
         }
     }
 }
