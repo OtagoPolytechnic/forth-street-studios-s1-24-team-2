@@ -8,7 +8,6 @@ public class WindowedSceneRenderer : MonoBehaviour
     public Camera mainCamera;
     public string sceneToRenderName; // Name of the scene to render
     public RawImage rawImage; // Reference to the RawImage component where the scene will be rendered
-    public ClickTranslator clickTranslator;
 
     private RenderTexture renderTexture;
 
