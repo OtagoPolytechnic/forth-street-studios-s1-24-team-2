@@ -10,39 +10,65 @@ using UnityEngine;
 public class RotateMonitor : MonoBehaviour
 {
     // The speed of the rotation
-    public float rotationSpeed = 1.0f;
+    public float rotationSpeed = 100.0f;
+
+    public CameraSwitcher CameraSwitcher;
 
     // The target rotation
     private Quaternion targetRotation;
 
+    public int RotateA = 0;
+    public int RotateB = 180;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         // Set the target rotation to the current rotation
         targetRotation = transform.rotation;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RotateAtoB()
     {
-        // Rotate the monitor to the target rotation
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        StartCoroutine(rotateAtoBCoroutine());
     }
 
-    /// <summary>
-    /// Rotate the monitor from 270 to 0 degrees on the z-axis.
-    /// </summary>
-    public void RotateToZero()
+
+    public void RotateBtoA()
     {
-        targetRotation = Quaternion.Euler(0, 0, 0);
+        CameraSwitcher.SwitchToMainCamera();
+        StartCoroutine(rotateBtoACoroutine());
     }
 
-    /// <summary>
-    /// Rotate the monitor from 0 to 270 degrees on the z-axis.
-    /// </summary>
-    public void RotateTo270()
+    private IEnumerator rotateAtoBCoroutine()
     {
-        targetRotation = Quaternion.Euler(0, 0, 270);
+        while (transform.rotation.eulerAngles.z > RotateB)
+        {
+            // Decrease the z rotation
+            float zRotation = transform.rotation.eulerAngles.z - rotationSpeed * Time.deltaTime;
+            // Ensure the z rotation is not less than 
+            zRotation = Mathf.Max(zRotation, RotateB);
+            // Set the new rotation
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, zRotation);
+
+            yield return null;
+        }
+
+        CameraSwitcher.SwitchToMinigameCamera();
+    }
+
+    private IEnumerator rotateBtoACoroutine()
+    {
+        while (transform.rotation.eulerAngles.z < RotateA)
+        {
+            // Increase the z rotation
+            float zRotation = transform.rotation.eulerAngles.z + rotationSpeed * Time.deltaTime;
+            // Ensure the z rotation is not more than 270
+            zRotation = Mathf.Min(zRotation, RotateA);
+            // Set the new rotation
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, zRotation);
+
+            yield return null;
+        }
     }
 }
 
