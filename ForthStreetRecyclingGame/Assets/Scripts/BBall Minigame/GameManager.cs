@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEditor.SearchService;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,11 +17,14 @@ public class GameManager : MonoBehaviour
     public int failCount;
     public int maxCount;
     public int shotsRemaining;
+
+    [Header("Scoring image objects")]
     public GameObject[] successImages; // List of success images
     public GameObject[] failImages;    // List of fail images
 
     [Header("Game Status")]
     public bool isGameOver;
+    public SpawnerManager spawnManager;
 
     [Header("Timer Components")]
     public float timer;
@@ -35,6 +39,7 @@ public class GameManager : MonoBehaviour
     {
         SetVariables();  //Set all initial values for game loading
         DisplayCounts(); //Set success/fail count text
+        spawnManager = GameObject.Find("Managers/ObjectSpawner").GetComponent<SpawnerManager>(); //Get GameManager script from scene
     }
     
     /// <summary>
@@ -108,6 +113,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void DisplayCounts()
     {
+        if (successCount > 3)
+        {
+            successCount = 3;
+        }
+        if (failCount > 3)
+        {
+            failCount = 3;
+        }
         for (int i = 0; i < successCount; i++)
         {
             successImages[i].SetActive(true);
@@ -145,12 +158,14 @@ public class GameManager : MonoBehaviour
     void GameWon()
     {
         isGameOver = true;
+        spawnManager.canSpawn = false;
         gameWonPanel.SetActive(true);
     }
 
     void GameOver()
     {
         isGameOver = true;
+        spawnManager.canSpawn = false;
         gameOverPanel.SetActive(true);
     }
 }

@@ -1,13 +1,16 @@
 using UnityEngine;
 
 /// <summary>
-/// Checks the tag of object during collision against the trigger tag.
-/// Marks as correct(green) / incorrect(red)
+/// Checks the tag of object during collision against the trigger tag.  <br />
+/// Increments success / fail in the gamemanager accordingly (eg Recycling tag in recycle trigger is success)
 /// </summary>
 public class RecycleCheck : MonoBehaviour
 {
-    public GameManager manager;
+    public GameManager manager; //Used to update current score counts
 
+    /// <summary>
+    /// Gets the GameManager from the scene to increment counts
+    /// </summary>
     private void Start()
     {
         manager = GameObject.Find("Managers/GameManager").GetComponent<GameManager>(); //Get GameManager script from scene
@@ -25,8 +28,8 @@ public class RecycleCheck : MonoBehaviour
             switch (other.tag)// Check the tag of the collided object
             {
                 case "Recycling":
-                    manager.IncrementSuccessCount();
-                    Destroy(other.gameObject);
+                    manager.IncrementSuccessCount(); //Increment onscreen score display
+                    Destroy(other.gameObject);       //Destroy GameObject to help performance 
                     break;
 
                 case "Rubbish":
@@ -40,7 +43,6 @@ public class RecycleCheck : MonoBehaviour
         }
         else if (this.tag == "Rubbish")
         {
-            // Check the tag of the collided object
             switch (other.tag)
             {
                 case "Recycling":
@@ -57,7 +59,7 @@ public class RecycleCheck : MonoBehaviour
                     break;
             }
         }
-        else //Destroy any items that miss the main 2 trigger areas
+        else //Destroy any items that miss the main 2 trigger areas and collide with third trigger area
         {
             Destroy(other.gameObject);
         }

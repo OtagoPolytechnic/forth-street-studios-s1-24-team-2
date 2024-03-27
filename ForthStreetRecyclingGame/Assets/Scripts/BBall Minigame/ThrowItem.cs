@@ -1,26 +1,15 @@
-//Tutorial used for final help: https://www.youtube.com/watch?v=99yIg-A5eCw
+//Tutorial used for help with throwing: https://www.youtube.com/watch?v=99yIg-A5eCw
 // Modified the direction of ball launch (away instead of towards camera)
-
-/*      FEATURES TO ADD                                                     STATUS
- *      ---------------                                                     ------
- *  1.1) Line renderer showing throw strength (towards mouse)
- *       or
- *  1.2) Line renderer showing throw trajectory (away from object)
- *  2.1) Different items get thrown with differing force
- *  3.1) Limit throw angle                                                  DONE
- *      -  bottom 180° of object - remove throwing towards camera           DONE
- *  4.1) What to do if throw is too weak to get near trigger area
- */
-
 using UnityEngine;
 
-public class ThrowBottle : MonoBehaviour
+public class ThrowItem : MonoBehaviour
 {
     [Header("Components")]
     public Rigidbody rb;              //Object rb for Throw() force calculation
     public LineRenderer lr;           //Used to show Throw() trajectory
     public Camera mainCamera;         //Scene camera used to limit object throw angle
     public GameManager manager;
+    public SpawnerManager spawnerManager;
 
     [Header("Throw Variables")]
     public Vector3 mouseInitialPos;   //Mouse position when clicking object
@@ -36,6 +25,7 @@ public class ThrowBottle : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         lr = GetComponent<LineRenderer>();
         manager = GameObject.Find("Managers/GameManager").GetComponent<GameManager>(); //Get GameManager script from scene
+        spawnerManager = GameObject.Find("Managers/ObjectSpawner").GetComponent<SpawnerManager>(); //Get GameManager script from scene
         mainCamera = Camera.main; //Likely need to change when we finalise loading of minigames in the main scene
         lr.enabled = false; //Disable any line from object before clicking
     }
@@ -71,6 +61,9 @@ public class ThrowBottle : MonoBehaviour
 
         if (mouseReleasePos.y < mouseInitialPos.y) // Ensure the mouse is dragged downward so object launches away from camera
         {
+            manager.DecreaseShotsRemaining();
+            spawnerManager.spawning = false;
+            
             Throw(mouseInitialPos - mouseReleasePos);
             rb.useGravity = true;
         }
@@ -102,8 +95,8 @@ public class ThrowBottle : MonoBehaviour
     {
         // Set the positions of the line renderer from mouseInitialPos to current mouse position
         Vector3[] positions = new Vector3[2];
-        positions[0] = mainCamera.ScreenToWorldPoint(new Vector3(mouseInitialPos.x, mouseInitialPos.y, -50));
-        positions[1] = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -50));
+        positions[0] = mainCamera.ScreenToWorldPoint(new Vector3(mouseInitialPos.x, mouseInitialPos.y, 10));
+        positions[1] = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         lr.SetPositions(positions);
     }
 }

@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 5698834650101230782}
   - component: {fileID: 4615705824498472295}
   m_Layer: 0
-  m_Name: Recycle Trigger
+  m_Name: Rubbish Trigger
   m_TagString: Rubbish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,8 +220,8 @@ Transform:
   m_GameObject: {fileID: 5572345078845387143}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -4.6566123e-10, w: 1}
-  m_LocalPosition: {x: 0, y: 0.495, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalPosition: {x: -0, y: 1.083, z: 0}
+  m_LocalScale: {x: 0.045, y: 0.045, z: 0.045}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4028730029117124779}
