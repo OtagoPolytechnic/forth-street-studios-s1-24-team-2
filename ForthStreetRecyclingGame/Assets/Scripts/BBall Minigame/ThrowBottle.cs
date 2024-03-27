@@ -20,6 +20,7 @@ public class ThrowBottle : MonoBehaviour
     public Rigidbody rb;              //Object rb for Throw() force calculation
     public LineRenderer lr;           //Used to show Throw() trajectory
     public Camera mainCamera;         //Scene camera used to limit object throw angle
+    public GameManager manager;
 
     [Header("Throw Variables")]
     public Vector3 mouseInitialPos;   //Mouse position when clicking object
@@ -34,6 +35,7 @@ public class ThrowBottle : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         lr = GetComponent<LineRenderer>();
+        manager = GameObject.Find("Managers/GameManager").GetComponent<GameManager>(); //Get GameManager script from scene
         mainCamera = Camera.main; //Likely need to change when we finalise loading of minigames in the main scene
         lr.enabled = false; //Disable any line from object before clicking
     }
@@ -100,8 +102,8 @@ public class ThrowBottle : MonoBehaviour
     {
         // Set the positions of the line renderer from mouseInitialPos to current mouse position
         Vector3[] positions = new Vector3[2];
-        positions[0] = mainCamera.ScreenToWorldPoint(new Vector3(mouseInitialPos.x, mouseInitialPos.y, 10));
-        positions[1] = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        positions[0] = mainCamera.ScreenToWorldPoint(new Vector3(mouseInitialPos.x, mouseInitialPos.y, -50));
+        positions[1] = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -50));
         lr.SetPositions(positions);
     }
 }

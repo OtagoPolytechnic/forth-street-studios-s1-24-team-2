@@ -6,29 +6,34 @@ using UnityEngine;
 /// </summary>
 public class RecycleCheck : MonoBehaviour
 {
-    Renderer rend;
+    public GameManager manager;
 
-    // When thrown object enters the trigger, sets the colour of the object depending on the trigger tag
-    /*
-    *  Colour change of the objects is temporary for now and will update with more functionality later.
-    *  Useful for prototyping stage
-    */
+    private void Start()
+    {
+        manager = GameObject.Find("Managers/GameManager").GetComponent<GameManager>(); //Get GameManager script from scene
+    }
+
+    /// <summary>
+    /// Checks object collision for tag, incrementing the relevant counter, then destroys the gameobject
+    /// </summary>
+    /// <param name="other">Recycle/Rubbish gameobject being thrown into trigger area</param>
     void OnTriggerEnter(Collider other) 
     {
-        rend = other.GetComponent<Renderer>();
-        Color colourToSet = Color.grey; //Set to temporary colour before check
-
         //Check tag of the trigger area (Recycling/Rubbish)
         if (this.tag == "Recycling")
         {
             switch (other.tag)// Check the tag of the collided object
             {
                 case "Recycling":
-                    colourToSet = Color.green;
+                    manager.IncrementSuccessCount();
+                    Destroy(other.gameObject);
                     break;
+
                 case "Rubbish":
-                    colourToSet = Color.red;
+                    manager.IncrementFailCount();
+                    Destroy(other.gameObject);
                     break;
+
                 default:
                     break;
             }
@@ -39,11 +44,15 @@ public class RecycleCheck : MonoBehaviour
             switch (other.tag)
             {
                 case "Recycling":
-                    colourToSet = Color.red;
+                    manager.IncrementFailCount();
+                    Destroy(other.gameObject);
                     break;
+
                 case "Rubbish":
-                    colourToSet = Color.green;
+                    manager.IncrementSuccessCount();
+                    Destroy(other.gameObject);
                     break;
+
                 default:
                     break;
             }
@@ -52,7 +61,5 @@ public class RecycleCheck : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
-
-        rend.material.color = colourToSet;
     }
 }
