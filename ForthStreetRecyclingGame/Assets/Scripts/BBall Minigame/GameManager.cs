@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public int failCount;
     public int maxCount;
     public int shotsRemaining;
+    public GameObject[] successImages; // List of success images
+    public GameObject[] failImages;    // List of fail images
 
     [Header("Game Status")]
     public bool isGameOver;
@@ -106,8 +108,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void DisplayCounts()
     {
-        successText.text = "Success: " + successCount.ToString(); //Will change to tick image (green filled in / empty outline)
-        failText.text = "Fail: " + failCount.ToString();          //Will change to cross image (red filled in / empty outline)
+        for (int i = 0; i < successCount; i++)
+        {
+            successImages[i].SetActive(true);
+        }
+
+        for (int i = 0; i < failCount; i++)
+        {
+            failImages[i].SetActive(true);
+        }
     }
 
     public void DecreaseShotsRemaining()
