@@ -8,11 +8,13 @@ public class MouseWiggle : MonoBehaviour
     private GameObject lid;
     [SerializeField]private Slider fill;
     [SerializeField]private GameObject meter;
+    private Vector3 lidStartPos;
 
     // Start is called before the first frame update
     void Start()
     {
         lid = GameObject.Find("Lid");
+        lidStartPos = lid.transform.position;
         fill.value = 0;
     }
 
@@ -20,9 +22,9 @@ public class MouseWiggle : MonoBehaviour
     void Update()
     {
         MouseMovement();
-        if (fill.value == 1)
+        if (fill.value == 1) // if the meter is full
         {
-            Debug.Log("You win!");
+            Debug.Log("You win!"); // you win
         }
         StartCoroutine(ShakeMeter());
     }
@@ -41,18 +43,29 @@ public class MouseWiggle : MonoBehaviour
 
     private void MeterUp()
     {
-        fill.value = Mathf.MoveTowards(fill.value, 1, Time.deltaTime * 0.15f);
-        lid.transform.position = Vector3.MoveTowards(lid.transform.position, new Vector3(lid.transform.position.x, lid.transform.position.y + Time.deltaTime, lid.transform.position.z), Time.deltaTime * 0.01f);
-        lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime);
+        fill.value = Mathf.MoveTowards(fill.value, 1, Time.deltaTime * 0.08f); // fills the meter
+        lid.transform.position = Vector3.MoveTowards(lid.transform.position,
+        new Vector3(lid.transform.position.x, lid.transform.localPosition.y + 5, lid.transform.position.z), Time.deltaTime * 0.01f); // moves the lid up
+        lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime); // rotates the lid
     }
 
     private void MeterDown()
     {
-        fill.value = Mathf.MoveTowards(fill.value, 0, Time.deltaTime * 0.1f);
-        lid.transform.position = Vector3.MoveTowards(lid.transform.position, new Vector3(lid.transform.position.x, -lid.transform.position.y + Time.deltaTime, lid.transform.position.z), Time.deltaTime * 0.01f);
-        lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime);
+        if (lid.transform.position.y >= lidStartPos.y)
+        {
+            fill.value = Mathf.MoveTowards(fill.value, 0, Time.deltaTime * 0.1f); // empties the meter
+            lid.transform.position = Vector3.MoveTowards(lid.transform.position,
+            new Vector3(lid.transform.position.x, -lid.transform.localPosition.y + 5, lid.transform.position.z), Time.deltaTime * 0.01f); // moves the lid down
+            lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime); // rotates the lid
+        }
+        else
+        {
+            lid.transform.position = lidStartPos; // so the lid doesn't keep going down
+            lid.transform.Rotate(new Vector3(0, 0, 0)); // so the lid doesn't keep rotating
+        }
     }
 
+    //Shake the meter when it's getting close to the top
     private IEnumerator ShakeMeter()
     {
         if (fill.value > 0.5)
