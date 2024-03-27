@@ -59,7 +59,7 @@ public class RecycleCheck : MonoBehaviour
                     break;
             }
         }
-        else //Destroy any items that miss the main 2 trigger areas and collide with third trigger area
+        else if (this.tag == "Destroyer") //Destroy any items that miss the main 2 trigger areas and collide with third trigger area
         {
             Destroy(other.gameObject);
         }

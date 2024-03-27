@@ -1,22 +1,22 @@
 using UnityEngine;
 using TMPro;
 using UnityEditor.SearchService;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     //Variables set to public for testing/viewing of changes
     [Header("Canvas Components")]
-    public TMP_Text timerText;
-    public TMP_Text successText;
-    public TMP_Text failText;
-    public GameObject gameWonPanel;
-    public GameObject gameOverPanel;
+    public TMP_Text timerText;      //Time elapsed
+    public TMP_Text shotDisplay;    //Shots remaining text
+    public GameObject gameWonPanel; //Win screen panel overlay
+    public GameObject gameOverPanel;//Lose screen panel overlay
 
     [Header("Counts")]
-    public int successCount;
-    public int failCount;
-    public int maxCount;
-    public int shotsRemaining;
+    public int successCount; //Shots into correct trigger
+    public int failCount;    //Shots into incorrect trigger
+    public int maxCount;     //Shots into trigger needed to win/lose
+    public int shotsRemaining; //Remaining shots left
 
     [Header("Scoring image objects")]
     public GameObject[] successImages; // List of success images
@@ -24,13 +24,15 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Status")]
     public bool isGameOver;
-    public SpawnerManager spawnManager;
 
     [Header("Timer Components")]
     public float timer;
     private Color greenColor = Color.green;
     private Color yellowColor = Color.yellow;
     private Color redColor = Color.red;
+
+    [Header("Other Components")]
+    public SpawnerManager spawnManager; //
 
     /// <summary>
     /// Sets initial values for game start/restart
@@ -52,23 +54,25 @@ public class GameManager : MonoBehaviour
         failCount = 0;
         maxCount = 3; //Game will end after 3 correct/incorrect objects
         timerText.text = "00:00:000";
-        shotsRemaining = 20;
+        shotsRemaining = 10;
+        shotDisplay.text = "Shots Remaining: " + shotsRemaining.ToString();
     }
 
     /// <summary>
-    /// Update timer during gameplay
+    /// Update timer during gameplay and check if game needs to end
     /// </summary>
     void Update()
     {
         if (!isGameOver)
         {
             UpdateTimer();
-            CheckGameStatus();
+            StartCoroutine(CheckGameStatusCoroutine());
         }
     }
 
     /// <summary>
-    /// Update the timer and format correctly, display onscreen in text object
+    /// Update the timer and format correctly, display onscreen in text object  <br />
+    /// Colour changes to yellow towards 30s, red towards 1min
     /// </summary>
     void UpdateTimer()
     {
@@ -77,7 +81,6 @@ public class GameManager : MonoBehaviour
         float minutes = Mathf.Floor(timer / 60);
         float seconds = Mathf.Floor(timer % 60);
         float milliseconds = (timer * 1000) % 1000;
-
         timerText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
 
         // Interpolate color based on normalized time over 1min (60f = 60sec)
@@ -92,9 +95,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void IncrementSuccessCount()
     {
-        successCount++;
-        DisplayCounts();
-        CheckGameStatus();
+        successCount++;                             //Increment counter
+        DisplayCounts();                            //Update onscreen display image/s 
+        StartCoroutine(CheckGameStatusCoroutine()); //See if game should end with current scores 
     }
 
     /// <summary>
@@ -105,22 +108,25 @@ public class GameManager : MonoBehaviour
     {
         failCount++;
         DisplayCounts();
-        CheckGameStatus();
+        StartCoroutine(CheckGameStatusCoroutine());
     }
 
     /// <summary>
-    /// Set current text values showing correct/incorrect placement of items
+    /// Set score images active for correct/incorrect placement of items
     /// </summary>
     void DisplayCounts()
     {
-        if (successCount > 3)
+        //Keeps max score limited to maxCount to stop game breaking if objects hit trigger after game win/lose
+        if (successCount > maxCount)
         {
-            successCount = 3;
+            successCount = maxCount;
         }
-        if (failCount > 3)
+        if (failCount > maxCount)
         {
-            failCount = 3;
+            failCount = maxCount;
         }
+
+        //Display images (check/cross) depending on the current score
         for (int i = 0; i < successCount; i++)
         {
             successImages[i].SetActive(true);
@@ -132,40 +138,54 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Decrement the shots remaining counter and display as text to user   <br />
+    /// Called in ThrowItem.OnMouseUp()
+    /// </summary>
     public void DecreaseShotsRemaining()
     {
         shotsRemaining--;
+        shotDisplay.text = "Shots Remaining: " + shotsRemaining.ToString();
     }
 
-    public void CheckGameStatus()
+    /// <summary>
+    /// Check if max scores have been reached/all shots used  <br /> 
+    /// End game with win/lose panels accordingly
+    /// </summary>
+    /// <returns>Used to wait for last shot to land</returns>
+    private IEnumerator CheckGameStatusCoroutine()
     {
-        if (shotsRemaining <= 0)
-        {
-            GameOver();
-        }
-
         if (successCount >= maxCount)
         {
-            GameWon();
+            EndGameDisplay(gameWonPanel);
         }
 
         if (failCount >= maxCount)
         {
-            GameOver();
+            EndGameDisplay(gameOverPanel);
+        }
+
+        if (shotsRemaining <= 0)
+        {
+            yield return new WaitForSeconds(3); //Wait 3 seconds before ending game
+            
+            if (!isGameOver) //Make sure game hasnt ended already after wait
+            {
+                EndGameDisplay(gameOverPanel);
+            }
+
         }
     }
 
-    void GameWon()
+    /// <summary>
+    ///Set bools to end game/spawning<br />
+    /// Shows panel for Game Won / Game Lost
+    /// </summary>
+    /// <param name="displayPanel">Panel displaying Game Won/Lost to player</param>
+    void EndGameDisplay(GameObject displayPanel)
     {
         isGameOver = true;
         spawnManager.canSpawn = false;
-        gameWonPanel.SetActive(true);
-    }
-
-    void GameOver()
-    {
-        isGameOver = true;
-        spawnManager.canSpawn = false;
-        gameOverPanel.SetActive(true);
+        displayPanel.SetActive(true);
     }
 }

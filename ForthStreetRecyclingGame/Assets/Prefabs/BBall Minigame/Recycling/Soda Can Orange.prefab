@@ -197,7 +197,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &9017824215506635500
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -279,9 +279,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 500
+  m_SortingLayerID: -1256474011
+  m_SortingLayer: 1
+  m_SortingOrder: 999
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -334,7 +334,7 @@ LineRenderer:
       m_NumColorKeys: 4
       m_NumAlphaKeys: 4
     numCornerVertices: 3
-    numCapVertices: 0
+    numCapVertices: 5
     alignment: 0
     textureMode: 4
     textureScale: {x: 1, y: 1}

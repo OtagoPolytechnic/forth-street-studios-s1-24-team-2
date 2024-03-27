@@ -95,8 +95,8 @@ public class ThrowItem : MonoBehaviour
     {
         // Set the positions of the line renderer from mouseInitialPos to current mouse position
         Vector3[] positions = new Vector3[2];
-        positions[0] = mainCamera.ScreenToWorldPoint(new Vector3(mouseInitialPos.x, mouseInitialPos.y, 10));
-        positions[1] = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        positions[0] = mainCamera.ScreenToWorldPoint(new Vector3(mouseInitialPos.x, mouseInitialPos.y, 6));
+        positions[1] = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 6));
         lr.SetPositions(positions);
     }
 }
