@@ -12,6 +12,7 @@ public class SpawnerManager : MonoBehaviour
     public bool spawning;
     public bool firstSpawn;
     public bool canSpawn;
+    public GameObject spawnedItem;
 
     public GameManager manager;
     public int shotsRemaining;
@@ -33,12 +34,16 @@ public class SpawnerManager : MonoBehaviour
     {
         shotsRemaining = manager.shotsRemaining;
 
-        if (canSpawn)
+        if (canSpawn) //if game is still running (no end game panels showing)
         {
             if (!spawning && shotsRemaining > 0) //If nothing is spawning, start coroutine to choose/spawn a new object
             {
                 StartCoroutine(SpawnObjectWithDelay());
             }
+        }
+        else
+        {
+            Destroy(spawnedItem); //Destroy item if spawned during gameover
         }
     }
 
@@ -70,12 +75,14 @@ public class SpawnerManager : MonoBehaviour
             // Randomly select a recycling object from the list and instantiate (with y rotation of 90deg)
             int recyclingIndex = Random.Range(0, recycling.Count);
             GameObject obj = Instantiate(recycling[recyclingIndex], transform.position, Quaternion.Euler(0, 90, 0));
+            spawnedItem = obj;
         }
         else
         {
             // Randomly select a rubbish object from the list and instantiate (with y rotation of 90deg)
             int rubbishIndex = Random.Range(0, rubbish.Count);
             GameObject obj = Instantiate(rubbish[rubbishIndex], transform.position, Quaternion.Euler(0, 90, 0)); //Quat.Euler(0, 90, 0) sets starting y rotation to 90deg
+            spawnedItem = obj;
         }
     }
 }
