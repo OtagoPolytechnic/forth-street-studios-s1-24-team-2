@@ -17,7 +17,7 @@ public class ResizeRenderTexture : MonoBehaviour
     public RenderTexture renderTexture; // The RenderTexture to resize
 
     private Vector2 previousResolution;
-    private Vector2Int originalTextureSize;
+    private Vector2Int originalTextureSize; // RenderTexture size when the application starts
 
     /// <summary>
     /// Initialise values and set the texture size to match the current screen resolution

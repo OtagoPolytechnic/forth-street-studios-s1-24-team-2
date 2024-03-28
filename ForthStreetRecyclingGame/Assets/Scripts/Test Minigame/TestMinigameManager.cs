@@ -15,7 +15,12 @@ using UnityEngine;
 /// </summary>
 public class TestMinigameManager : MonoBehaviour
 {
-    public RotateMonitor rotateMonitor;
+    public int numberOfClicksRequired; // The number of times the player must click the button
+    public int numberOfClicks; // The number of times the player has clicked the button
+    public bool success; // The success condition
+    public GameObject winText; // text object to activate if the player wins
+    public GameObject clickText; // tmp text displaying the number of clicks
+
     #region Singleton
     // Singleton pattern
     public static TestMinigameManager instance;
@@ -32,21 +37,6 @@ public class TestMinigameManager : MonoBehaviour
         }
     }
     #endregion
-
-    // The number of times the player must click the button
-    public int numberOfClicksRequired;
-
-    // The number of times the player has clicked the button
-    public int numberOfClicks;
-
-    // The success condition
-    public bool success;
-
-    // text object to activate if the player wins
-    public GameObject winText;
-
-    // tmp text displaying the number of clicks
-    public GameObject clickText;
 
     /// <summary>
     /// Initialise the game state
@@ -84,13 +74,9 @@ public class TestMinigameManager : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
-        // log the call to reset the game
-        Debug.Log("Resetting game");
         numberOfClicks = 0;
         success = false;
         winText.SetActive(false);
         clickText.GetComponent<TextMeshProUGUI>().text = "0";
-        // log success
-        Debug.Log("Success: " + success);
     }
 }

@@ -48,8 +48,6 @@ public class RotateMonitor : MonoBehaviour
     /// </summary>
     public void RotateToStart()
     {
-        // log this call
-        Debug.Log("RotateMonitor.RotateToStart() called");
         // Switch back to the main camera before rotating
         cameraSwitcher.SwitchToMainCamera();
         StartCoroutine(RotateToStartCoroutine());
