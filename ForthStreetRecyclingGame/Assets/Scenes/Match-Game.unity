@@ -291,7 +291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8.871, y: 5.039}
+  m_AnchoredPosition: {x: -9.86, y: 5.56}
   m_SizeDelta: {x: 3.4674, y: 1.0356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &573573650
@@ -320,7 +320,7 @@ Transform:
   m_GameObject: {fileID: 573573650}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.02, y: -0, z: -1}
+  m_LocalPosition: {x: -0.03, y: 0, z: -1}
   m_LocalScale: {x: 1.1, y: 1, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -457,7 +457,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5}
-  m_LocalScale: {x: 1.1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2382978, y: 1.197769, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -542,7 +542,7 @@ Transform:
   m_GameObject: {fileID: 1189120829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: -2.5, z: 0}
+  m_LocalPosition: {x: -8.38, y: -2.6, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -655,9 +655,9 @@ MonoBehaviour:
   originalCard: {fileID: 1189120832}
   images:
   - {fileID: 21300000, guid: 0535108ee734dc44c8d32b0e70e56fb2, type: 3}
-  - {fileID: 21300000, guid: f772e4ef2a6066b40a815220a276c394, type: 3}
-  - {fileID: 21300000, guid: 4a144324f09b3504ca0b6c806cee8ed2, type: 3}
-  - {fileID: 21300000, guid: de800b1c8d514284d888c58a5ddf2302, type: 3}
+  - {fileID: 21300000, guid: 0d91cfad396d0c04ebad5d20bcb5fc0d, type: 3}
+  - {fileID: 21300000, guid: 85dcd5d0e8538bd45a18ce2963158e24, type: 3}
+  - {fileID: 21300000, guid: 0960a3d2cc997d14884c8bd0b009ecaf, type: 3}
   - {fileID: 21300000, guid: 3125ac947e4e0b14da3dc804b795a47c, type: 3}
   scoreLabel: {fileID: 202727966}
 --- !u!1 &2127121505
@@ -722,7 +722,7 @@ Camera:
   far clip plane: 1000
   field of view: 81.1
   orthographic: 1
-  orthographic size: 5.596145
+  orthographic size: 6.168538
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
