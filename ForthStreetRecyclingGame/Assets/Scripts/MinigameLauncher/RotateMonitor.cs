@@ -1,74 +1,104 @@
+/*
+ * File: RotateMonitor.cs
+ * Purpose: Rotate the monitor in the main scene
+ * Author: Johnathan
+ * Contributions: Assisted by GitHub Copilot
+ */
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// This class is used to rotate the monitor in the main scene.
-/// It has methods to rotate from 270 to 0 degrees and from 0 to 270 degrees on the z-axis.
+/// It has methods to rotate to and from the given angles.
 /// You can also set the speed of the rotation.
 /// </summary>
+/// <remarks>
+/// I'm not thrilled about switching the camera and resetting minigame here, but these need to happen after the monitor rotation coroutines.
+/// Eventually the coroutines could be refactored to take a callback function to call after the rotation is complete
+/// </remarks>
 public class RotateMonitor : MonoBehaviour
 {
-    // The speed of the rotation
-    public float rotationSpeed = 100.0f;
+    public float rotationSpeed = 100.0f; // The speed at which the monitor rotates
+    public CameraSwitcher cameraSwitcher; // Reference to the CameraSwitcher script
+    public int rotateStart = 120; // The starting rotation of the monitor
+    public int rotateTarget = 0; // The target rotation of the monitor
+    public TestMinigameManager testMinigameManager; // Reference to the TestMinigameManager script
+    public bool isRotating = false; // Flag to check if the monitor is currently rotating
 
-    public CameraSwitcher CameraSwitcher;
-
-    // The target rotation
-    private Quaternion targetRotation;
-
-    public int RotateA = 0;
-    public int RotateB = 180;
-
-    // Start is called before the first frame update
-    private void Start()
+    /// <summary>
+    /// Set the starting rotation of the monitor
+    /// </summary>
+    void Start()
     {
-        // Set the target rotation to the current rotation
-        targetRotation = transform.rotation;
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rotateStart);
     }
 
-    public void RotateAtoB()
+    /// <summary>
+    /// Rotate the monitor to the target rotation
+    /// The camera is switched to the minigame camera after rotating in the coroutine
+    /// </summary>
+    public void RotateToTarget()
     {
-        StartCoroutine(rotateAtoBCoroutine());
+        StartCoroutine(RotateToTargetCoroutine());
     }
 
-
-    public void RotateBtoA()
+    /// <summary>
+    /// Switch camera to main and rotate the monitor to the starting rotation
+    /// </summary>
+    public void RotateToStart()
     {
-        CameraSwitcher.SwitchToMainCamera();
-        StartCoroutine(rotateBtoACoroutine());
+        // log this call
+        Debug.Log("RotateMonitor.RotateToStart() called");
+        // Switch back to the main camera before rotating
+        cameraSwitcher.SwitchToMainCamera();
+        StartCoroutine(RotateToStartCoroutine());
     }
 
-    private IEnumerator rotateAtoBCoroutine()
+    /// <summary>
+    /// Coroutine to rotate the monitor to the target rotation
+    /// </summary>
+    private IEnumerator RotateToTargetCoroutine()
     {
-        while (transform.rotation.eulerAngles.z > RotateB)
+        isRotating = true;
+        while (transform.rotation.eulerAngles.z > rotateTarget)
         {
             // Decrease the z rotation
             float zRotation = transform.rotation.eulerAngles.z - rotationSpeed * Time.deltaTime;
-            // Ensure the z rotation is not less than 
-            zRotation = Mathf.Max(zRotation, RotateB);
+            // Ensure the z rotation is not less than rotateTarget
+            zRotation = Mathf.Max(zRotation, rotateTarget);
             // Set the new rotation
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, zRotation);
 
             yield return null;
         }
-
-        CameraSwitcher.SwitchToMinigameCamera();
+        
+        isRotating = false;
+        // Switch to the minigame camera after rotating
+        cameraSwitcher.SwitchToMinigameCamera();
     }
 
-    private IEnumerator rotateBtoACoroutine()
+    /// <summary>
+    /// Coroutine to rotate the monitor to the starting rotation
+    /// </summary>
+    private IEnumerator RotateToStartCoroutine()
     {
-        while (transform.rotation.eulerAngles.z < RotateA)
+        isRotating = true;
+        while (transform.rotation.eulerAngles.z < rotateStart)
         {
             // Increase the z rotation
             float zRotation = transform.rotation.eulerAngles.z + rotationSpeed * Time.deltaTime;
-            // Ensure the z rotation is not more than 270
-            zRotation = Mathf.Min(zRotation, RotateA);
+            // Ensure the z rotation is not more than rotateStart
+            zRotation = Mathf.Min(zRotation, rotateStart);
             // Set the new rotation
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, zRotation);
 
             yield return null;
         }
+
+        isRotating = false;
+        // reset the minigame manager
+        testMinigameManager.ResetGame();
     }
 }
 
