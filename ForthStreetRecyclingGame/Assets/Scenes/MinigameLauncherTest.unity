@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 43846602}
   - component: {fileID: 43846604}
+  - component: {fileID: 43846606}
   m_Layer: 0
   m_Name: MinigameLauncher
   m_TagString: Untagged
@@ -169,6 +170,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1697767363}
   minigameCamera: {fileID: 1520702634}
+--- !u!114 &43846606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43846601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139a129eddd0e467ab8a3ff864b329cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateMonitor: {fileID: 2072372223}
+  testMinigameManager: {fileID: 1339935366}
 --- !u!1 &67126045 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8872881734254772162, guid: 8b7c1b8c911fb40219621b386e58461f,
@@ -835,7 +850,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2072372223}
         m_TargetAssemblyTypeName: RotateMonitor, Assembly-CSharp
-        m_MethodName: RotateBtoA
+        m_MethodName: RotateToStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -883,6 +898,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305070308}
   m_CullTransparentMesh: 1
+--- !u!114 &1339935366 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2878776026256071069, guid: 8b7c1b8c911fb40219621b386e58461f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1782847085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ff0b3fa8a6545c7befd5180cb9acbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1448799169 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7020825632663386116, guid: 8b7c1b8c911fb40219621b386e58461f,
@@ -1490,7 +1517,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2072372223}
         m_TargetAssemblyTypeName: RotateMonitor, Assembly-CSharp
-        m_MethodName: RotateAtoB
+        m_MethodName: RotateToTarget
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1585,9 +1612,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
-  CameraSwitcher: {fileID: 43846604}
-  RotateA: 120
-  RotateB: 0
+  cameraSwitcher: {fileID: 43846604}
+  rotateStart: 120
+  rotateTarget: 0
+  testMinigameManager: {fileID: 1339935366}
+  isRotating: 0
 --- !u!1 &2096656910 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7266407185125913667, guid: 8b7c1b8c911fb40219621b386e58461f,
