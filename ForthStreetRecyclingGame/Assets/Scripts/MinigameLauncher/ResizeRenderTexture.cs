@@ -9,6 +9,8 @@ using UnityEngine;
 
 /// <summary>
 /// Resizes a RenderTexture to match the current screen resolution
+/// This is because the RenderTexture needs to match the screen size 
+/// in order for overlay UI elements to be displayed correctly on the monitor
 /// </summary>
 public class ResizeRenderTexture : MonoBehaviour
 {
