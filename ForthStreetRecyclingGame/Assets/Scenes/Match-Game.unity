@@ -367,7 +367,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ed589827bb943c2489ca2eb73007c040, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7676896986c394149ba7a44a687ef05f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -654,7 +654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalCard: {fileID: 1189120832}
   images:
-  - {fileID: 21300000, guid: 0b76b3e98c6f9d44eb275fcf3083b2f6, type: 3}
+  - {fileID: 21300000, guid: 0535108ee734dc44c8d32b0e70e56fb2, type: 3}
   - {fileID: 21300000, guid: f772e4ef2a6066b40a815220a276c394, type: 3}
   - {fileID: 21300000, guid: 4a144324f09b3504ca0b6c806cee8ed2, type: 3}
   - {fileID: 21300000, guid: de800b1c8d514284d888c58a5ddf2302, type: 3}
