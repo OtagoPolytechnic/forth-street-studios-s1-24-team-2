@@ -11,6 +11,12 @@ public class SceneController : MonoBehaviour
     public const float offsetX = 4f;
     public const float offsetY = 5f;
 
+    private MainCard _firstRevealed;
+    private MainCard _secondRevealed;
+
+    private int _score = 0;
+    public TextMeshPro scoreLabel;
+
     [SerializeField] private MainCard originalCard;
     [SerializeField] private Sprite[] images;
 
@@ -58,12 +64,6 @@ public class SceneController : MonoBehaviour
         }
         return newArray;
     }
-
-    private MainCard _firstRevealed;
-    private MainCard _secondRevealed;
-
-    private int _score = 0;
-    public TextMeshPro scoreLabel;
 
     public bool canReveal
     {
