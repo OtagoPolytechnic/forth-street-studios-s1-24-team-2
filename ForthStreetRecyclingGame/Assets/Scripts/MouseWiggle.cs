@@ -13,8 +13,8 @@ public class MouseWiggle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lid = GameObject.Find("Lid");
-        lidStartPos = lid.transform.position;
+        //lid = GameObject.Find("Lid");
+        //lidStartPos = lid.transform.position;
         fill.value = 0;
     }
 
@@ -44,9 +44,9 @@ public class MouseWiggle : MonoBehaviour
     private void MeterUp()
     {
         fill.value = Mathf.MoveTowards(fill.value, 1, Time.deltaTime * 0.08f); // fills the meter
-        lid.transform.position = Vector3.MoveTowards(lid.transform.position,
-        new Vector3(lid.transform.position.x, lid.transform.localPosition.y + 5, lid.transform.position.z), Time.deltaTime * 0.01f); // moves the lid up
-        lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime); // rotates the lid
+        //lid.transform.position = Vector3.MoveTowards(lid.transform.position,
+        //new Vector3(lid.transform.position.x, lid.transform.localPosition.y + 5, lid.transform.position.z), Time.deltaTime * 0.01f); // moves the lid up
+        //lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime); // rotates the lid
     }
 
     private void MeterDown()
@@ -54,14 +54,14 @@ public class MouseWiggle : MonoBehaviour
         if (lid.transform.position.y >= lidStartPos.y)
         {
             fill.value = Mathf.MoveTowards(fill.value, 0, Time.deltaTime * 0.1f); // empties the meter
-            lid.transform.position = Vector3.MoveTowards(lid.transform.position,
-            new Vector3(lid.transform.position.x, -lid.transform.localPosition.y + 5, lid.transform.position.z), Time.deltaTime * 0.01f); // moves the lid down
-            lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime); // rotates the lid
+            //lid.transform.position = Vector3.MoveTowards(lid.transform.position,
+            //new Vector3(lid.transform.position.x, -lid.transform.localPosition.y + 5, lid.transform.position.z), Time.deltaTime * 0.01f); // moves the lid down
+            //lid.transform.Rotate(new Vector3(0, 20f, 0) * Time.deltaTime); // rotates the lid
         }
         else
         {
-            lid.transform.position = lidStartPos; // so the lid doesn't keep going down
-            lid.transform.Rotate(new Vector3(0, 0, 0)); // so the lid doesn't keep rotating
+            //lid.transform.position = lidStartPos; // so the lid doesn't keep going down
+            //lid.transform.Rotate(new Vector3(0, 0, 0)); // so the lid doesn't keep rotating
         }
     }
 
