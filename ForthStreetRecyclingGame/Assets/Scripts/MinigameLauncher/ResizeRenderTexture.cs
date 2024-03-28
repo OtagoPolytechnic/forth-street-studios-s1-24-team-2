@@ -12,8 +12,9 @@ using UnityEngine;
 /// </summary>
 public class ResizeRenderTexture : MonoBehaviour
 {
-    private Vector2 previousResolution;
     public RenderTexture renderTexture; // The RenderTexture to resize
+
+    private Vector2 previousResolution;
     private Vector2Int originalTextureSize;
 
     /// <summary>

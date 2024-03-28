@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * File: TestMinigameManager.cs
+ * Purpose: Manage the test minigame
+ * Author: Johnathan
+ * Contributions: Assisted by GitHub Copilot
+ */
+
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +15,7 @@ using UnityEngine;
 /// </summary>
 public class TestMinigameManager : MonoBehaviour
 {
+    public RotateMonitor rotateMonitor;
     #region Singleton
     // Singleton pattern
     public static TestMinigameManager instance;
@@ -34,7 +40,7 @@ public class TestMinigameManager : MonoBehaviour
     public int numberOfClicks;
 
     // The success condition
-    private bool success;
+    public bool success;
 
     // text object to activate if the player wins
     public GameObject winText;
@@ -42,7 +48,9 @@ public class TestMinigameManager : MonoBehaviour
     // tmp text displaying the number of clicks
     public GameObject clickText;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Initialise the game state
+    /// </summary>
     void Start()
     {
         numberOfClicks = 0;
@@ -50,33 +58,39 @@ public class TestMinigameManager : MonoBehaviour
         winText.SetActive(false);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Check if the player has reached the success condition
+    /// </summary>
     void Update()
     {
-        if (numberOfClicks >= numberOfClicksRequired)
+        if (!success && numberOfClicks >= numberOfClicksRequired)
         {
             success = true;
             winText.SetActive(true);
         }
-
-
     }
 
-    // function to increment the number of clicks
+    /// <summary>
+    /// Increment the number of clicks and update the text
+    /// </summary>
     public void IncrementClicks()
     {
         numberOfClicks++;
         clickText.GetComponent<TextMeshProUGUI>().text = numberOfClicks.ToString();
     }
 
-    // function to reset game state
+    /// <summary>
+    /// Reset the game state
+    /// </summary>
     public void ResetGame()
     {
+        // log the call to reset the game
+        Debug.Log("Resetting game");
         numberOfClicks = 0;
         success = false;
         winText.SetActive(false);
-        // get tmp, clicktext shows 0
         clickText.GetComponent<TextMeshProUGUI>().text = "0";
-
+        // log success
+        Debug.Log("Success: " + success);
     }
 }
