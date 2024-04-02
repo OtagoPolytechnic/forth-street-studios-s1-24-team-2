@@ -9,23 +9,31 @@ public class SpawnerManager : MonoBehaviour
     public List<GameObject> rubbish = new List<GameObject>();
 
     [Header("Spawn Status")] //Check if spawn needed / spawn first item without delay
-    public bool spawning;
-    public bool firstSpawn;
+    public bool spawning; 
     public bool canSpawn;
-    public GameObject spawnedItem;
+    private bool firstSpawn;
+    private GameObject spawnedItem;
 
-    public GameManager manager;
-    public int shotsRemaining;
+    public GameManager manager; //Uses isGameOver from script to stop spawning at game end
+    private int shotsRemaining; //Localised storage of value in gamemanager script
 
     /// <summary>
-    /// Set script to spawn inital item
+    /// Get reference to gamemanager to control spawning
     /// </summary>
     private void Start()
+    {
+        manager = GameObject.Find("Managers/GameManager").GetComponent<GameManager>(); //Get GameManager script from scene
+        SetVariables();
+    }
+
+    /// <summary>
+    /// Set initial values for game start/restart
+    /// </summary>
+    private void SetVariables()
     {
         spawning = false;
         firstSpawn = true;
         canSpawn = true;
-        manager = GameObject.Find("Managers/GameManager").GetComponent<GameManager>(); //Get GameManager script from scene
         shotsRemaining = manager.shotsRemaining;
         canSpawn = !manager.isGameOver;
     }
@@ -34,16 +42,18 @@ public class SpawnerManager : MonoBehaviour
     {
         shotsRemaining = manager.shotsRemaining;
 
-        if (canSpawn) //if game is still running (no end game panels showing)
+        //If game is still running (no end game panels showing)
+        if (canSpawn) 
         {
-            if (!spawning && shotsRemaining > 0) //If nothing is spawning, start coroutine to choose/spawn a new object
+            //If nothing is spawning and player still has shots left, start coroutine to choose/spawn a new object
+            if (!spawning && shotsRemaining > 0) 
             {
                 StartCoroutine(SpawnObjectWithDelay());
             }
         }
         else
         {
-            Destroy(spawnedItem); //Destroy item if spawned during game
+            Destroy(spawnedItem); //Destroy item if spawned during game over screens
         }
     }
 
@@ -55,6 +65,7 @@ public class SpawnerManager : MonoBehaviour
     IEnumerator SpawnObjectWithDelay()
     {
         spawning = true; //Currently spawning an object (stops update constantly spawning new items)
+
         //Only use delay for spawns after first item (removes initial 0.5s wait on minigame start)
         if (!firstSpawn) 
         {

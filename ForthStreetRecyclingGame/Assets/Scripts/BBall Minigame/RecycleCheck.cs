@@ -25,11 +25,11 @@ public class RecycleCheck : MonoBehaviour
         //Check tag of the trigger area (Recycling/Rubbish)
         if (this.tag == "Recycling")
         {
-            switch (other.tag)// Check the tag of the collided object
+            switch (other.tag) // Check the tag of the collided object
             {
                 case "Recycling":
                     manager.IncrementSuccessCount(); //Increment onscreen score display
-                    Destroy(other.gameObject);       //Destroy GameObject to help performance 
+                    Destroy(other.gameObject); //Destroy GameObject to help performance 
                     break;
 
                 case "Rubbish":

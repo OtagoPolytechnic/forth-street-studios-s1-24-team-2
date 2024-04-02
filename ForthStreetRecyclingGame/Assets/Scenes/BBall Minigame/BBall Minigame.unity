@@ -1372,9 +1372,6 @@ MonoBehaviour:
   shotDisplay: {fileID: 361146341}
   gameWonPanel: {fileID: 2037422648}
   gameOverPanel: {fileID: 1273377057}
-  successCount: 0
-  failCount: 0
-  maxCount: 0
   shotsRemaining: 0
   successImages:
   - {fileID: 1043995005}
@@ -1385,8 +1382,6 @@ MonoBehaviour:
   - {fileID: 646735201}
   - {fileID: 2059409250}
   isGameOver: 0
-  timer: 0
-  spawnManager: {fileID: 0}
 --- !u!1 &904750128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,11 +1775,8 @@ MonoBehaviour:
   - {fileID: 2833900470267754222, guid: 8ece2fae6c2886c40ac44d4c380aaf89, type: 3}
   - {fileID: 2514786647049914326, guid: 67d2fa91879fd6c43980a2901108a853, type: 3}
   spawning: 0
-  firstSpawn: 0
   canSpawn: 0
-  spawnedItem: {fileID: 0}
   manager: {fileID: 0}
-  shotsRemaining: 0
 --- !u!1 &1160974802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,10 +2157,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4468436798641019051, guid: 17baa21908985024da0ad99820bcd470,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5572345078845387143, guid: 17baa21908985024da0ad99820bcd470,
         type: 3}
       propertyPath: m_Name
       value: Rubbish Trigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572345078845387143, guid: 17baa21908985024da0ad99820bcd470,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7408776343975342040, guid: 17baa21908985024da0ad99820bcd470,
         type: 3}
@@ -2184,6 +2186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634456829666246050, guid: 17baa21908985024da0ad99820bcd470,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
