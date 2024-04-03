@@ -6,7 +6,7 @@ public class FollowMouse : MonoBehaviour
 {
     private Vector3 mousePosition;
     private Vector3 targetPosition;
-     float smoothVelocity = 1;
+    private float smoothVelocity = 1;
 
     // Update is called once per frame
     void Update()
