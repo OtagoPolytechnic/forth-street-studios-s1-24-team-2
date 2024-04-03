@@ -5,20 +5,14 @@ using UnityEngine;
 public class FollowMouse : MonoBehaviour
 {
     private Vector3 mousePosition;
-    private Rigidbody rb;
-    private float moveSpeed = 100f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        
-    }
+    private Vector3 targetPosition;
+     float smoothVelocity = 1;
 
     // Update is called once per frame
     void Update()
     {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        rb.velocity = (mousePosition - transform.position).normalized * moveSpeed;
+        transform.position = Vector3.Lerp(transform.position, Camera.main.ScreenToWorldPoint
+        (new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z)),
+         smoothVelocity * Time.deltaTime);
     }
 }

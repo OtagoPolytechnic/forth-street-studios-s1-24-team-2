@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class FillMeter : MonoBehaviour
 {
-    private GameObject lid;
     [SerializeField]private Slider fill;
     [SerializeField]private GameObject meter;
+    [SerializeField]private GameObject bottle; //for the bottle object to flip when the mouse moves
 
     // Start is called before the first frame update
     void Start()
