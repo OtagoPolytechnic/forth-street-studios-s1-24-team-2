@@ -1462,18 +1462,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1786553002}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1115894264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1115894254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46d20eeef7b40424790f591430fcca3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1115894265
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1962,10 +1950,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1115894259}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c0c940985c6c82745aa057974854f995,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1115894264}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c0c940985c6c82745aa057974854f995,
         type: 3}
       insertIndex: -1
