@@ -1133,6 +1133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fill: {fileID: 359852726}
   meter: {fileID: 359852724}
+  bottle: {fileID: 0}
 --- !u!4 &656675318
 Transform:
   m_ObjectHideFlags: 0
@@ -2161,7 +2162,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
