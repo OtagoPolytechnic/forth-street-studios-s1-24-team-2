@@ -82,20 +82,13 @@ public class SpawnerManager : MonoBehaviour
         // Generate a random rotation for axis
         Quaternion randomRotation = Quaternion.Euler(Random.Range(0, 90), Random.Range(70, 110), Random.Range(0, 90));
 
-        // Check the random index to determine what to spawn
-        if (randomIndex == 0)
-        {
-            // Randomly select a recycling object from the list and instantiate (with y rotation of 90deg)
-            int recyclingIndex = Random.Range(0, recycling.Count);
-            GameObject obj = Instantiate(recycling[recyclingIndex], transform.position, randomRotation);
-            spawnedItem = obj;
-        }
-        else
-        {
-            // Randomly select a rubbish object from the list and instantiate (with y rotation of 90deg)
-            int rubbishIndex = Random.Range(0, rubbish.Count);
-            GameObject obj = Instantiate(rubbish[rubbishIndex], transform.position, randomRotation);
-            spawnedItem = obj;
-        }
+        // Following code by Johnathan in Code Review
+        // Choose the list to use based on randomIndex
+        List<GameObject> chosenList = randomIndex == 0 ? recycling : rubbish;
+
+        // Randomly select an object from the chosen list and instantiate (with y rotation of 90deg)
+        int chosenIndex = Random.Range(0, chosenList.Count);
+        GameObject obj = Instantiate(chosenList[chosenIndex], transform.position, randomRotation);
+        spawnedItem = obj;
     }
 }

@@ -24,7 +24,6 @@ public class ThrowItem : MonoBehaviour
     [Header("Line Renderer Variables")]
     private List<Vector3> linePoints; // List to store points along the trajectory line
     private int lineSegmentCount; // Number of segments used to draw the trajectory line
-    private int linePointCount; // Number of points to display on the trajectory line
     private float maxTrajectoryLength; // Maximum length of the trajectory line 
     private Vector3 mouseInitialWorldPos;
 
@@ -55,7 +54,6 @@ public class ThrowItem : MonoBehaviour
         forceMultiplier = 3;
         linePoints = new List<Vector3>();
         lineSegmentCount = 40;
-        linePointCount = lineSegmentCount / 2;
         maxTrajectoryLength = lineSegmentCount / 4;
     }
 
@@ -79,8 +77,8 @@ public class ThrowItem : MonoBehaviour
     private void OnMouseDrag()
     {
         //Calculate forces for trajectory outline (same calc as in Throw() on mouseUp)
-        Vector3 forceInit = (Input.mousePosition - mouseInitialPos);
-        Vector3 forceV = (new Vector3(forceInit.x, forceInit.y, forceInit.y)) * forceMultiplier;
+        Vector3 forceInit = Input.mousePosition - mouseInitialPos;
+        Vector3 forceV = new Vector3(forceInit.x, forceInit.y, forceInit.y) * forceMultiplier;
         UpdateTrajectory(forceV, rb, mouseInitialWorldPos);
         float angle = CalculateCameraAngle(forceV);
         
@@ -154,10 +152,10 @@ public class ThrowItem : MonoBehaviour
     /// <param name="startPoint">Initial mouse down click location</param>
     private void UpdateTrajectory(Vector3 forceVector, Rigidbody rb, Vector3 startPoint)
     {
-        Vector3 velocity = (forceVector / rb.mass) * Time.fixedDeltaTime;
+        Vector3 velocity = forceVector / rb.mass * Time.fixedDeltaTime;
 
         // Calculate the maximum flight duration based on a desired maximum length
-        float maxFlightDuration = Mathf.Sqrt((2 * maxTrajectoryLength) / -Physics.gravity.y);
+        float maxFlightDuration = Mathf.Sqrt(2 * maxTrajectoryLength / -Physics.gravity.y);
 
         // Calculate the step time based on the maximum flight duration and desired number of trajectory points
         float stepTime = maxFlightDuration / lineSegmentCount;

@@ -121,15 +121,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void DisplayCounts()
     {
-        //Keeps max score limited to maxCount to stop game breaking if objects hit trigger after game win/lose
-        if (successCount > maxCount)
-        {
-            successCount = maxCount;
-        }
-        if (failCount > maxCount)
-        {
-            failCount = maxCount;
-        }
+        // Following code by Johnathan in Code Review
+        // Clamp successCount and failCount to maxCount
+        successCount = Mathf.Clamp(successCount, 0, maxCount);
+        failCount = Mathf.Clamp(failCount, 0, maxCount);
 
         //Display images (check/cross) depending on the current score
         for (int i = 0; i < successCount; i++)
