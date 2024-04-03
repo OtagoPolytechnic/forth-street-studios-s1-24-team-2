@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FillMeter : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class FillMeter : MonoBehaviour
         if (fill.value == 1) // if the meter is full
         {
             Debug.Log("You win!"); // you win
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reloads scene (temporary)
         }
         StartCoroutine(ShakeMeter());
     }
@@ -40,12 +42,12 @@ public class FillMeter : MonoBehaviour
 
     private void MeterUp()
     {
-        fill.value = Mathf.MoveTowards(fill.value, 1, Time.deltaTime * 0.08f); // fills the meter
+        fill.value = Mathf.MoveTowards(fill.value, 1, Time.deltaTime * 0.3f); // fills the meter
     }
 
     private void MeterDown()
     {
-        fill.value = Mathf.MoveTowards(fill.value, 0, Time.deltaTime * 0.1f); // empties the meter
+        fill.value = Mathf.MoveTowards(fill.value, 0, Time.deltaTime * 0.08f); // empties the meter
     }
 
     //Shake the meter when it's getting close to the top
