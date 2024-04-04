@@ -19,6 +19,7 @@ public class FillMeter : MonoBehaviour
     private const int LIDPULL = 10; // used in add force to throw the lid into the air
     private const int ANIMATIONTIME = 2;
     private const float SHAKESPEED = 0.5f; // wait time between shakes
+    private const float HALFMETER = 0.5f; 
     private const float FILLSPEED = 0.3f; // how much the meter fills
     private const float EMPTYSPEED = 0.08f; // how much the meter empties
 
@@ -39,7 +40,7 @@ public class FillMeter : MonoBehaviour
                 StartCoroutine(LidRemoval());
             }
         }
-        else if(fill.value > SHAKESPEED) // checking the meter is half filled
+        else if(fill.value > HALFMETER) // checking the meter is half filled
         {
             StartCoroutine(ShakeMeter());
         }
