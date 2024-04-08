@@ -11,16 +11,8 @@ public class GridManager : MonoBehaviour
     public float Distance = 1.0f;
     private GameObject[,] Grid;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void InitGrid()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
