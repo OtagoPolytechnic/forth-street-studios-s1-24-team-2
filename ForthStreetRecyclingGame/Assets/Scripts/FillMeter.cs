@@ -9,6 +9,7 @@ public class FillMeter : MonoBehaviour
     [SerializeField]private Slider fill;
     [SerializeField]private GameObject meter;
     [SerializeField]private GameObject bottle;
+    [SerializeField]private ParticleSystem confetti;
     private Rigidbody lidRb;
 
     //Const variables
@@ -27,6 +28,7 @@ public class FillMeter : MonoBehaviour
     void Start()
     {
         fill.value = 0; //meter starts at 0
+        confetti.Stop(); // stops the confetti from playing
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class FillMeter : MonoBehaviour
             if (bottle.transform.GetChild(0).gameObject.GetComponent<Rigidbody>() == false) //checks first to see if there's already a rigidbody on the lid
             {
                 StartCoroutine(LidRemoval());
+                confetti.Play(); // plays the confetti
             }
         }
         else if(fill.value > HALFMETER) // checking the meter is half filled
