@@ -44,6 +44,6 @@ public class FishingTimer : MonoBehaviour
     {
         Debug.Log("Game Over");
         StopCoroutine(StartTimer());
-        //Load main scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reloads scene (temporary)
     }
 }

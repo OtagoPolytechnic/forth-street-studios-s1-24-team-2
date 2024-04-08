@@ -6,7 +6,7 @@ public class FollowMouse : MonoBehaviour
 {
     private float smoothVelocity = 1;
     [SerializeField]private Camera cam;
-    private Vector3 previousPosition;
+    private Vector3 mousePos;
 
     void Start()
     {
@@ -16,8 +16,8 @@ public class FollowMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, cam.ScreenToWorldPoint
-        (new Vector3(Input.mousePosition.x, Input.mousePosition.y, -cam.transform.position.z)),
-        smoothVelocity * Time.deltaTime);
+        mousePos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -cam.transform.position.z));
+        transform.position = Vector3.Lerp(transform.position, new Vector3(mousePos.x, mousePos.y, transform.position.z), smoothVelocity * Time.deltaTime);
+        //transform.LookAt(new Vector3(-mousePos.x, transform.rotation.y, -mousePos.z));
     }
 }
