@@ -23,7 +23,7 @@ public class CameraSwitcher : MonoBehaviour
     void Start()
     {
         // initialize the minigame camera output texture
-        minigameOutputTexture = minigameCamera.targetTexture;
+       minigameOutputTexture = minigameCamera.targetTexture;
     }
 
     /// <summary>
