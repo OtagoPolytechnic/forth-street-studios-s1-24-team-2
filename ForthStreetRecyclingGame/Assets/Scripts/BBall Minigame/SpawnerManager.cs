@@ -12,7 +12,7 @@ public class SpawnerManager : MonoBehaviour
     public bool spawning; 
     public bool canSpawn;
     private bool firstSpawn;
-    private GameObject spawnedItem;
+    public GameObject spawnedItem;
 
     public GameManager manager; //Uses isGameOver from script to stop spawning at game end
     private int shotsRemaining; //Localised storage of value in gamemanager script
@@ -29,7 +29,7 @@ public class SpawnerManager : MonoBehaviour
     /// <summary>
     /// Set initial values for game start/restart
     /// </summary>
-    private void SetVariables()
+    public void SetVariables()
     {
         spawning = false;
         firstSpawn = true;

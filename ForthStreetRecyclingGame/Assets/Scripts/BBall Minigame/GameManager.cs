@@ -138,6 +138,18 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Resets all images for score back to false (not visible to user)
+    /// </summary>
+    private void ResetCountDisplay()
+    {
+        for (int i = 0; i < maxCount; i++)
+        {
+            successImages[i].SetActive(false);
+            failImages[i].SetActive(false);
+        }
+    }
+
+    /// <summary>
     /// Check if max scores have been reached/all shots used  <br /> 
     /// End game with win/lose panels accordingly
     /// </summary>
@@ -176,5 +188,23 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         spawnManager.canSpawn = false;
         displayPanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// Resets all required variables in Game/Spawner managers to start a new game   <br />
+    ///  - Will be called from minigame launcher in final game. Temporary use of button OnClick() event to trigger reset at the moment
+    /// </summary>
+    public void ResetGame()
+    {
+        //Game Manager Variables
+        SetVariables(); //Set timer, success/fail counts and shots remaining back to game start defaults
+        ResetCountDisplay(); //Set all checks/crosses back to inactive
+        isGameOver = false; //Allows game to keep playing
+        gameWonPanel.SetActive(false); //Hides any status panels shown at end of game
+        gameOverPanel.SetActive(false);
+
+        //Spawner Manager Variables
+        Destroy(spawnManager.spawnedItem); //Stops spawning a new item ontop of item from previous game
+        spawnManager.SetVariables(); //Set variables to start spawning new objects (canSpawn, firstSpawn, isSpawning)
     }
 }
