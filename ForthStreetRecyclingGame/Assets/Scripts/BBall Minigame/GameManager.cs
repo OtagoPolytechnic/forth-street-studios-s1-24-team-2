@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Minigame
 {
     [Header("Canvas Components")]
     public TMP_Text timerText; //Time elapsed
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (!isGameOver)
+        if (!isGameOver && gameStarted)
         {
             UpdateTimer();
             StartCoroutine(CheckGameStatus());
@@ -159,11 +159,15 @@ public class GameManager : MonoBehaviour
         if (successCount >= maxCount)
         {
             EndGameDisplay(gameWonPanel);
+            success = true;
+            InvokeGameOver();
         }
 
         if (failCount >= maxCount)
         {
             EndGameDisplay(gameOverPanel);
+            success = false;
+            InvokeGameOver();
         }
 
         if (shotsRemaining <= 0)
@@ -173,6 +177,8 @@ public class GameManager : MonoBehaviour
             if (!isGameOver) //Make sure game hasnt ended already after wait
             {
                 EndGameDisplay(gameOverPanel);
+                success = false;
+                InvokeGameOver();
             }
 
         }
@@ -194,7 +200,7 @@ public class GameManager : MonoBehaviour
     /// Resets all required variables in Game/Spawner managers to start a new game   <br />
     ///  - Will be called from minigame launcher in final game. Temporary use of button OnClick() event to trigger reset at the moment
     /// </summary>
-    public void ResetGame()
+    public override void Reset()
     {
         //Game Manager Variables
         SetVariables(); //Set timer, success/fail counts and shots remaining back to game start defaults
@@ -206,5 +212,7 @@ public class GameManager : MonoBehaviour
         //Spawner Manager Variables
         Destroy(spawnManager.spawnedItem); //Stops spawning a new item ontop of item from previous game
         spawnManager.SetVariables(); //Set variables to start spawning new objects (canSpawn, firstSpawn, isSpawning)
+        
+        success = false; //Reset success bool to false
     }
 }
