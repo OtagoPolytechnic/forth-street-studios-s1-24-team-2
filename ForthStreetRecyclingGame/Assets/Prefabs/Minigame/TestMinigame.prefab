@@ -291,10 +291,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ff0b3fa8a6545c7befd5180cb9acbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameName: Test Minigame
   minigameCamera: {fileID: 7682380859757321870}
   OnGameOver:
     m_PersistentCalls:
       m_Calls: []
+  gameOverDelay: 1
   numberOfClicksRequired: 5
   numberOfClicks: 0
   winText: {fileID: 4604421967297444168}
@@ -1608,7 +1610,6 @@ GameObject:
   - component: {fileID: 7682380859757321870}
   - component: {fileID: 1569953557275115648}
   - component: {fileID: 4559528601878750803}
-  - component: {fileID: 25235040294342942}
   m_Layer: 0
   m_Name: MinigameRenderCamera
   m_TagString: MainCamera
@@ -1638,7 +1639,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8872881734254772162}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.7688679, g: 0.9436774, b: 1, a: 1}
@@ -1734,19 +1735,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &25235040294342942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8872881734254772162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b1f1e16a75145759ca7d37dd9bc4e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderTexture: {fileID: 8400000, guid: b027b0fe3d63b4140ab1ea17ab72eec8, type: 2}
 --- !u!1 &8927392801773444360
 GameObject:
   m_ObjectHideFlags: 0
