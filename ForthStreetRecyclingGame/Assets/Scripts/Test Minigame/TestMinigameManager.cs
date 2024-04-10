@@ -20,12 +20,6 @@ public class TestMinigameManager : Minigame
     public GameObject winText; // text object to activate if the player wins
     public GameObject clickText; // tmp text displaying the number of clicks
 
-    void awake()
-    {
-        minigameName = "Test Minigame";
-        // log that
-        Debug.Log("Test Minigame: " + minigameName + " initialised");
-    }
     /// <summary>
     /// Initialise the game state
     /// </summary>
