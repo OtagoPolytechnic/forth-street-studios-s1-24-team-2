@@ -20,11 +20,18 @@ public class TestMinigameManager : Minigame
     public GameObject winText; // text object to activate if the player wins
     public GameObject clickText; // tmp text displaying the number of clicks
 
+    void awake()
+    {
+        minigameName = "Test Minigame";
+        // log that
+        Debug.Log("Test Minigame: " + minigameName + " initialised");
+    }
     /// <summary>
     /// Initialise the game state
     /// </summary>
     void Start()
     {
+        minigameName = "Test Minigame";
         numberOfClicks = 0;
         success = false;
         winText.SetActive(false);
@@ -40,7 +47,7 @@ public class TestMinigameManager : Minigame
             success = true;
             winText.SetActive(true);
             // Fire the OnGameOver event
-            OnGameOver.Invoke(success);
+            InvokeGameOver();
         }
     }
 

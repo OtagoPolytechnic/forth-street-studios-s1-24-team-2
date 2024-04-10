@@ -5,6 +5,7 @@
  * Contributions: Assisted by GitHub Copilot
  */
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,26 +15,12 @@ using UnityEngine.Events;
 /// </summary>
 public abstract class Minigame : MonoBehaviour
 {
+    public string minigameName; // the name of the minigame, should be assigned in awake
     public Camera minigameCamera;   // the camera used for the minigame, should be assigned in the inspector
     public UnityEvent<bool> OnGameOver = new UnityEvent<bool>();    // this event is fired when the minigame is over
-    protected bool success;    // flag to check if the player has won/lost, passed to the OnGameOver event
+    protected bool success;
+    [SerializeField] private int gameOverDelay = 1;    // flag to check if the player has won/lost, passed to the OnGameOver event
 
-    #region Singleton
-    // Singleton pattern
-    public static Minigame instance;
-
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
-    #endregion
 
     /// <summary>
     /// Reset the minigame state.
@@ -46,5 +33,16 @@ public abstract class Minigame : MonoBehaviour
     /// Not all minigames will need to implement this method, so it does nothing by default.
     /// </summary>
     public virtual void MinigameBegin() { }
+
+    protected IEnumerator WaitThenGameOver()
+    {
+        yield return new WaitForSeconds(gameOverDelay);
+        OnGameOver.Invoke(success);
+    }
+
+    protected void InvokeGameOver()
+    {
+        StartCoroutine(WaitThenGameOver());
+    }
 
 }
