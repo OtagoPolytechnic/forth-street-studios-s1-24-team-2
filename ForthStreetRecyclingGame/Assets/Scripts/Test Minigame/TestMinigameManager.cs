@@ -13,30 +13,12 @@ using UnityEngine;
 /// This is a simple game where the goal is to click a button a set number of times.
 /// Upon doing this, the success condition is reached.
 /// </summary>
-public class TestMinigameManager : MonoBehaviour
+public class TestMinigameManager : Minigame
 {
     public int numberOfClicksRequired; // The number of times the player must click the button
     public int numberOfClicks; // The number of times the player has clicked the button
-    public bool success; // The success condition
     public GameObject winText; // text object to activate if the player wins
     public GameObject clickText; // tmp text displaying the number of clicks
-
-    #region Singleton
-    // Singleton pattern
-    public static TestMinigameManager instance;
-
-    void awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
-    #endregion
 
     /// <summary>
     /// Initialise the game state
@@ -57,6 +39,8 @@ public class TestMinigameManager : MonoBehaviour
         {
             success = true;
             winText.SetActive(true);
+            // Fire the OnGameOver event
+            OnGameOver.Invoke(success);
         }
     }
 
@@ -72,7 +56,7 @@ public class TestMinigameManager : MonoBehaviour
     /// <summary>
     /// Reset the game state
     /// </summary>
-    public void ResetGame()
+    public override void Reset()
     {
         numberOfClicks = 0;
         success = false;
