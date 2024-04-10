@@ -19,6 +19,7 @@ public abstract class Minigame : MonoBehaviour
     public Camera minigameCamera;   // the camera used for the minigame, should be assigned in the inspector
     public UnityEvent<bool> OnGameOver = new UnityEvent<bool>();    // this event is fired when the minigame is over
     protected bool success;
+    protected bool gameStarted;
     [SerializeField] private int gameOverDelay = 1;    // flag to check if the player has won/lost, passed to the OnGameOver event
 
 
@@ -30,14 +31,18 @@ public abstract class Minigame : MonoBehaviour
 
     /// <summary>
     /// Begin the minigame (start timers, etc.)
-    /// Not all minigames will need to implement this method, so it does nothing by default.
+    /// Not all minigames will need to implement this method.
     /// </summary>
-    public virtual void MinigameBegin() { }
+    public virtual void MinigameBegin() 
+    { 
+        gameStarted = true; 
+    }
 
     protected IEnumerator WaitThenGameOver()
     {
         yield return new WaitForSeconds(gameOverDelay);
         OnGameOver.Invoke(success);
+        gameStarted = false;
     }
 
     protected void InvokeGameOver()
