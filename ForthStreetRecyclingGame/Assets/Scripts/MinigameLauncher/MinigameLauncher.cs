@@ -58,6 +58,9 @@ public class MinigameLauncher : MonoBehaviour
     /// <param name="minigame">The minigame to be set as the current minigame</param>
     public void SetMinigame(Minigame minigame)
     {
+        if (currentMinigame == null) { return; }
+        // disable minigame camera
+        currentMinigame.minigameCamera.enabled = false;
         currentMinigame = minigame;
         cameraSwitcher.MinigameCamera = currentMinigame.minigameCamera;
         currentMinigame.OnGameOver.AddListener(HandleGameOver);
@@ -78,6 +81,16 @@ public class MinigameLauncher : MonoBehaviour
         };
         // Rotate monitor in front of main camera
         rotateMonitor.RotateToTarget(afterRotateCallbacks);
+    }
+
+    /// <summary>
+    /// Set the minigame and launch it
+    /// </summary>
+    /// <param name="minigame">The minigame to be set as the current minigame</param>
+    public void LaunchMinigame(Minigame minigame)
+    {
+        SetMinigame(minigame);
+        LaunchMinigame();
     }
 
     /// <summary>
