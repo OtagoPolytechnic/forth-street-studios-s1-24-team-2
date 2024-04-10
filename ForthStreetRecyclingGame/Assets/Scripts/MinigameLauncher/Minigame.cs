@@ -16,7 +16,7 @@ public abstract class Minigame : MonoBehaviour
 {
     public Camera minigameCamera;   // the camera used for the minigame, should be assigned in the inspector
     public UnityEvent<bool> OnGameOver = new UnityEvent<bool>();    // this event is fired when the minigame is over
-    public bool success;    // flag to check if the player has won/lost, passed to the OnGameOver event
+    protected bool success;    // flag to check if the player has won/lost, passed to the OnGameOver event
 
     #region Singleton
     // Singleton pattern
