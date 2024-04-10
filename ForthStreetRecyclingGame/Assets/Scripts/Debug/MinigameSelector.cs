@@ -26,6 +26,7 @@ public class MinigameSelector : MonoBehaviour
     void Start()
     {
         minigameLauncher = MinigameLauncher.instance;
+        ToggleGroup toggleGroup = GetComponent<ToggleGroup>();
         // Find all the minigames in the scene
         minigames.AddRange(FindObjectsOfType<Minigame>());
         foreach (Minigame minigame in minigames)
@@ -33,7 +34,7 @@ public class MinigameSelector : MonoBehaviour
             // Create the toggle from the prefab
             GameObject radioButton = Instantiate(minigameTogglePrefab);
             Toggle toggle = radioButton.GetComponent<Toggle>();
-
+            toggle.group = toggleGroup;
             // Add the radio button to the parent
             radioButton.transform.SetParent(transform, false);
 
@@ -46,21 +47,11 @@ public class MinigameSelector : MonoBehaviour
 
             // Set the onValueChanged listener
             toggle.onValueChanged.AddListener((bool value) =>
-            {
-                // turn off all other toggles
-                foreach (Toggle t in toggles)
-                {
-                    if (t != toggle)
-                    {
-                        t.isOn = false;
-                    }
-                }
-
-                toggle.isOn = value;
-                
-                if (value)
+            {          
+                if (value == true)
                 {
                     minigameLauncher.LaunchMinigame(minigame);
+                    toggleGroup.allowSwitchOff = false;
                 }
             });
 

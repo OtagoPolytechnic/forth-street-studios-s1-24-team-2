@@ -904,6 +904,7 @@ GameObject:
   - component: {fileID: 1724898237}
   - component: {fileID: 1724898236}
   - component: {fileID: 1724898239}
+  - component: {fileID: 1724898240}
   m_Layer: 5
   m_Name: Minigame Selector
   m_TagString: Untagged
@@ -1006,6 +1007,19 @@ MonoBehaviour:
   m_Spacing: {x: 32, y: 10.7}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1724898240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724898234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 1
 --- !u!1001 &1782847085
 PrefabInstance:
   m_ObjectHideFlags: 0
