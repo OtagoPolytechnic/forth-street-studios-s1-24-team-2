@@ -14,6 +14,9 @@ using UnityEngine;
 /// It has methods to rotate to and from the given angles.
 /// You can also set the speed of the rotation.
 /// </summary>
+/// <todo>
+/// The coroutines could be refactored to use a single coroutine with a target angle parameter.
+/// </todo>
 public class RotateMonitor : MonoBehaviour
 {
     public float rotationSpeed = 100.0f; // The speed at which the monitor rotates
