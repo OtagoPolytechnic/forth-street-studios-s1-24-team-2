@@ -25,7 +25,6 @@ public class TestMinigameManager : Minigame
     /// </summary>
     void Start()
     {
-        minigameName = "Test Minigame";
         numberOfClicks = 0;
         success = false;
         winText.SetActive(false);
