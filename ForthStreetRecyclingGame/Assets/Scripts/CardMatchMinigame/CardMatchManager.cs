@@ -49,7 +49,7 @@ public class CardMatchManager : Minigame
                 }
 
                 card.Unreveal();
-                
+
                 int index = j * gridCols + i;
                 int id = numbers[index];
                 card.ChangeSprite(id, images[id]);
@@ -66,11 +66,8 @@ public class CardMatchManager : Minigame
         // Destroy all cards except the original
         foreach (MainCard card in FindObjectsOfType<MainCard>())
         {
-            Debug.Log("Found card: " + card);
-            Debug.Log("Is card the original card? " + (card == originalCard));
             if (card != originalCard)
             {
-                Debug.Log("Destroying card: " + card);
                 Destroy(card.gameObject);
             }
         }
