@@ -20,7 +20,13 @@ public class CardMatchManager : Minigame
     [SerializeField] private MainCard originalCard;
     [SerializeField] private Sprite[] images;
 
+
     private void Start()
+    {
+        Deal();
+    }
+
+    private void Deal()
     {
         Vector3 startPos = originalCard.transform.position;
 
@@ -39,8 +45,11 @@ public class CardMatchManager : Minigame
                 else
                 {
                     card = Instantiate(originalCard) as MainCard;
+                    card.transform.SetParent(transform);                 
                 }
 
+                card.Unreveal();
+                
                 int index = j * gridCols + i;
                 int id = numbers[index];
                 card.ChangeSprite(id, images[id]);
@@ -52,12 +61,27 @@ public class CardMatchManager : Minigame
         }
     }
 
+    private void DestroyCards()
+    {
+        // Destroy all cards except the original
+        foreach (MainCard card in FindObjectsOfType<MainCard>())
+        {
+            Debug.Log("Found card: " + card);
+            Debug.Log("Is card the original card? " + (card == originalCard));
+            if (card != originalCard)
+            {
+                Debug.Log("Destroying card: " + card);
+                Destroy(card.gameObject);
+            }
+        }
+    }
     private void Update()
     {
-        if (_score == gridCols * gridRows / 2)
+        if (!success && _score == gridCols * gridRows / 2)
         {
             success = true;
-            OnGameOver.Invoke(success);
+
+            InvokeGameOver();
         }
     }
 
@@ -114,12 +138,10 @@ public class CardMatchManager : Minigame
 
     public override void Reset()
     {
-        // turn over all cards
-        MainCard[] cards = FindObjectsOfType<MainCard>();
-        foreach (MainCard card in cards)
-        {
-            card.Unreveal();
-        }
-        scoreLabel.text = "Score: 0";
+        success = false;
+        DestroyCards();
+        Deal();
+        _score = 0;
+        scoreLabel.text = "Score: " + _score;
     }
 }
