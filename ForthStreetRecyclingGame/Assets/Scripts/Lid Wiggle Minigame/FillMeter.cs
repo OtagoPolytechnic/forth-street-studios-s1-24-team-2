@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class FillMeter : MonoBehaviour
+public class FillMeter : Minigame
 {
     [SerializeField]private Slider fill;
     [SerializeField]private GameObject meter;
@@ -91,7 +91,16 @@ public class FillMeter : MonoBehaviour
         lidRb.useGravity = false; // disables gravity
         lidRb.AddForce(transform.up * LIDPULL); // adds rigidbody to the lid
         yield return new WaitForSeconds(ANIMATIONTIME);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reloads scene (temporary)
+        // invokes the OnGameOver event
+        success = true;
+        InvokeGameOver();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reloads scene (temporary)
+    }
 
+    public override void Reset()
+    {
+        success = false;
+        fill.value = 0; // resets the meter
+        confetti.Stop(); // stops the confetti
     }
 }

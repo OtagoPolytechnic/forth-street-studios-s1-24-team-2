@@ -10,6 +10,8 @@ public class FishingTimer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     private float timeLeft = 20.0f;
 
+    public FillMeter fillMeter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,9 @@ public class FishingTimer : MonoBehaviour
     {
         Debug.Log("Game Over");
         StopCoroutine(StartTimer());
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reloads scene (temporary)
+        // fire the OnGameOver event
+        fillMeter.InvokeGameOver();
+
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reloads scene (temporary)
     }
 }

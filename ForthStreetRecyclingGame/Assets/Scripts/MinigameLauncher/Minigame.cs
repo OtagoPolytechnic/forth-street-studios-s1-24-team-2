@@ -45,7 +45,7 @@ public abstract class Minigame : MonoBehaviour
         gameStarted = false;
     }
 
-    protected void InvokeGameOver()
+    public void InvokeGameOver()
     {
         StartCoroutine(WaitThenGameOver());
     }
