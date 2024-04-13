@@ -18,8 +18,8 @@ public abstract class Minigame : MonoBehaviour
     public string minigameName; // the name of the minigame, should be assigned in awake
     public Camera minigameCamera;   // the camera used for the minigame, should be assigned in the inspector
     public UnityEvent<bool> OnGameOver = new UnityEvent<bool>();    // this event is fired when the minigame is over
+    public bool gameStarted;
     protected bool success;
-    protected bool gameStarted;
     [SerializeField] private int gameOverDelay = 1;    // flag to check if the player has won/lost, passed to the OnGameOver event
 
 
