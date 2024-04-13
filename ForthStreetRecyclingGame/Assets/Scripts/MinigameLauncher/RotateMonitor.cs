@@ -5,6 +5,7 @@
  * Contributions: Assisted by GitHub Copilot
  */
 
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -13,17 +14,15 @@ using UnityEngine;
 /// It has methods to rotate to and from the given angles.
 /// You can also set the speed of the rotation.
 /// </summary>
-/// <remarks>
-/// I'm not thrilled about switching the camera and resetting minigame here, but these need to happen after the monitor rotation coroutines.
-/// Eventually the coroutines could be refactored to take a callback function to call after the rotation is complete
-/// </remarks>
+/// <todo>
+/// The coroutines could be refactored to use a single coroutine with a target angle parameter.
+/// </todo>
 public class RotateMonitor : MonoBehaviour
 {
     public float rotationSpeed = 100.0f; // The speed at which the monitor rotates
     public CameraSwitcher cameraSwitcher; // Reference to the CameraSwitcher script
     public int rotateStart = 120; // The starting rotation of the monitor
     public int rotateTarget = 0; // The target rotation of the monitor
-    public TestMinigameManager testMinigameManager; // Reference to the TestMinigameManager script
     public bool isRotating = false; // Flag to check if the monitor is currently rotating
 
     /// <summary>
@@ -36,27 +35,31 @@ public class RotateMonitor : MonoBehaviour
 
     /// <summary>
     /// Rotate the monitor to the target rotation
-    /// The camera is switched to the minigame camera after rotating in the coroutine
     /// </summary>
-    public void RotateToTarget()
+    /// <param name="afterRotateCallbacks">Callbacks to call after the rotation is complete</param>
+    public void RotateToTarget(Action[] afterRotateCallbacks = null)
     {
-        StartCoroutine(RotateToTargetCoroutine());
+        if (isRotating) { return; }
+        StartCoroutine(RotateToTargetCoroutine(afterRotateCallbacks));
     }
 
     /// <summary>
-    /// Switch camera to main and rotate the monitor to the starting rotation
+    /// Rotate the monitor to the starting position
     /// </summary>
-    public void RotateToStart()
+    /// <param name="afterRotateCallbacks">Callbacks to call after the rotation is complete</param>
+    public void RotateToStart(Action[] afterRotateCallbacks = null)
     {
+        if (isRotating) { return; }
         // Switch back to the main camera before rotating
-        cameraSwitcher.SwitchToMainCamera();
-        StartCoroutine(RotateToStartCoroutine());
+        // cameraSwitcher.SwitchToMainCamera();
+        StartCoroutine(RotateToStartCoroutine(afterRotateCallbacks));
     }
 
     /// <summary>
     /// Coroutine to rotate the monitor to the target rotation
     /// </summary>
-    private IEnumerator RotateToTargetCoroutine()
+    /// <param name="afterRotateCallbacks">Callbacks to call after the rotation is complete</param>
+    private IEnumerator RotateToTargetCoroutine(Action[] afterRotateCallbacks = null)
     {
         isRotating = true;
         while (transform.rotation.eulerAngles.z > rotateTarget)
@@ -70,16 +73,22 @@ public class RotateMonitor : MonoBehaviour
 
             yield return null;
         }
-        
-        isRotating = false;
-        // Switch to the minigame camera after rotating
-        cameraSwitcher.SwitchToMinigameCamera();
+
+        isRotating = false;     
+        if (afterRotateCallbacks != null)
+        {
+            foreach (var callback in afterRotateCallbacks)
+            {
+                callback();
+            }
+        }
     }
 
     /// <summary>
     /// Coroutine to rotate the monitor to the starting rotation
     /// </summary>
-    private IEnumerator RotateToStartCoroutine()
+    /// <param name="afterRotateCallbacks">Callbacks to call after the rotation is complete</param>
+    private IEnumerator RotateToStartCoroutine(Action[] afterRotateCallbacks = null)
     {
         isRotating = true;
         while (transform.rotation.eulerAngles.z < rotateStart)
@@ -95,8 +104,13 @@ public class RotateMonitor : MonoBehaviour
         }
 
         isRotating = false;
-        // reset the minigame manager
-        testMinigameManager.ResetGame();
+        if (afterRotateCallbacks != null)
+        {
+            foreach (var callback in afterRotateCallbacks)
+            {
+                callback();
+            }
+        }
     }
 }
 

@@ -40,7 +40,8 @@ public class ThrowItem : MonoBehaviour
         //Get Components from Scene
         manager = GameObject.Find("Managers/GameManager").GetComponent<GameManager>();
         spawnerManager = GameObject.Find("Managers/ObjectSpawner").GetComponent<SpawnerManager>();
-        mainCamera = Camera.main;
+        // set camera to camera with name BBallCamera
+        mainCamera = GameObject.Find("BBallCamera").GetComponent<Camera>();
         SetVariables();
     }
 

@@ -14,17 +14,44 @@ using UnityEngine;
 /// Once multiple minigames are implemented, this class will need to be refactored to handle multiple cameras.
 /// </remarks>
 public class CameraSwitcher : MonoBehaviour
-{
-    public Camera mainCamera;
-    public Camera minigameCamera;
+{  
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private RenderTexture minigameOutputTexture; // minigame camera output texture
+    private Camera minigameCamera;
 
-    private RenderTexture minigameOutputTexture; // minigame camera output texture
-
-    void Start()
+    /// <summary>
+    /// Contains setter logic to set the output texture of the minigame camera when the camera is assigned
+    /// </summary>
+    public Camera MinigameCamera
     {
-        // initialize the minigame camera output texture
-        minigameOutputTexture = minigameCamera.targetTexture;
+        set
+        {
+            minigameCamera = value;
+            if (minigameCamera != null)
+            {
+                // enable the minigame camera
+                minigameCamera.enabled = true;
+                minigameCamera.targetTexture = minigameOutputTexture;
+            }
+        }
     }
+
+    #region Singleton
+    // Singleton pattern
+    public static CameraSwitcher instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+    #endregion
 
     /// <summary>
     /// Switch to the minigame camera

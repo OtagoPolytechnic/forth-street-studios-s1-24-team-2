@@ -18,6 +18,14 @@ public class MouseAnimation : MonoBehaviour
 
     void Start()
     {
+        if (LidWiggleManager.instance != null) { return; }
+        StartCoroutine(FadeIn());
+        StartCoroutine(SpriteSwap());
+        StartCoroutine(FadeOut());
+    }
+
+    public void PlayTutorialAnimation()
+    {
         StartCoroutine(FadeIn());
         StartCoroutine(SpriteSwap());
         StartCoroutine(FadeOut());
@@ -54,6 +62,5 @@ public class MouseAnimation : MonoBehaviour
             GetComponent<Image>().color = new Color(imgColour, imgColour, imgColour, i); 
             yield return new WaitForSeconds(0.01f);
         }
-        gameObject.SetActive(false); // sets false so it doesn't interrupt the game
     }
 }

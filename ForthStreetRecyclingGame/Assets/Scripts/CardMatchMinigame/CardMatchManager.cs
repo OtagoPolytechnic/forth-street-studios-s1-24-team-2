@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class SceneController : MonoBehaviour
+public class CardMatchManager : Minigame
 {
     public const int gridRows = 2;
     public const int gridCols = 5;
@@ -20,7 +20,13 @@ public class SceneController : MonoBehaviour
     [SerializeField] private MainCard originalCard;
     [SerializeField] private Sprite[] images;
 
+
     private void Start()
+    {
+        Deal();
+    }
+
+    private void Deal()
     {
         Vector3 startPos = originalCard.transform.position;
 
@@ -39,7 +45,10 @@ public class SceneController : MonoBehaviour
                 else
                 {
                     card = Instantiate(originalCard) as MainCard;
+                    card.transform.SetParent(transform);                 
                 }
+
+                card.Unreveal();
 
                 int index = j * gridCols + i;
                 int id = numbers[index];
@@ -49,6 +58,27 @@ public class SceneController : MonoBehaviour
                 float posY = (offsetY * j) + startPos.y;
                 card.transform.position = new Vector3(posX, posY, startPos.z);
             }
+        }
+    }
+
+    private void DestroyCards()
+    {
+        // Destroy all cards except the original
+        foreach (MainCard card in FindObjectsOfType<MainCard>())
+        {
+            if (card != originalCard)
+            {
+                Destroy(card.gameObject);
+            }
+        }
+    }
+    private void Update()
+    {
+        if (!success && _score == gridCols * gridRows / 2)
+        {
+            success = true;
+
+            InvokeGameOver();
         }
     }
 
@@ -101,5 +131,14 @@ public class SceneController : MonoBehaviour
         _firstRevealed = null;
         _secondRevealed = null;
 
+    }
+
+    public override void Reset()
+    {
+        success = false;
+        DestroyCards();
+        Deal();
+        _score = 0;
+        scoreLabel.text = "Score: " + _score;
     }
 }
