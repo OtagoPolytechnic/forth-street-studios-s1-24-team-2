@@ -22,8 +22,6 @@ public class MinigameLauncher : MonoBehaviour
     // Singleton pattern
     public static MinigameLauncher instance;
 
-
-
     void Awake()
     {
         if (instance == null)
