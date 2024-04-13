@@ -91,14 +91,6 @@ public class FillMeter : MonoBehaviour
         lidRb.useGravity = false; // disables gravity
         lidRb.AddForce(transform.up * LIDPULL); // adds rigidbody to the lid
         yield return new WaitForSeconds(ANIMATIONTIME);
-        if (LidWiggleManager.instance != null)
-        {
-            LidWiggleManager.instance.InvokeGameOver();
-        }
-        else
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reloads scene (temporary)
-        }
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reloads scene (temporary)
     }
 }
