@@ -11,11 +11,13 @@ using TMPro;
 /// <summary>
 /// This class is used to display the FPS in the game
 /// </summary>
+/// <remarks>
+/// While this can be useful for determining the impact of the various game objects on performance,
+/// its important to remember that other factors, such as the size of the editor window, can influence this.
 public class FPSCounter : MonoBehaviour
 {
     public TMP_Text fpsText;    // The TextMeshPro text field to display the FPS value
     public float updateInterval = 0.5f; // The update interval in seconds
-
 
     private float accum = 0.0f; // FPS accumulated over the interval
     private int frames = 0; // Frames drawn over the interval
@@ -55,16 +57,22 @@ public class FPSCounter : MonoBehaviour
 
             // Change the color of the text based on the FPS value
             if (fps < 10)
+            {
                 fpsText.color = Color.red;
+            }
             else if (fps < 30)
+            {
                 fpsText.color = Color.yellow;
+            }
             else
+            {
                 fpsText.color = Color.green;
-        }
+            }
 
-        // Reset values for the next interval
-        timeleft = updateInterval;
-        accum = 0.0f;
-        frames = 0;
+            // Reset values for the next interval
+            timeleft = updateInterval;
+            accum = 0.0f;
+            frames = 0;
+        }
     }
 }
