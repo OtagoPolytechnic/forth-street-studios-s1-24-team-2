@@ -2,7 +2,7 @@
  * File: MinigameSelector.cs
  * Purpose: Creates a UI element displaying FPS
  * Author: Johnathan
- * Contributions: Assisted by GitHub Copilot
+ * Contributions: Assisted by GitHub Copilot, based on code from https://www.sharpcoderblog.com/blog/unity-fps-counter
  */
 
 using UnityEngine;
