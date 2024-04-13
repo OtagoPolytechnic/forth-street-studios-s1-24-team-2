@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class FillMeter : Minigame
+public class FillMeter : MonoBehaviour
 {
-    [SerializeField]private Slider fill;
-    [SerializeField]private GameObject meter;
-    [SerializeField]private GameObject bottle;
-    [SerializeField]private ParticleSystem confetti;
+    [SerializeField] private Slider fill;
+    [SerializeField] private GameObject meter;
+    [SerializeField] private GameObject bottle;
+    [SerializeField] private ParticleSystem confetti;
     private Rigidbody lidRb;
 
     //Const variables
@@ -20,7 +20,7 @@ public class FillMeter : Minigame
     private const int LIDPULL = 10; // used in add force to throw the lid into the air
     private const int ANIMATIONTIME = 2;
     private const float SHAKESPEED = 0.5f; // wait time between shakes
-    private const float HALFMETER = 0.5f; 
+    private const float HALFMETER = 0.5f;
     private const float FILLSPEED = 0.3f; // how much the meter fills
     private const float EMPTYSPEED = 0.08f; // how much the meter empties
 
@@ -43,7 +43,7 @@ public class FillMeter : Minigame
                 confetti.Play(); // plays the confetti
             }
         }
-        else if(fill.value > HALFMETER) // checking the meter is half filled
+        else if (fill.value > HALFMETER) // checking the meter is half filled
         {
             StartCoroutine(ShakeMeter());
         }
@@ -91,16 +91,14 @@ public class FillMeter : Minigame
         lidRb.useGravity = false; // disables gravity
         lidRb.AddForce(transform.up * LIDPULL); // adds rigidbody to the lid
         yield return new WaitForSeconds(ANIMATIONTIME);
-        // invokes the OnGameOver event
-        success = true;
-        InvokeGameOver();
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reloads scene (temporary)
-    }
+        if (LidWiggleManager.instance != null)
+        {
+            LidWiggleManager.instance.InvokeGameOver();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reloads scene (temporary)
+        }
 
-    public override void Reset()
-    {
-        success = false;
-        fill.value = 0; // resets the meter
-        confetti.Stop(); // stops the confetti
     }
 }

@@ -10,7 +10,7 @@ public class FollowMouse : MonoBehaviour
 
     void Start()
     {
-        cam = Camera.main;
+        cam = (LidWiggleManager.instance != null) ? LidWiggleManager.instance.minigameCamera : Camera.main;
     }
 
     // Update is called once per frame
