@@ -13,7 +13,9 @@ using TMPro;
 /// </summary>
 /// <remarks>
 /// While this can be useful for determining the impact of the various game objects on performance,
-/// its important to remember that other factors, such as the size of the editor window, can influence this.
+/// its important to remember that other factors, such as the size of the scene view window and 
+/// the resolution of the game view window, can influence this.
+/// </remarks>
 public class FPSCounter : MonoBehaviour
 {
     public TMP_Text fpsText;    // The TextMeshPro text field to display the FPS value
