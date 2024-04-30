@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
-    private GameObject item;
+    public GameObject item;
     private GameObject cam;
     private Vector3 targetPos;
     private float speed;
     private float force;
     private bool pickedUp;
+    public SnapItemToBin snapItemToBin; //script reference to bin snapping
 
     void Start()
     {
@@ -47,6 +48,8 @@ public class DragObject : MonoBehaviour
                 StartCoroutine(MoveToPosition(item.transform, targetPos, speed)); //starts the coroutine to move object
                 item.GetComponent<Rigidbody>().isKinematic = true; //disables gravity
                 pickedUp = true;
+                
+                snapItemToBin.heldItem = item; //passes the item to the bin script
             }
         }
     }
