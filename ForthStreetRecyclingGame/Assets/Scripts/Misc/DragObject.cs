@@ -6,11 +6,12 @@ public class DragObject : MonoBehaviour
 {
     public GameObject item;
     private GameObject cam;
-    private Vector3 targetPos;
     private float speed;
     private float force;
     private bool pickedUp;
-    public SnapItemToBin snapItemToBin; //script reference to bin snapping
+
+    [Header("Referenced In SnapItemToBin.cs")]
+    public Vector3 targetPos;
 
     void Start()
     {
@@ -18,7 +19,6 @@ public class DragObject : MonoBehaviour
         force = 300;
         cam = Camera.main.gameObject;
         targetPos = new Vector3(cam.transform.position.x + 1.5f, cam.transform.position.y - 1f, cam.transform.position.z + 2.5f); //offset to the camera in a conventional gaming "held" position
-        snapItemToBin = GameObject.Find("Bin").GetComponent<SnapItemToBin>(); //finds the bin object and gets the script
     }
 
     void Update()
@@ -49,8 +49,6 @@ public class DragObject : MonoBehaviour
                 StartCoroutine(MoveToPosition(item.transform, targetPos, speed)); //starts the coroutine to move object
                 item.GetComponent<Rigidbody>().isKinematic = true; //disables gravity
                 pickedUp = true;
-                
-                snapItemToBin.heldItem = item; //passes the item to the bin script
             }
         }
     }
