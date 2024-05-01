@@ -18,6 +18,7 @@ public class DragObject : MonoBehaviour
         force = 300;
         cam = Camera.main.gameObject;
         targetPos = new Vector3(cam.transform.position.x + 1.5f, cam.transform.position.y - 1f, cam.transform.position.z + 2.5f); //offset to the camera in a conventional gaming "held" position
+        snapItemToBin = GameObject.Find("Bin").GetComponent<SnapItemToBin>(); //finds the bin object and gets the script
     }
 
     void Update()
