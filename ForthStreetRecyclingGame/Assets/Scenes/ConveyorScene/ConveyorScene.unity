@@ -1074,7 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4ca623b62baf9498e9c97c915c38b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 1
 --- !u!65 &169081417
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1094,8 +1094,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5999999, y: 0.2997209, z: 8.048582}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5999999, y: 0.40058735, z: 8.048582}
+  m_Center: {x: 0, y: 0.0504332, z: 1.4317936e-10}
 --- !u!33 &169081418
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6808,8 +6808,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1200649449}
   - component: {fileID: 1200649452}
-  - component: {fileID: 1200649451}
   - component: {fileID: 1200649450}
+  - component: {fileID: 1200649451}
   m_Layer: 0
   m_Name: ConveyorTrigger
   m_TagString: Untagged
@@ -6851,8 +6851,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5999999, y: 0.29972178, z: 8.048583}
-  m_Center: {x: 0, y: -0.00000011920929, z: 0}
+  m_Size: {x: 1.5999999, y: 0.46856344, z: 8.048583}
+  m_Center: {x: 0, y: 0.08442071, z: 4.665204e-10}
 --- !u!114 &1200649451
 MonoBehaviour:
   m_ObjectHideFlags: 0

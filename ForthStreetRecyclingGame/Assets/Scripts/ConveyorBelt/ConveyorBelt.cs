@@ -12,17 +12,8 @@ using UnityEngine;
 
 public class ConveyorBelt : MonoBehaviour
 {
-    [SerializeField] private float speed; // Speed of the conveyor belt
-    private float rotationModifier; //Speed up item rotation to match conveyor angle
-
-    /// <summary>
-    /// Set values for conveyor speed and rotation speed modifier
-    /// </summary>
-    private void Start()
-    {
-        speed = 1f;
-        rotationModifier = 10f;
-    }
+    [SerializeField] private float speed = 1f; // Speed of the conveyor belt
+    private float rotationModifier = 10f; //Speed up item rotation to match conveyor angle
 
     /// <summary>
     /// Active while gameobject is in trigger area                                          <br />
