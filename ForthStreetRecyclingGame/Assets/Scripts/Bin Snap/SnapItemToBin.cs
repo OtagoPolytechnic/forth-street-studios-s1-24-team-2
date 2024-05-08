@@ -12,6 +12,8 @@ public class SnapItemToBin : MonoBehaviour
     public GameObject heldItem;
     private DragObject dragObject; //script reference to the drag object
     private string binType;
+    [SerializeField] private GameObject minigameResult;
+    private MinigameResult minigameResultScript;
 
     /// <summary>
     /// Gets scripts and objects when the scene first loads
@@ -22,6 +24,7 @@ public class SnapItemToBin : MonoBehaviour
         wayPoint = transform.GetChild(0).gameObject.transform.position; //gets the first child of the bin
         wpYOffset = 0.75f; //offsets the item to the bin
         wayPoint.y += wpYOffset; //offsets the item to the bin
+        minigameResultScript = minigameResult.GetComponent<MinigameResult>();
     }
 
     /// <summary>
@@ -66,7 +69,7 @@ public class SnapItemToBin : MonoBehaviour
             case "Recycling":
                 Debug.Log("Recycling");
                 binType = "Recycling";
-                // Minigame
+                DropRecycling();
                 return;
             case "Rubbish":
                 Debug.Log("Rubbish");
@@ -78,6 +81,21 @@ public class SnapItemToBin : MonoBehaviour
                 binType = "Glass";
                 // Minigame
                 return;
+        }
+    }
+
+    private void DropRecycling()
+    {
+        heldItem.GetComponent<Rigidbody>().isKinematic = false;
+
+        if(minigameResultScript.GetHasWon() == true)
+        {
+            Destroy(heldItem);
+        }
+        else
+        {
+            heldItem.transform.position = wayPoint; //snaps the item to the bin
+            heldItem.transform.rotation = Quaternion.Euler(90,0,0);
         }
     }
 }
