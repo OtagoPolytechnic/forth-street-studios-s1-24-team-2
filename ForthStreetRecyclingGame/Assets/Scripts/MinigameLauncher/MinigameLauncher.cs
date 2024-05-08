@@ -16,6 +16,7 @@ public class MinigameLauncher : MonoBehaviour
     public RotateMonitor rotateMonitor; // Reference to the RotateMonitor script, should be assigned in the inspector
     private CameraSwitcher cameraSwitcher;  // Reference to the CameraSwitcher script
     public Minigame currentMinigame;   // Reference to the current minigame
+    private MinigameObjectManager minigameObjectManager;  // Reference to the MinigameObjectManager script
 
 
     #region Singleton
@@ -42,6 +43,7 @@ public class MinigameLauncher : MonoBehaviour
     /// </summary>
     void Start()
     {
+        minigameObjectManager = MinigameObjectManager.instance;
         cameraSwitcher = CameraSwitcher.instance;
         if (currentMinigame != null)
         {
@@ -62,6 +64,7 @@ public class MinigameLauncher : MonoBehaviour
             currentMinigame.minigameCamera.enabled = false;
         }
         currentMinigame = minigame;
+
         cameraSwitcher.MinigameCamera = currentMinigame.minigameCamera;
         currentMinigame.OnGameOver.AddListener(HandleGameOver);
     }
@@ -73,6 +76,7 @@ public class MinigameLauncher : MonoBehaviour
     public void LaunchMinigame()
     {
         if (currentMinigame == null) return;
+        minigameObjectManager.SetActive(currentMinigame, active:true);
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
@@ -104,7 +108,8 @@ public class MinigameLauncher : MonoBehaviour
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
-            currentMinigame.Reset
+            currentMinigame.Reset,
+            () => minigameObjectManager.SetActive(currentMinigame, active:false)
         };
         // Rotate monitor back to starting position
         rotateMonitor.RotateToStart(afterRotateCallbacks);
