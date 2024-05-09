@@ -94,8 +94,7 @@ public class SnapItemToBin : MonoBehaviour
     {
         heldItem.GetComponent<Rigidbody>().isKinematic = false;
 
-        minigameLauncher.SetMinigame(testGame);
-        minigameLauncher.LaunchMinigame();
+        minigameLauncher.LaunchMinigame(testGame);
 
         if(true)
         {
