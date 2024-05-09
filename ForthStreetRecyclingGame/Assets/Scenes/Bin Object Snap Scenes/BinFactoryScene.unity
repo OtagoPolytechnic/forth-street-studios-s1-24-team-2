@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18379004, g: 0.22837365, b: 0.2998833, a: 1}
+  m_IndirectSpecularColor: {r: 0.18378979, g: 0.22837308, b: 0.29988265, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -808,6 +808,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rubbish
       objectReference: {fileID: 0}
+    - target: {fileID: 3646820415266517381, guid: 17baa21908985024da0ad99820bcd470,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4028730029117124779, guid: 17baa21908985024da0ad99820bcd470,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1060,7 +1065,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 0}
-  minigameResult: {fileID: 0}
 --- !u!65 &140857149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4865,7 +4869,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 0}
-  minigameResult: {fileID: 0}
 --- !u!65 &783537939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5074,7 +5077,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 0}
-  minigameResult: {fileID: 0}
 --- !u!65 &797129816
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5180,7 +5182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 0}
-  minigameResult: {fileID: 843864140}
 --- !u!4 &800046405 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4028730029117124779, guid: 17baa21908985024da0ad99820bcd470,
@@ -6203,7 +6204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 0}
-  minigameResult: {fileID: 843864140}
 --- !u!4 &1004332602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2641793411238065463, guid: 24c5f77a96ef48d4d95a770fce23cc73,

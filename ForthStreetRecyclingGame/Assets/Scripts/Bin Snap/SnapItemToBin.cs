@@ -12,8 +12,8 @@ public class SnapItemToBin : MonoBehaviour
     public GameObject heldItem;
     private DragObject dragObject; //script reference to the drag object
     private string binType;
-    [SerializeField] private GameObject minigameResult;
-    private MinigameResult minigameResultScript;
+    //[SerializeField] private GameObject minigameResult;
+    //private MinigameResult minigameResultScript;
 
     /// <summary>
     /// Gets scripts and objects when the scene first loads
@@ -24,7 +24,7 @@ public class SnapItemToBin : MonoBehaviour
         wayPoint = transform.GetChild(0).gameObject.transform.position; //gets the first child of the bin
         wpYOffset = 0.75f; //offsets the item to the bin
         wayPoint.y += wpYOffset; //offsets the item to the bin
-        minigameResultScript = minigameResult.GetComponent<MinigameResult>();
+        //minigameResultScript = minigameResult.GetComponent<MinigameResult>();
     }
 
     /// <summary>
@@ -66,17 +66,17 @@ public class SnapItemToBin : MonoBehaviour
     {
         switch (binType)
         {
-            case "Recycling":
+            case "Recycling": // drops the recycling in the bin
                 Debug.Log("Recycling");
                 binType = "Recycling";
                 DropRecycling();
                 return;
-            case "Rubbish":
+            case "Rubbish": // whatever gets trashed is gone for good.
                 Debug.Log("Rubbish");
                 binType = "Rubbish";
                 Destroy(heldItem);
                 return;
-            case "Glass":
+            case "Glass": // same thing as recyling but without checking if its glass or not yet
                 Debug.Log("Glass");
                 binType = "Glass";
                 // Minigame
@@ -88,14 +88,7 @@ public class SnapItemToBin : MonoBehaviour
     {
         heldItem.GetComponent<Rigidbody>().isKinematic = false;
 
-        if(minigameResultScript.GetHasWon() == true)
-        {
-            Destroy(heldItem);
-        }
-        else
-        {
-            heldItem.transform.position = wayPoint; //snaps the item to the bin
-            heldItem.transform.rotation = Quaternion.Euler(90,0,0);
-        }
+        
+        // Start minigame
     }
 }
