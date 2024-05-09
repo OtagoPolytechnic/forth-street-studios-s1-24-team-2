@@ -12,8 +12,8 @@ public class SnapItemToBin : MonoBehaviour
     public GameObject heldItem;
     private DragObject dragObject; //script reference to the drag object
     private string binType;
-    [SerializeField] private GameObject minigameResult;
-    private MinigameResult minigameResultScript;
+    //[SerializeField] private GameObject minigameResult;
+    //private MinigameResult minigameResultScript;
 
     public MinigameLauncher minigameLauncher;
     private Minigame testGame;
@@ -84,17 +84,17 @@ public class SnapItemToBin : MonoBehaviour
     {
         switch (binType)
         {
-            case "Recycling":
+            case "Recycling": // drops the recycling in the bin
                 Debug.Log("Recycling");
                 binType = "Recycling";
                 DropRecycling();
                 return;
-            case "Rubbish":
+            case "Rubbish": // whatever gets trashed is gone for good.
                 Debug.Log("Rubbish");
                 binType = "Rubbish";
                 Destroy(heldItem);
                 return;
-            case "Glass":
+            case "Glass": // same thing as recyling but without checking if its glass or not yet
                 Debug.Log("Glass");
                 binType = "Glass";
                 // Minigame
@@ -118,5 +118,8 @@ public class SnapItemToBin : MonoBehaviour
             heldItem.transform.position = wayPoint; //snaps the item to the bin
             heldItem.transform.rotation = Quaternion.Euler(90, 0, 0);
         }
+        
+        // Start minigame
+
     }
 }
