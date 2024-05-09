@@ -31,7 +31,18 @@ public class SnapItemToBin : MonoBehaviour
 
         // find the minigame object has name TestMinigame
         testGame = GameObject.Find("TestMinigame").GetComponent<Minigame>();
-        
+
+        // subscribe to the OnGameOver event
+        minigameLauncher.minigameOver.AddListener(HandleGameOver);
+    }
+
+    /// <summary>
+    /// Handles the game over event
+    /// </summary>
+    private void HandleGameOver(bool success)
+    {
+        string message = success ? "You win!" : "You lose!";
+        Debug.Log(message);
     }
 
     /// <summary>
@@ -53,7 +64,7 @@ public class SnapItemToBin : MonoBehaviour
         if (dragObject.item == null) return; //if the item is null, return (do nothing)
         heldItem = dragObject.item; //gets the item from the drag object
         heldItem.transform.position = wayPoint; //snaps the item to the bin
-        heldItem.transform.rotation = Quaternion.Euler(90,0,0); //rotates the item to the bin
+        heldItem.transform.rotation = Quaternion.Euler(90, 0, 0); //rotates the item to the bin
         binType = gameObject.name;
     }
 
@@ -98,14 +109,14 @@ public class SnapItemToBin : MonoBehaviour
         //  set the minigame as current minigame and launch it
         minigameLauncher.LaunchMinigame(testGame);
 
-        if(true)
+        if (true)
         {
             Destroy(heldItem);
         }
         else
         {
             heldItem.transform.position = wayPoint; //snaps the item to the bin
-            heldItem.transform.rotation = Quaternion.Euler(90,0,0);
+            heldItem.transform.rotation = Quaternion.Euler(90, 0, 0);
         }
     }
 }

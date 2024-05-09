@@ -7,6 +7,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// This class is used to launch the minigame and return to the main scene after the minigame is completed.
@@ -16,6 +17,7 @@ public class MinigameLauncher : MonoBehaviour
     public RotateMonitor rotateMonitor; // Reference to the RotateMonitor script, should be assigned in the inspector
     private CameraSwitcher cameraSwitcher;  // Reference to the CameraSwitcher script
     public Minigame currentMinigame;   // Reference to the current minigame
+    public UnityEvent<bool> minigameOver;    // Event that is fired when the minigame is over
 
 
     #region Singleton
@@ -111,7 +113,9 @@ public class MinigameLauncher : MonoBehaviour
         {
             currentMinigame.Reset,
             // set the current minigame to null so it doesn't mess with the DragObject script
-            () => SetMinigame(null)
+            () => SetMinigame(null),
+            // fire an event with the success bool after the monitor has rotated
+            () => minigameOver.Invoke(success)
         };
         // Rotate monitor back to starting position
         rotateMonitor.RotateToStart(afterRotateCallbacks);
