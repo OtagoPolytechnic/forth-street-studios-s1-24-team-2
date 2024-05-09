@@ -5,7 +5,7 @@ using UnityEngine;
 public class DragObject : MonoBehaviour
 {
     public GameObject item;
-    private GameObject cam;
+    public GameObject cam;
     private float speed;
     private float force;
     private bool pickedUp;
@@ -17,7 +17,7 @@ public class DragObject : MonoBehaviour
     {
         speed = 30f;
         //force = 300; // used in Throw()
-        cam = Camera.main.gameObject;
+        // cam = Camera.main.gameObject;
         targetPos = new Vector3(cam.transform.position.x + 1.5f, cam.transform.position.y - 1f, cam.transform.position.z + 2.5f); //offset to the camera in a conventional gaming "held" position
     }
 

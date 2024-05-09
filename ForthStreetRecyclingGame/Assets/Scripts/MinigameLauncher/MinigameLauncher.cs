@@ -112,8 +112,8 @@ public class MinigameLauncher : MonoBehaviour
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
             currentMinigame.Reset,
-            // set the current minigame to null so it doesn't mess with the DragObject script
-            () => SetMinigame(null),
+            // Disable the minigame camera so it doesn't mess up the DragObject script
+            cameraSwitcher.DisableMinigameCamera,
             // fire an event with the success bool after the monitor has rotated
             () => minigameOver.Invoke(success)
         };

@@ -74,4 +74,12 @@ public class CameraSwitcher : MonoBehaviour
         minigameCamera.targetTexture = minigameOutputTexture;
         mainCamera.enabled = true;
     }
+
+    /// <summary>
+    /// Turn off the minigame camera
+    /// </summary>
+    public void DisableMinigameCamera()
+    {
+        minigameCamera.enabled = false;
+    }
 }
