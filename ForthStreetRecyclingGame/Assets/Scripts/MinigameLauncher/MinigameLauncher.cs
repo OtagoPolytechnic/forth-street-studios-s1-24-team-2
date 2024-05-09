@@ -80,6 +80,7 @@ public class MinigameLauncher : MonoBehaviour
     public void LaunchMinigame()
     {
         if (currentMinigame == null) return;
+        cameraSwitcher.EnableMinigameCamera(isEnabled: true);
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
@@ -113,7 +114,7 @@ public class MinigameLauncher : MonoBehaviour
         {
             currentMinigame.Reset,
             // Disable the minigame camera so it doesn't mess up the DragObject script
-            cameraSwitcher.DisableMinigameCamera,
+            () => cameraSwitcher.EnableMinigameCamera(isEnabled: false),
             // fire an event with the success bool after the monitor has rotated
             () => minigameOver.Invoke(success)
         };

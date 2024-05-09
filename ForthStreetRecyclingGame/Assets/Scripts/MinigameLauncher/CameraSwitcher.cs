@@ -29,8 +29,6 @@ public class CameraSwitcher : MonoBehaviour
             minigameCamera = value;
             if (minigameCamera != null)
             {
-                // enable the minigame camera
-                minigameCamera.enabled = true;
                 minigameCamera.targetTexture = minigameOutputTexture;
             }
         }
@@ -78,8 +76,8 @@ public class CameraSwitcher : MonoBehaviour
     /// <summary>
     /// Turn off the minigame camera
     /// </summary>
-    public void DisableMinigameCamera()
+    public void EnableMinigameCamera(bool isEnabled = true)
     {
-        minigameCamera.enabled = false;
+        minigameCamera.enabled = isEnabled;
     }
 }
