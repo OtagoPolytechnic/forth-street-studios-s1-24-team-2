@@ -110,6 +110,7 @@ public class MinigameLauncher : MonoBehaviour
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
             currentMinigame.Reset,
+            // set the current minigame to null so it doesn't mess with the DragObject script
             () => SetMinigame(null)
         };
         // Rotate monitor back to starting position

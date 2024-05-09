@@ -28,6 +28,7 @@ public class SnapItemToBin : MonoBehaviour
         wpYOffset = 0.75f; //offsets the item to the bin
         wayPoint.y += wpYOffset; //offsets the item to the bin
         //minigameResultScript = minigameResult.GetComponent<MinigameResult>();
+
         // find the minigame object has name TestMinigame
         testGame = GameObject.Find("TestMinigame").GetComponent<Minigame>();
         
@@ -94,6 +95,7 @@ public class SnapItemToBin : MonoBehaviour
     {
         heldItem.GetComponent<Rigidbody>().isKinematic = false;
 
+        //  set the minigame as current minigame and launch it
         minigameLauncher.LaunchMinigame(testGame);
 
         if(true)
