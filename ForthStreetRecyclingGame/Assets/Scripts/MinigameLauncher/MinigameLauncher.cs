@@ -56,6 +56,11 @@ public class MinigameLauncher : MonoBehaviour
     /// <param name="minigame">The minigame to be set as the current minigame</param>
     public void SetMinigame(Minigame minigame)
     {
+        if (minigame == null)
+        {
+            currentMinigame = null;
+            return;
+        }
         // disable minigame camera
         if (currentMinigame != null)
         {
@@ -104,7 +109,8 @@ public class MinigameLauncher : MonoBehaviour
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
-            currentMinigame.Reset
+            currentMinigame.Reset,
+            () => SetMinigame(null)
         };
         // Rotate monitor back to starting position
         rotateMonitor.RotateToStart(afterRotateCallbacks);

@@ -15,6 +15,9 @@ public class SnapItemToBin : MonoBehaviour
     [SerializeField] private GameObject minigameResult;
     private MinigameResult minigameResultScript;
 
+    public MinigameLauncher minigameLauncher;
+    private Minigame testGame;
+
     /// <summary>
     /// Gets scripts and objects when the scene first loads
     /// </summary>
@@ -24,7 +27,10 @@ public class SnapItemToBin : MonoBehaviour
         wayPoint = transform.GetChild(0).gameObject.transform.position; //gets the first child of the bin
         wpYOffset = 0.75f; //offsets the item to the bin
         wayPoint.y += wpYOffset; //offsets the item to the bin
-        minigameResultScript = minigameResult.GetComponent<MinigameResult>();
+        //minigameResultScript = minigameResult.GetComponent<MinigameResult>();
+        // find the minigame object has name TestMinigame
+        testGame = GameObject.Find("TestMinigame").GetComponent<Minigame>();
+        
     }
 
     /// <summary>
@@ -88,7 +94,10 @@ public class SnapItemToBin : MonoBehaviour
     {
         heldItem.GetComponent<Rigidbody>().isKinematic = false;
 
-        if(minigameResultScript.GetHasWon() == true)
+        minigameLauncher.SetMinigame(testGame);
+        minigameLauncher.LaunchMinigame();
+
+        if(true)
         {
             Destroy(heldItem);
         }
