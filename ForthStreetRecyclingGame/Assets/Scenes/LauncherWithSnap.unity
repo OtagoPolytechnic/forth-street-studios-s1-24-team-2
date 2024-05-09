@@ -185,7 +185,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateMonitor: {fileID: 2072372223}
-  currentMinigame: {fileID: 0}
+  currentMinigame: {fileID: 1507102562}
+  minigameOver:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &43846607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,6 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  cam: {fileID: 522175722}
   targetPos: {x: 0, y: 0, z: 0}
 --- !u!4 &1236841837
 Transform:
@@ -1200,7 +1204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 0}
-  minigameResult: {fileID: 0}
   minigameLauncher: {fileID: 43846606}
 --- !u!4 &1481529186 stripped
 Transform:
@@ -1208,6 +1211,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 539354542}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1507102562 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8006700607964471269, guid: 8b7c1b8c911fb40219621b386e58461f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1782847085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ff0b3fa8a6545c7befd5180cb9acbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1528077531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1589,6 +1604,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7682380859757321870, guid: 8b7c1b8c911fb40219621b386e58461f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8342071280393869742, guid: 8b7c1b8c911fb40219621b386e58461f,
         type: 3}
       propertyPath: m_Layer
@@ -1788,7 +1808,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072372221}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1796,7 +1816,7 @@ Transform:
   - {fileID: 2925444054082703300}
   - {fileID: 5550762681156444000}
   m_Father: {fileID: 1937253100839824378}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!114 &2072372223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10235,6 +10255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  cam: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
 --- !u!4 &4199802506660598225
 Transform:
