@@ -17,6 +17,7 @@ public class MinigameSelector : MonoBehaviour
 {
     [SerializeField] private GameObject minigameTogglePrefab; // The prefab for the radio button
     private MinigameLauncher minigameLauncher;
+    private MinigameObjectManager minigameObjectManager;
     private List<Minigame> minigames = new List<Minigame>();
     private List<Toggle> toggles = new List<Toggle>();
 
@@ -26,6 +27,7 @@ public class MinigameSelector : MonoBehaviour
     void Start()
     {
         minigameLauncher = MinigameLauncher.instance;
+        minigameObjectManager = MinigameObjectManager.instance;
         ToggleGroup toggleGroup = GetComponent<ToggleGroup>();
         // Find all the minigames in the scene
         minigames.AddRange(FindObjectsOfType<Minigame>());
@@ -57,6 +59,8 @@ public class MinigameSelector : MonoBehaviour
 
             // Add the toggle to the list of toggles
             toggles.Add(toggle);
+
+            minigameObjectManager.SetActive(minigame, false);
         }
     }
 }
