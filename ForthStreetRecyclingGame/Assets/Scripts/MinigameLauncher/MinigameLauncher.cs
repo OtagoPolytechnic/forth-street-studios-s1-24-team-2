@@ -7,6 +7,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// This class is used to launch the minigame and return to the main scene after the minigame is completed.
@@ -16,6 +17,7 @@ public class MinigameLauncher : MonoBehaviour
     public RotateMonitor rotateMonitor; // Reference to the RotateMonitor script, should be assigned in the inspector
     private CameraSwitcher cameraSwitcher;  // Reference to the CameraSwitcher script
     public Minigame currentMinigame;   // Reference to the current minigame
+    public UnityEvent<bool> minigameOver;    // Event that is fired when the minigame is over
 
 
     #region Singleton
@@ -56,6 +58,11 @@ public class MinigameLauncher : MonoBehaviour
     /// <param name="minigame">The minigame to be set as the current minigame</param>
     public void SetMinigame(Minigame minigame)
     {
+        if (minigame == null)
+        {
+            currentMinigame = null;
+            return;
+        }
         // disable minigame camera
         if (currentMinigame != null)
         {
@@ -73,6 +80,7 @@ public class MinigameLauncher : MonoBehaviour
     public void LaunchMinigame()
     {
         if (currentMinigame == null) return;
+        cameraSwitcher.EnableMinigameCamera(isEnabled: true);
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
@@ -104,7 +112,11 @@ public class MinigameLauncher : MonoBehaviour
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
-            currentMinigame.Reset
+            currentMinigame.Reset,
+            // Disable the minigame camera so it doesn't mess up the DragObject script
+            () => cameraSwitcher.EnableMinigameCamera(isEnabled: false),
+            // fire an event with the success bool after the monitor has rotated
+            () => minigameOver.Invoke(success)
         };
         // Rotate monitor back to starting position
         rotateMonitor.RotateToStart(afterRotateCallbacks);

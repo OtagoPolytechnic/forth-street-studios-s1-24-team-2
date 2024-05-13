@@ -5,7 +5,7 @@ using UnityEngine;
 public class DragObject : MonoBehaviour
 {
     public GameObject item;
-    private GameObject cam;
+    public GameObject cam;
     private float speed;
     private float force;
     private bool pickedUp;
@@ -16,7 +16,7 @@ public class DragObject : MonoBehaviour
     void Start()
     {
         speed = 30f;
-        //force = 300; // used in Throw()
+        force = 300; // used in Throw()
         cam = Camera.main.gameObject;
         targetPos = new Vector3(cam.transform.position.x + 1.5f, cam.transform.position.y - 1f, cam.transform.position.z + 2.5f); //offset to the camera in a conventional gaming "held" position
     }
@@ -29,10 +29,10 @@ public class DragObject : MonoBehaviour
             {
                 PickUpItem();
             }
-            // else if (pickedUp == true) //if there's already an item in the player's hand, throw it
-            // {
-            //     Throw();
-            // }
+            else if (pickedUp == true) //if there's already an item in the player's hand, throw it
+            {
+                Throw();
+            }
         }
     }
 
@@ -64,15 +64,15 @@ public class DragObject : MonoBehaviour
     }
 
     //Used for swapping two items - chucks it back on the conveyer
-    // private void Throw()
-    // {
-    //     if (Input.GetMouseButtonDown(0))
-    //     {
-    //         item.transform.position = new Vector3(0, item.transform.position.y, item.transform.position.z); //moves xpos back to 0 so it gets thrown into the centre
-    //         item.GetComponent<Rigidbody>().isKinematic = false; //unfreezes item for gravity
-    //         item.GetComponent<Rigidbody>().AddForce(cam.transform.forward * force); //adds force to the item
-    //         pickedUp = false; //resets the bool so another item can be picked up
-    //         PickUpItem(); //picks up the next item
-    //     }
-    // }
+    private void Throw()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            item.transform.position = new Vector3(cam.transform.position.x, item.transform.position.y, item.transform.position.z); //moves xpos back to 0 so it gets thrown into the centre
+            item.GetComponent<Rigidbody>().isKinematic = false; //unfreezes item for gravity
+            item.GetComponent<Rigidbody>().AddForce(cam.transform.forward * force); //adds force to the item
+            pickedUp = false; //resets the bool so another item can be picked up
+            PickUpItem(); //picks up the next item
+        }
+    }
 }
