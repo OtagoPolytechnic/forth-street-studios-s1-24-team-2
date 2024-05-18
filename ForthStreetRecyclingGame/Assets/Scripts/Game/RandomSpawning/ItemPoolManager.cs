@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ItemPoolManager : MonoBehaviour
 {
-    [SerializeField] private static ItemPoolManager Instance;
+    [SerializeField] public static ItemPoolManager Instance;
     [SerializeField] private List<GameObject> recycleItemPrefabs;
     [SerializeField] private List<GameObject> rubbishItemPrefabs;
 
-    private List<GameObject> recycleObjectPool;
-    private List<GameObject> rubbishObjectsPool;
+    [HideInInspector] public List<GameObject> recycleObjectPool; // Used in ItemSpawner script
+    [HideInInspector] public List<GameObject> rubbishObjectsPool;
     private int poolSize = 20;
 
     void Awake()
