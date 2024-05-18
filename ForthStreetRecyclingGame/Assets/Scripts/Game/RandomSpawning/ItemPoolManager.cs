@@ -12,14 +12,14 @@ using UnityEngine;
 
 public class ItemPoolManager : MonoBehaviour
 {
-    //Instance of manager for global access
+    [Header("ItemPoolManager Instance")] 
     [SerializeField] public static ItemPoolManager Instance;
 
-    //Parent objects in scene to tidy heirarchy of pooled objects
+    [Header("Spawned Items Parent Objects")] //Parent objects in scene to tidy heirarchy of pooled objects
     [SerializeField] private Transform recycleParent;
     [SerializeField] private Transform rubbishParent;
 
-    // Lists of prefabs for gameplay items (Rubbish/Recycle)
+    [Header("Rubbish/Recycle prefabs")] // Lists of prefabs for gameplay items
     [SerializeField] private List<GameObject> recycleItemPrefabs; 
     [SerializeField] private List<GameObject> rubbishItemPrefabs;
 

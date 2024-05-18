@@ -24,6 +24,8 @@ public class ItemSpawner : MonoBehaviour
     [Header("Item Spawn Variables")]
     private float timer; // Timer to track elapsed time since last item spawn
     private int itemsSpawned; //Count of spawned items
+
+    [Header("Minigame Status")]
     public bool minigame; //Check if minigame is loaded for spawning any new items (Updates in MinigameLauncher.cs)
 
     /// <summary>
