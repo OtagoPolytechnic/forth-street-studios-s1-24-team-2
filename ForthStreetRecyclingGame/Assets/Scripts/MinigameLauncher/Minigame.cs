@@ -35,7 +35,7 @@ public abstract class Minigame : MonoBehaviour
     /// </summary>
     public virtual void MinigameBegin() 
     { 
-        gameStarted = true;
+        gameStarted = true; 
     }
 
     protected IEnumerator WaitThenGameOver()
