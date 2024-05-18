@@ -1,6 +1,8 @@
 /*
  *    File: ConveyorManager.cs
  * Purpose: Handles updating of speeds for ConveyorBelt triggers in scene
+ *          Pauses objects from moving on minigame load
+ *          Objects move again after minigame has ended
  *  Author: Devon
  */
 
@@ -12,7 +14,7 @@ public class ConveyorManager : MonoBehaviour
     [SerializeField] private ConveyorBelt closeConveyor;
     [SerializeField] private float farSpeed = 1f;
     [SerializeField] private float closeSpeed = 1f;
-    public bool minigame = false; //accessed by gamemanager on minigame load
+    public bool minigame = false; //accessed by MinigameLauncher on minigame load/gameover
 
     /// <summary>
     /// Updates the speed of both conveyors depending if minigame is loaded
