@@ -1,40 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ *    File: ConveyorManager.cs
+ * Purpose: Handles updating of speeds for ConveyorBelt triggers in scene
+ *  Author: Devon
+ */
+
 using UnityEngine;
 
 public class ConveyorManager : MonoBehaviour
 {
-    public ConveyorBelt far;
-    public ConveyorBelt close;
-    public int farSpeed;
-    public int closeSpeed;
-    public bool loadingGame;
+    [SerializeField] private ConveyorBelt farConveyor;
+    [SerializeField] private ConveyorBelt closeConveyor;
+    [SerializeField] private int farSpeed = 1;
+    [SerializeField] private int closeSpeed = 1;
+    public bool minigame = false; //accessed by gamemanager on minigame load
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Sets initial values for the conveyor speeds
+    /// </summary>
+    private void Start()
     {
-        loadingGame = false;
-        farSpeed = 1;
-        closeSpeed = 1;
+        farConveyor.speed = farSpeed;
+        closeConveyor.speed = closeSpeed;
     }
-
-    // Update is called once per frame
-    private void Update()
+    /// <summary>
+    /// Controls the start/stop of conveyor belts on minigame load
+    /// </summary>
+    public void UpdateConveyorSpeeds()
     {
-        UpdateConveyorSpeeds();
-    }
-
-    private void UpdateConveyorSpeeds()
-    {
-        if (!loadingGame) //Main game is loaded
+        if (!minigame) //Main game is loaded
         {
-            far.speed = farSpeed;
-            close.speed = closeSpeed;
+            farConveyor.speed = farSpeed;
+            closeConveyor.speed = closeSpeed;
         }
-        else //Minigame is loaded
+        else // Stop conveyors whle minigame is active
         {
-            far.speed = 0;
-            close.speed = 0;
+            farConveyor.speed = 0;
+            closeConveyor.speed = 0;
         }
     }
 }
