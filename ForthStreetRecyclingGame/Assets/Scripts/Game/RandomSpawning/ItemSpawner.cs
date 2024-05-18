@@ -1,6 +1,13 @@
+/*
+ *    File: 
+ * Purpose: 
+ *  Author: Devon
+ *  
+ *  Contributions: Help from CHATGPT for getting random spawn positions within the trigger collider area
+ */
+
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour

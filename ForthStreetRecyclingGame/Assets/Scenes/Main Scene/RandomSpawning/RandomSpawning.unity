@@ -1285,8 +1285,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.24, y: 1.7910624, z: 2.8959427}
-  m_Center: {x: 0, y: 0.39553118, z: -0.94797134}
+  m_Size: {x: 2.84025, y: 1.7910624, z: 2.537794}
+  m_Center: {x: -0.115288734, y: 0.39553118, z: -1.1270456}
 --- !u!1 &1007914846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,6 +1448,10 @@ MonoBehaviour:
   rubbishItemPrefabs:
   - {fileID: 3228048029606434045, guid: 775989dcf9e9b2c489e9c2d565b68dcd, type: 3}
   - {fileID: 3228048029606434045, guid: b07d68b8fca53744897edb7ff062ce53, type: 3}
+  - {fileID: 3228048029606434045, guid: 6b67dd1cc82b3124a85ea9d364b12f55, type: 3}
+  - {fileID: 3228048029606434045, guid: 51638fc7a3c80ab4490f2e01ad0fc977, type: 3}
+  - {fileID: 2514786647049914326, guid: 26fc0498ecfdb9c4599163a054836f8f, type: 3}
+  - {fileID: 2833900470267754222, guid: 91862eeb22d1e3c449af7d0da8f19c1d, type: 3}
   recycleObjectPool: []
   rubbishObjectsPool: []
 --- !u!114 &1318619137
