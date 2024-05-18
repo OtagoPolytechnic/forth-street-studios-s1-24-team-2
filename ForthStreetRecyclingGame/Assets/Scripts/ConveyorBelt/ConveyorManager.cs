@@ -10,18 +10,18 @@ public class ConveyorManager : MonoBehaviour
 {
     [SerializeField] private ConveyorBelt farConveyor;
     [SerializeField] private ConveyorBelt closeConveyor;
-    [SerializeField] private int farSpeed = 1;
-    [SerializeField] private int closeSpeed = 1;
+    [SerializeField] private float farSpeed = 1f;
+    [SerializeField] private float closeSpeed = 1f;
     public bool minigame = false; //accessed by gamemanager on minigame load
 
     /// <summary>
-    /// Sets initial values for the conveyor speeds
+    /// Updates the speed of both conveyors depending if minigame is loaded
     /// </summary>
-    private void Start()
+    private void Update()
     {
-        farConveyor.speed = farSpeed;
-        closeConveyor.speed = closeSpeed;
+        UpdateConveyorSpeeds();
     }
+
     /// <summary>
     /// Controls the start/stop of conveyor belts on minigame load
     /// </summary>
