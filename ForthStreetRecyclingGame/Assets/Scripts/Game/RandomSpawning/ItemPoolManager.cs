@@ -13,7 +13,11 @@ using UnityEngine;
 public class ItemPoolManager : MonoBehaviour
 {
     //Instance of manager for global access
-    [SerializeField] public static ItemPoolManager Instance; 
+    [SerializeField] public static ItemPoolManager Instance;
+
+    //Parent objects in scene to tidy heirarchy of pooled objects
+    [SerializeField] private Transform recycleParent;
+    [SerializeField] private Transform rubbishParent;
 
     // Lists of prefabs for gameplay items (Rubbish/Recycle)
     [SerializeField] private List<GameObject> recycleItemPrefabs; 
@@ -42,8 +46,8 @@ public class ItemPoolManager : MonoBehaviour
         recycleObjectPool = new List<GameObject>();
         rubbishObjectsPool = new List<GameObject>();
 
-        InstantiateObjects(recycleObjectPool, recycleItemPrefabs);
-        InstantiateObjects(rubbishObjectsPool, rubbishItemPrefabs);
+        InstantiateObjects(recycleObjectPool, recycleItemPrefabs, recycleParent);
+        InstantiateObjects(rubbishObjectsPool, rubbishItemPrefabs, rubbishParent);
     }
 
     /// <summary>
@@ -51,7 +55,8 @@ public class ItemPoolManager : MonoBehaviour
     /// </summary>
     /// <param name="pool">Object pool being populated</param>
     /// <param name="itemPrefabs">List containing prefabs for recycle/rubbish game objects</param>
-    void InstantiateObjects(List<GameObject> pool, List<GameObject> itemPrefabs)
+    /// <param name="parent">Parent object for the spawned objects</param>
+    void InstantiateObjects(List<GameObject> pool, List<GameObject> itemPrefabs, Transform parent)
     {
         //Limit the max number of any given item spawning to below the pool size max
         //poolSizeMax = 20; itemPrefabs = 4; 5 of each item will be instantiated
@@ -62,7 +67,7 @@ public class ItemPoolManager : MonoBehaviour
         {
             for (int i = 0; i < maxSpawnCount; i++) //Limit number of items that will spawn for each prefab
             {
-                GameObject obj = Instantiate(itemPrefab);
+                GameObject obj = Instantiate(itemPrefab, parent); //Instantiate object as child of specified parent object
                 obj.SetActive(false); //Hide object until 'spawned' during gameplay
                 pool.Add(obj);
             }

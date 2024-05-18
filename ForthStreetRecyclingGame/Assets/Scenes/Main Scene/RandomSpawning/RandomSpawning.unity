@@ -187,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateMonitor: {fileID: 2072372223}
   currentMinigame: {fileID: 0}
+  itemSpawner: {fileID: 1318619137}
 --- !u!114 &43846607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,6 +1037,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1891306171314893037, guid: 7a0c5bbb0dea70e4ab51371bb16a2cc1, type: 3}
+--- !u!1 &777729291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777729292}
+  m_Layer: 0
+  m_Name: Pooled Rubbish Items
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &777729292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777729291}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 871806135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &782598622 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1737907355935523473, guid: 4c017a2830f7844b8a22c5dd3205c3c6,
@@ -1052,6 +1084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 870139948}
   - component: {fileID: 870139949}
+  - component: {fileID: 870139950}
   m_Layer: 0
   m_Name: Despawn Area
   m_TagString: Untagged
@@ -1095,6 +1128,51 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10.35, y: 3.01, z: 10.65}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &870139950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870139947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7330c83c8e1b341aa284a2693461dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &871806134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 871806135}
+  m_Layer: 0
+  m_Name: Spawned Items
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &871806135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871806134}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1439334238}
+  - {fileID: 777729292}
+  m_Father: {fileID: 1007914847}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &923921653 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3646833726908719409, guid: 4c017a2830f7844b8a22c5dd3205c3c6,
@@ -1319,6 +1397,7 @@ Transform:
   - {fileID: 998468410}
   - {fileID: 870139948}
   - {fileID: 1318619135}
+  - {fileID: 871806135}
   m_Father: {fileID: 413453240}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1147400401 stripped
@@ -1440,6 +1519,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9feef197f9c8b9b40b7c6c89d549da99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recycleParent: {fileID: 1439334238}
+  rubbishParent: {fileID: 777729292}
   recycleItemPrefabs:
   - {fileID: 8348428919169607743, guid: 94419b33843dcbe4a83fc9fd4d5f5916, type: 3}
   - {fileID: 4090003430950003300, guid: 648e706f3c626cb4a9e90cfd5a6f8b2f, type: 3}
@@ -1466,10 +1547,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58417c44e24fdb4898bf4949dec57dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnArea: {fileID: 998468410}
+  spawnArea: {fileID: 998468411}
   spawnInterval: 2
   spawnIntervalDecrease: 0
   minSpawnInterval: 0.5
+  currentSpawnInterval: 0
+  minigame: 0
 --- !u!1 &1324626925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,6 +1641,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba889683f9270f74a95ba9708777eaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1439334237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1439334238}
+  m_Layer: 0
+  m_Name: Pooled Recycle Items
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1439334238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439334237}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 871806135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1457070558 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1765823609069644274, guid: 8b7c1b8c911fb40219621b386e58461f,
