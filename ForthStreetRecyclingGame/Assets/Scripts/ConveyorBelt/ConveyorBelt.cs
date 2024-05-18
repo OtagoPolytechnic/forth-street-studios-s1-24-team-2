@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class ConveyorBelt : MonoBehaviour
 {
-    [SerializeField] private float speed = 1f; // Speed of the conveyor belt
+    [SerializeField] public float speed = 1f; // Speed of the conveyor belt
     private float rotationModifier = 10f; //Speed up item rotation to match conveyor angle
 
     /// <summary>
