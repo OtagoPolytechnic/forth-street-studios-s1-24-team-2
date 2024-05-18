@@ -27,7 +27,7 @@ public class ConveyorManager : MonoBehaviour
     /// <summary>
     /// Controls the start/stop of conveyor belts on minigame load
     /// </summary>
-    public void UpdateConveyorSpeeds()
+    private void UpdateConveyorSpeeds()
     {
         if (!minigame) //Main game is loaded
         {
