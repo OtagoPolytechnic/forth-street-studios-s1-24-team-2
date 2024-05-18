@@ -2180,8 +2180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   farConveyor: {fileID: 987310613}
   closeConveyor: {fileID: 914685582}
-  farSpeed: 2
-  closeSpeed: 2
+  farSpeed: 1
+  closeSpeed: 1
   minigame: 0
 --- !u!4 &1479243319
 Transform:
