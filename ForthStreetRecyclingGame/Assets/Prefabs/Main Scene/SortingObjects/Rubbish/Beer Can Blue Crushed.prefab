@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2048879064522918763}
   - component: {fileID: 9103723741486337188}
   - component: {fileID: 341048978338455826}
-  - component: {fileID: -1165470902503001234}
+  - component: {fileID: 629180162238035028}
   m_Layer: 0
   m_Name: Beer Can Blue Crushed
   m_TagString: Rubbish
@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -95,7 +95,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -110,10 +110,10 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 2
---- !u!64 &-1165470902503001234
-MeshCollider:
+--- !u!136 &629180162238035028
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -130,7 +130,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5562083983133097547, guid: 6ee79a39487f7bb4abefb33640b1f96a, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.11
+  m_Height: 0.41
+  m_Direction: 2
+  m_Center: {x: -0.020970477, y: -0.006639283, z: -0.11152668}

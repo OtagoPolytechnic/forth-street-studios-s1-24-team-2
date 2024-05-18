@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,13 +44,22 @@ public class ItemPoolManager : MonoBehaviour
 
     public GameObject GetPooledObject(List<GameObject> pool)
     {
+        List<GameObject> inactiveObjects = new List<GameObject>();
+
         foreach (GameObject obj in pool)
         {
             if (!obj.activeInHierarchy)
             {
-                return obj;
+                inactiveObjects.Add(obj);
             }
         }
+
+        if (inactiveObjects.Count > 0)
+        {
+            int randomIndex = Random.Range(0, inactiveObjects.Count);
+            return inactiveObjects[randomIndex];
+        }
+
         return null;
     }
 }

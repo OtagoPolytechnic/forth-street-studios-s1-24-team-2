@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7475223831851880366}
   - component: {fileID: 2931634629732392568}
   - component: {fileID: 4719012756432127783}
-  - component: {fileID: -240722473239864958}
+  - component: {fileID: 4182464769988131311}
   m_Layer: 0
   m_Name: Apple Core Red
   m_TagString: Rubbish
@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.3420201, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 40, z: 0}
@@ -112,8 +112,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!64 &-240722473239864958
-MeshCollider:
+--- !u!136 &4182464769988131311
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -130,7 +130,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3025920112829731756, guid: 6ee79a39487f7bb4abefb33640b1f96a, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.08
+  m_Height: 0.27
+  m_Direction: 2
+  m_Center: {x: 0.0015191927, y: -0.0037208386, z: 0.019082293}

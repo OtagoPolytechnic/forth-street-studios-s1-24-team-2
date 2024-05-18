@@ -6,9 +6,9 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     public Transform spawnArea;
-    public float spawnInterval = 2.0f;
-    public float spawnIntervalDecrease = 0.1f;
-    public float minSpawnInterval = 0.5f;
+    public float spawnInterval = 5.0f;
+    public float spawnIntervalDecrease = 0.02f;
+    public float minSpawnInterval = 1.5f;
 
     private float currentSpawnTime;
     private float timer;
@@ -16,7 +16,7 @@ public class ItemSpawner : MonoBehaviour
     void Start()
     {
         currentSpawnTime = spawnInterval;
-        timer = 0.0f;
+        timer = 0f;
     }
 
     void Update()
@@ -37,12 +37,7 @@ public class ItemSpawner : MonoBehaviour
 
         if (item != null)
         {
-            Vector3 spawnPosition = new Vector3(
-                Random.Range(spawnArea.position.x - spawnArea.localScale.x / 2, spawnArea.position.x + spawnArea.localScale.x / 2),
-                spawnArea.position.y,
-                Random.Range(spawnArea.position.z - spawnArea.localScale.z / 2, spawnArea.position.z + spawnArea.localScale.z / 2)
-            );
-
+            Vector3 spawnPosition = GetRandomSpawnPosition();
             Quaternion spawnRotation = Quaternion.Euler(
                 Random.Range(0, 360),
                 Random.Range(0, 360),
@@ -63,5 +58,33 @@ public class ItemSpawner : MonoBehaviour
             ItemPoolManager.Instance.rubbishObjectsPool;
 
         return selectedPool;
+    }
+
+    Vector3 GetRandomSpawnPosition()
+    {
+        // Get a random point within the spawn area
+        Vector3 randomPoint = new Vector3(
+            Random.Range(spawnArea.position.x - spawnArea.localScale.x / 2, spawnArea.position.x + spawnArea.localScale.x / 2),
+            spawnArea.position.y,
+            Random.Range(spawnArea.position.z - spawnArea.localScale.z / 2, spawnArea.position.z + spawnArea.localScale.z / 2)
+        );
+
+        // Ensure the random point is within the spawn area's collider bounds
+        Collider spawnCollider = spawnArea.GetComponent<Collider>();
+        if (spawnCollider != null)
+        {
+            randomPoint = RandomPointInBounds(spawnCollider.bounds);
+        }
+
+        return randomPoint;
+    }
+
+    Vector3 RandomPointInBounds(Bounds bounds)
+    {
+        return new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y),
+            Random.Range(bounds.min.z, bounds.max.z)
+        );
     }
 }
