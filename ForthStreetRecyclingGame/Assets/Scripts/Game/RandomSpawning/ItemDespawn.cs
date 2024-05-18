@@ -1,17 +1,15 @@
 /*
  *    File: ItemDespawn.cs
- * Purpose: Used to set all triggered gameobjects at the end of the conveyor back to inactive
- *          Allows for objects to be spawned again from inactive object pool
+ * Purpose: Sets spawned objects back to inactive
+ *          Allows for objects to be respawned from inactive items pool
  *  Author: Devon
- *  
- *  Contributions: Help from CHATGPT for getting random spawn positions within the trigger collider area
  */
 
 using UnityEngine;
 
 public class ItemDespawn : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other) //Recycle or rubbish collider
     {
         other.gameObject.SetActive(false);
     }
