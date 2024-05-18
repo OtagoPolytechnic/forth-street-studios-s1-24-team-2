@@ -21,10 +21,10 @@ public class ConveyorManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        StartCoroutine(RunConveyors());
+        UpdateConveyorSpeeds();
     }
 
-    private IEnumerator RunConveyors()
+    private void UpdateConveyorSpeeds()
     {
         if (!loadingGame) //Main game is loaded
         {
@@ -36,6 +36,5 @@ public class ConveyorManager : MonoBehaviour
             far.speed = 0;
             close.speed = 0;
         }
-        return null;
     }
 }
