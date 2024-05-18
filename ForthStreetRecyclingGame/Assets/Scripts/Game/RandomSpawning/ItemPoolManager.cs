@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,15 +13,18 @@ public class ItemPoolManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        InitializePool();
+        InitialisePool();
     }
 
-    void InitializePool()
+    void InitialisePool()
     {
         objectPool = new List<GameObject>();
+        int maxOfItem = poolSize/itemPrefabs.Count;
+        Debug.Log(maxOfItem);
+
         foreach (GameObject itemPrefab in itemPrefabs)
         {
-            for (int i = 0; i < (poolSize / objectPool.Count); i++)
+            for (int i = 0; i < maxOfItem; i++)
             {
                 GameObject obj = Instantiate(itemPrefab);
                 obj.SetActive(false);
