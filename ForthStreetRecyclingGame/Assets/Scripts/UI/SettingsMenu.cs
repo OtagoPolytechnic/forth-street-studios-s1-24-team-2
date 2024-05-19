@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Toggle perfToggle;
     [SerializeField] private GameObject settingsCanvas;
     [SerializeField] private GameObject mainMenuCanvas;
+    public AudioMixer audioMixer;
 
     private const float FPS_INTERVAL = 0.5f;
 
@@ -63,4 +65,10 @@ public class SettingsMenu : MonoBehaviour
         settingsCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
     }
+
+    public void SetVolume(float sliderValue)
+    {
+        audioMixer.SetFloat("MainVol", Mathf.Log10(sliderValue) * 20);
+    }
+    
 }

@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         settings.SetActive(false);
+        Time.timeScale = 0;
     }
 
     // <summary>
@@ -28,6 +29,7 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene("Main Scene");
         mainMenu.SetActive(false);
         settings.SetActive(false);
+        Time.timeScale = 1;
     }
 
     // <summary>
