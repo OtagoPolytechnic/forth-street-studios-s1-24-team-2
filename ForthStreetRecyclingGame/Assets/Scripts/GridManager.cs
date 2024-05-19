@@ -38,7 +38,7 @@ public class GridManager : MonoBehaviour
     void Start() // Initialize the grid
     {
         // Create the grid
-        Grid = new GameObject[GridDimension, GridDimension]; 
+        Grid = new GameObject[GridDimension, GridDimension];
         InitGrid();
     }
 
