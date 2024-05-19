@@ -280,7 +280,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 109275552}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 351304955}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: QuitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &109275552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,7 +758,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 212817724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 351304956}
+        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+        m_MethodName: BackButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &212817724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1254,7 +1278,7 @@ GameObject:
   - component: {fileID: 351304956}
   - component: {fileID: 351304955}
   m_Layer: 0
-  m_Name: Scripts
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1287,7 +1311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2340c64020b24ae48a6baee25f165e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 723416049}
+  settings: {fileID: 1668872333}
+  mainMenu: {fileID: 609136181}
 --- !u!114 &351304956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1302,6 +1327,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perfCanvas: {fileID: 2131942811}
   perfToggle: {fileID: 266576926}
+  settingsCanvas: {fileID: 1668872333}
+  mainMenuCanvas: {fileID: 609136181}
 --- !u!1 &453032273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,7 +1653,7 @@ GameObject:
   - component: {fileID: 609136183}
   - component: {fileID: 609136182}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Main Menu Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1804,7 +1831,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 723416052}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 351304955}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: SettingsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &723416052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3266,7 +3305,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1963204689}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 351304955}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: PlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1963204689
 MonoBehaviour:
   m_ObjectHideFlags: 0
