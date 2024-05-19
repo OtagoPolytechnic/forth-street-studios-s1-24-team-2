@@ -8,7 +8,9 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] private GameObject perfCanvas;
     [SerializeField] private Toggle perfToggle;
-    // Start is called before the first frame update
+
+    private const float FPS_INTERVAL = 0.5f;
+
     void Start()
     {
         perfCanvas.SetActive(false);
@@ -16,28 +18,25 @@ public class SettingsMenu : MonoBehaviour
         perfToggle.isOn = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    // void ToggleValueChange(Toggle change)
-    // {
-    //     perfCanvas.SetActive(value);
-    //     perfCanvas.GetComponentInChildren<Text>().text = "FPS:" + (int)(1.0f / Time.deltaTime);
-    // }
-
     void ToggleValueChange(bool value)
     {
         if (value)
         {
             perfCanvas.SetActive(true);
-            perfCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "FPS:" + (int)(1.0f / Time.deltaTime);
+            StartCoroutine(UpdateFPS());
         }
         else
         {
             perfCanvas.SetActive(false);
+        }
+    }
+
+    private IEnumerator UpdateFPS()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(FPS_INTERVAL);
+            perfCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "FPS:" + (int)(1.0f / Time.deltaTime);
         }
     }
 }
