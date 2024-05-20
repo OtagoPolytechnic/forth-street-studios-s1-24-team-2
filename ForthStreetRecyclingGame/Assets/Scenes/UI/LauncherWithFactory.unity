@@ -4067,6 +4067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings: {fileID: 1141718740}
   mainMenu: {fileID: 535788637}
+  scoreCanvas: {fileID: 2136692639}
 --- !u!1 &1809808599
 GameObject:
   m_ObjectHideFlags: 0

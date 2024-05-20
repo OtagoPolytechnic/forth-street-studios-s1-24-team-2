@@ -12,13 +12,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Canvases")]
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject scoreCanvas;
 
     void Start()
     {
         settings.SetActive(false);
         Time.timeScale = 0;
+        scoreCanvas.SetActive(false);
     }
 
     // <summary>
@@ -29,6 +32,7 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene("Main Scene");
         mainMenu.SetActive(false);
         settings.SetActive(false);
+        scoreCanvas.SetActive(true);
         Time.timeScale = 1;
     }
 
