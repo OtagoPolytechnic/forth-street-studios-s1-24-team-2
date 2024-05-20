@@ -17,8 +17,8 @@ public class MinigameLauncher : MonoBehaviour
     private CameraSwitcher cameraSwitcher;  // Reference to the CameraSwitcher script
     public Minigame currentMinigame;   // Reference to the current minigame
     private MinigameObjectManager minigameObjectManager;  // Reference to the MinigameObjectManager script
-    
     [SerializeField] private ItemSpawner itemSpawner; //Pauses objects on minigame loading
+    [SerializeField] private ConveyorManager conveyorManager; //Pauses objects on minigame loading 
 
     #region Singleton
     // Singleton pattern
@@ -98,6 +98,7 @@ public class MinigameLauncher : MonoBehaviour
         SetMinigame(minigame);
         LaunchMinigame();
         itemSpawner.minigame = true;
+        conveyorManager.minigame = true;
     }
 
     /// <summary>
@@ -117,5 +118,6 @@ public class MinigameLauncher : MonoBehaviour
         // Rotate monitor back to starting position
         rotateMonitor.RotateToStart(afterRotateCallbacks);
         itemSpawner.minigame = false;
+        conveyorManager.minigame = false;
     }
 }
