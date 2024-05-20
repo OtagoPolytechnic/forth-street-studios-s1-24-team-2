@@ -28,6 +28,11 @@ public class ItemSpawner : MonoBehaviour
     [Header("Minigame Status")]
     public bool minigame; //Check if minigame is loaded for spawning any new items (Updates in MinigameLauncher.cs)
 
+    [Header("Constant Values")]
+    private const int maxAngle = 360;
+    private const int itemsBeforeDecrease = 5;
+    private const float halfValue = 0.5f;
+
     /// <summary>
     /// Set initial variable values and spawn first item without delay
     /// </summary>
@@ -58,7 +63,7 @@ public class ItemSpawner : MonoBehaviour
                 timer = 0.0f;
 
                 //Decrease spawn interval every 5 items spawned
-                if (itemsSpawned % 5 == 0) 
+                if (itemsSpawned % itemsBeforeDecrease == 0) 
                 {
                     //Find the current interval between spawns
                     //Will decrease current interval unless it is below minimum spawn interval
@@ -80,7 +85,7 @@ public class ItemSpawner : MonoBehaviour
         if (item != null) //Check an available item was taken from object pool
         {
             Vector3 spawnPosition = GetRandomSpawnPosition(); //Get a random spawn position
-            Quaternion spawnRotation = Quaternion.Euler(Random.Range(0, 360),Random.Range(0, 360),Random.Range(0, 360)); //Get a random rotation
+            Quaternion spawnRotation = Quaternion.Euler(Random.Range(0, maxAngle),Random.Range(0, maxAngle),Random.Range(0, maxAngle)); //Get a random rotation
 
             //Set the item transform and set active so player can see
             item.transform.position = spawnPosition;
@@ -99,7 +104,7 @@ public class ItemSpawner : MonoBehaviour
     private List<GameObject> RandomlySelectPool()
     {
         // Randomly select between recycle and rubbish pool
-        List<GameObject> selectedPool = Random.value < 0.5f ?
+        List<GameObject> selectedPool = Random.value < halfValue ?
             ItemPoolManager.Instance.recycleObjectPool :
             ItemPoolManager.Instance.rubbishObjectsPool;
 
