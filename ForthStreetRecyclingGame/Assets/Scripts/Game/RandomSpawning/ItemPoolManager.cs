@@ -27,7 +27,7 @@ public class ItemPoolManager : MonoBehaviour
     // Used in ItemSpawner script
     [HideInInspector] public List<GameObject> recycleObjectPool; 
     [HideInInspector] public List<GameObject> rubbishObjectsPool;
-    private int poolSizeMax = 20; //Max limit of any given item type spawned in scene
+    private int poolSizeMax; //Max limit of any given item type spawned in scene
 
     /// <summary>
     /// Initialises instance and the object pools
@@ -46,6 +46,9 @@ public class ItemPoolManager : MonoBehaviour
         recycleObjectPool = new List<GameObject>();
         rubbishObjectsPool = new List<GameObject>();
 
+        //Limit the max number of any given item spawning to be a factor of both prefab list counts
+        poolSizeMax = recycleItemPrefabs.Count * rubbishItemPrefabs.Count;
+
         InstantiateObjects(recycleObjectPool, recycleItemPrefabs, recycleParent);
         InstantiateObjects(rubbishObjectsPool, rubbishItemPrefabs, rubbishParent);
     }
@@ -58,14 +61,10 @@ public class ItemPoolManager : MonoBehaviour
     /// <param name="parent">Parent object for the spawned objects</param>
     void InstantiateObjects(List<GameObject> pool, List<GameObject> itemPrefabs, Transform parent)
     {
-        //Limit the max number of any given item spawning to below the pool size max
-        //poolSizeMax = 20; itemPrefabs = 4; 5 of each item will be instantiated
-        int maxSpawnCount = poolSizeMax / itemPrefabs.Count;
-
         //Go through each list of prefabs and instantiate to a pool list
         foreach (GameObject itemPrefab in itemPrefabs)
         {
-            for (int i = 0; i < maxSpawnCount; i++) //Limit number of items that will spawn for each prefab
+            for (int i = 0; i < poolSizeMax / itemPrefabs.Count; i++) //Limit number of items that will spawn for each prefab
             {
                 GameObject obj = Instantiate(itemPrefab, parent); //Instantiate object as child of specified parent object
                 obj.SetActive(false); //Hide object until 'spawned' during gameplay
