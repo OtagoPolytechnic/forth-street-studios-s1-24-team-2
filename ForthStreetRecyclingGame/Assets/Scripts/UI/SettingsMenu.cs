@@ -1,6 +1,6 @@
 // <remarks>
 // Author: Erika Stuart
-// Date Modified: 20/05/2024
+// Date Modified: 22/05/2024
 // </remarks>
 // <summary>
 // This script is used to control the settings menu screen
@@ -73,7 +73,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetVolume()
     {
-        AudioListener.volume = volumeSlider.value;
+        AudioListener.volume = volumeSlider.value; // sets the volume of the audio listener to the value of the slider
     }
     
 }

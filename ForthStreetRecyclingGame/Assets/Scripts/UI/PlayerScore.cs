@@ -1,3 +1,10 @@
+// <remarks>
+// Author: Erika Stuart
+// Date Modified: 22/05/2024
+// </remarks>
+// <summary>
+// This script is used to control the player score
+// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,11 +31,5 @@ public class PlayerScore : MonoBehaviour
     void Start()
     {
         scoreText.text = score.ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
