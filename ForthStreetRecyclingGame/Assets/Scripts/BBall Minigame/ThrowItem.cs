@@ -105,6 +105,7 @@ public class ThrowItem : MonoBehaviour
 
         if (mouseReleasePos.y < mouseInitialPos.y) // Ensure the mouse is dragged downward so object launches away from camera
         {
+            SFXManager.Instance.Play("Throw");
             manager.DecreaseShotsRemaining();
             spawnerManager.spawning = false;
             
