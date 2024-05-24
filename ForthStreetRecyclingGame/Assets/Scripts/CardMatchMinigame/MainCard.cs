@@ -11,6 +11,7 @@ public class MainCard : MonoBehaviour
     {
         if (Card_Back.activeSelf && controller.canReveal)
         {
+            SFXManager.Instance.Play("DrawCard");
             Card_Back.SetActive(false);
             controller.CardRevealed(this);
         }
@@ -30,6 +31,10 @@ public class MainCard : MonoBehaviour
 
     public void Unreveal()
     {
+        if (controller.gameStarted)
+        {
+            SFXManager.Instance.Play("DrawCard");
+        }
         Card_Back.SetActive(true);
     }
 }
