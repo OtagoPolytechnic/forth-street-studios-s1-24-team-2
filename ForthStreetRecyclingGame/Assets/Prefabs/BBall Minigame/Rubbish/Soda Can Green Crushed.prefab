@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5396375457224819875}
   - component: {fileID: -6894953859325371251}
   - component: {fileID: 6106457083474767285}
+  - component: {fileID: -4864419608916878277}
   m_Layer: 0
   m_Name: Soda Can Green Crushed
   m_TagString: Rubbish
@@ -252,6 +253,19 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-4864419608916878277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915431587251347896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230fbe65c99f44ee6b4096f3b247b5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 1
 --- !u!1 &7775547216321854208
 GameObject:
   m_ObjectHideFlags: 0

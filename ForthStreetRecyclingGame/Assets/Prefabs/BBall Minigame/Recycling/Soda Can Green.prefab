@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2597206874660001687}
   - component: {fileID: -7258497666964411166}
   - component: {fileID: 7352217132804772325}
+  - component: {fileID: 2653730762291184850}
   m_Layer: 0
   m_Name: Soda Can Green
   m_TagString: Recycling
@@ -252,6 +253,19 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &2653730762291184850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4090003430950003300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230fbe65c99f44ee6b4096f3b247b5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 1
 --- !u!1 &6075820225281419693
 GameObject:
   m_ObjectHideFlags: 0
