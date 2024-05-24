@@ -35,12 +35,16 @@ public class MusicManager : MonoBehaviour
     private float currentMusicLevel = 0.25f;
     private void Start()
     {
+        // add event listener for MinigameLauncher launchingMinigame
+        MinigameLauncher.instance?.switchingMinigame.AddListener(switchingMinigame);
 
+        currentMusicLevel = InitMusicLevel;
+        
         foreach (AudioSource audioSource in GetComponentsInChildren<AudioSource>())
         {
-            AudioInfo newAudioInfo = new AudioInfo(audioSource, audioSource.volume);
+            AudioInfo newAudioInfo = new(audioSource, audioSource.volume);
             // set the volume of the audiosource to the initial SFX level relative to its initial volume.
-            newAudioInfo.Player.volume = (newAudioInfo.InitVolume * InitMusicLevel);
+            newAudioInfo.Player.volume = newAudioInfo.InitVolume * InitMusicLevel;
             AudioInfos.Add(newAudioInfo);
         }
 
@@ -62,24 +66,34 @@ public class MusicManager : MonoBehaviour
         Play(scene.name);
     }
 
+    private void switchingMinigame(string name)
+    {
+        Play(name);
+    }
+
     /// <summary>
-    /// This method plays the music with same name as the scene.
+    /// This method plays the music with same name as the scene/minigame
     /// </summary>
     /// <param name="sceneName">The name of the scene.</param>
-    public void Play(string sceneName)
+    public void Play(string name)
     {
         // Find the audiosource with supplied name and play it
         foreach (AudioInfo audioInfo in AudioInfos)
         {
-            if (audioInfo.name == sceneName)
+            if (audioInfo.name == name)
             {
+                Debug.Log("Fading in " + audioInfo.name);
                 // set audio source to init volume  
-                audioInfo.Player.volume = audioInfo.InitVolume * currentMusicLevel;
+                float targetVolume = audioInfo.InitVolume * currentMusicLevel;
+                Debug.Log("Target volume: " + targetVolume + " = Init volume: " + audioInfo.InitVolume + " * Current music level: " + currentMusicLevel);
+                audioInfo.Player.volume = 0;
                 audioInfo.Player.Play();
+                StartCoroutine(FadeAudioSource.StartFade(audioInfo.Player, fadeTime, targetVolume));
             }
             // else if the audiosource is currently playing fade out the music and stop playback.
             else if (audioInfo.Player.isPlaying)
             {
+                Debug.Log("Fading out " + audioInfo.name);
                 // start fadeaudiosource coroutine
                 StartCoroutine(FadeAudioSource.StartFade(audioInfo.Player, fadeTime, 0f));
             }
@@ -109,7 +123,7 @@ public class MusicManager : MonoBehaviour
         // Change the volume of each audiosource relative to its initial volume
         foreach (AudioInfo audioInfo in AudioInfos)
         {
-            audioInfo.Player.volume = (audioInfo.InitVolume * volume);
+            audioInfo.Player.volume = audioInfo.InitVolume * volume;
         }
     }
 }

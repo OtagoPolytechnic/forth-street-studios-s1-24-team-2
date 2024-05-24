@@ -11,6 +11,7 @@ public static class FadeAudioSource {
     {
         float currentTime = 0;
         float start = audioSource.volume;
+        Debug.Log("Fading from " + start + " to " + targetVolume);
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
@@ -18,7 +19,13 @@ public static class FadeAudioSource {
             yield return null;
         }
         // stop the audio source
-        audioSource.Stop();
+        if (targetVolume <= 0.01)
+        {
+            audioSource.Stop();
+        }
         yield break;
     }
+
+
+
 }
