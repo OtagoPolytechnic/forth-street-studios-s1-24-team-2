@@ -5,8 +5,10 @@
  * Contributions: Assisted by GitHub Copilot
  */
 
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// This class is used to launch the minigame and return to the main scene after the minigame is completed.
@@ -14,10 +16,12 @@ using UnityEngine;
 public class MinigameLauncher : MonoBehaviour
 {
     public RotateMonitor rotateMonitor; // Reference to the RotateMonitor script, should be assigned in the inspector
+    // this a new way of using autoprops I've discovered. It let's you expose the backing field to the inspector while still using a property
+    [field: SerializeField] public float GameOverDelay { get; private set; } = 2.5f; // The delay before the game over event is fired
     private CameraSwitcher cameraSwitcher;  // Reference to the CameraSwitcher script
     public Minigame currentMinigame;   // Reference to the current minigame
     private MinigameObjectManager minigameObjectManager;  // Reference to the MinigameObjectManager script
-
+    public UnityEvent<string> switchingMinigame;    // Event fired when a minigame is launched
 
     #region Singleton
     // Singleton pattern
@@ -76,6 +80,7 @@ public class MinigameLauncher : MonoBehaviour
     public void LaunchMinigame()
     {
         if (currentMinigame == null) return;
+        switchingMinigame.Invoke(currentMinigame.minigameName);
         minigameObjectManager.SetActive(currentMinigame, active:true);
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
@@ -104,6 +109,7 @@ public class MinigameLauncher : MonoBehaviour
     /// <param name="success">Whether the player has won the minigame</param>
     private void HandleGameOver(bool success = false)
     {
+        switchingMinigame.Invoke("SortingFacility");
         cameraSwitcher.SwitchToMainCamera();
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]

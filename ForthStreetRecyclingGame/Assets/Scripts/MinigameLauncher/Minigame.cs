@@ -20,7 +20,7 @@ public abstract class Minigame : MonoBehaviour
     public UnityEvent<bool> OnGameOver = new UnityEvent<bool>();    // this event is fired when the minigame is over
     public bool gameStarted;
     protected bool success;
-    [SerializeField] private int gameOverDelay = 1;    // flag to check if the player has won/lost, passed to the OnGameOver event
+
 
 
     /// <summary>
@@ -35,12 +35,15 @@ public abstract class Minigame : MonoBehaviour
     /// </summary>
     public virtual void MinigameBegin() 
     { 
+        Debug.Log($"Minigame {minigameName} Begin");    
         gameStarted = true; 
     }
 
     protected IEnumerator WaitThenGameOver()
     {
-        yield return new WaitForSeconds(gameOverDelay);
+        string sfxString = success ? "MinigameWin" : "MinigameLose";
+        SFXManager.Instance.Play(sfxString);
+        yield return new WaitForSeconds(MinigameLauncher.instance.GameOverDelay);
         OnGameOver.Invoke(success);
         gameStarted = false;
     }
