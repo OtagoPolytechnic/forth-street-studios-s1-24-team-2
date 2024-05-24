@@ -17,7 +17,7 @@ public class LidWiggleManager : Minigame
     private Vector3 initBottlePos;
     private Vector3 initLidPos;
     private float timeLeft;
-    private float timeLimit = 20.0f;
+    private float timeLimit = 10.0f;
 
     //Const variables
     private const int MAX = 1; // slider scale is measured from 0 --> 1
@@ -29,6 +29,7 @@ public class LidWiggleManager : Minigame
     private const float HALFMETER = 0.5f;
     private const float FILLSPEED = 0.3f; // how much the meter fills
     private const float EMPTYSPEED = 0.08f; // how much the meter empties
+
     private Coroutine timerCoroutine;
 
     #region Singleton
@@ -61,13 +62,16 @@ public class LidWiggleManager : Minigame
 
     void Update()
     {
-        if (!gameStarted) { return; }
+        if (!gameStarted || success) { return; }
         MouseMovement();
         if (fill.value == MAX) //  if the meter is full
         {
+            SFXManager.Instance.Play("BottleOpen");
+            success = true;
+            InvokeGameOver();
             StartCoroutine(LidRemoval());
             confetti.Play(); // plays the confetti
-            StopTimer();
+            
         }
         else if (fill.value > HALFMETER) // checking the meter is half filled
         {
@@ -78,16 +82,18 @@ public class LidWiggleManager : Minigame
             meter.transform.rotation = Quaternion.Euler(0, 0, VERTICAL);
         }
 
-        if (timeLeft <= 0) // if time runs out
+        if (timeLeft <= 0 && gameStarted) // if time runs out
         {
             success = false;
+            gameStarted = false;
             InvokeGameOver();
         }
     }
 
     public override void MinigameBegin()
-    {
+    {   
         base.MinigameBegin();
+        confetti.Stop();
         StartTimer();
         mouseAnimation.PlayTutorialAnimation();
         lid.transform.SetParent(bottle.transform);
@@ -124,10 +130,10 @@ public class LidWiggleManager : Minigame
         meter.transform.rotation = Quaternion.Euler(0, 0, LEFTSHAKE);
         yield return new WaitForSeconds(SHAKESPEED);
     }
-    
+
     // Coroutine to remove the lid
     IEnumerator LidRemoval()
-    {
+    {       
         lid.transform.SetParent(bottle.transform.parent);
         float elapsedTime = 0;
         float duration = ANIMATIONTIME;
@@ -143,8 +149,7 @@ public class LidWiggleManager : Minigame
             yield return new WaitForFixedUpdate();
         }
 
-        success = true;
-        InvokeGameOver();
+
     }
 
 
@@ -202,5 +207,12 @@ public class LidWiggleManager : Minigame
         confetti.Stop();
         ResetTimer();
         fill.value = 0;
+    }
+
+    [ContextMenu("Test")]
+    public void Test()
+    {
+        Debug.Log("Test");
+        SFXManager.Instance.Play("BottleOpen");
     }
 }
