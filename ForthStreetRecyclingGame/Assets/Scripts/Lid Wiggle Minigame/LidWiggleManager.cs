@@ -49,6 +49,14 @@ public class LidWiggleManager : Minigame
     }
     #endregion
 
+    public bool IsFillMax
+    {
+        get
+        {
+            return fill.value == MAX;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,7 +79,7 @@ public class LidWiggleManager : Minigame
             InvokeGameOver();
             StartCoroutine(LidRemoval());
             confetti.Play(); // plays the confetti
-            
+
         }
         else if (fill.value > HALFMETER) // checking the meter is half filled
         {
@@ -91,7 +99,7 @@ public class LidWiggleManager : Minigame
     }
 
     public override void MinigameBegin()
-    {   
+    {
         base.MinigameBegin();
         confetti.Stop();
         StartTimer();
@@ -133,7 +141,7 @@ public class LidWiggleManager : Minigame
 
     // Coroutine to remove the lid
     IEnumerator LidRemoval()
-    {       
+    {
         lid.transform.SetParent(bottle.transform.parent);
         float elapsedTime = 0;
         float duration = ANIMATIONTIME;

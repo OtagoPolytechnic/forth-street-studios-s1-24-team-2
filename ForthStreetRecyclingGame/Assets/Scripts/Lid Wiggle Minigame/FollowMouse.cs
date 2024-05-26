@@ -39,7 +39,10 @@ public class FollowMouse : MonoBehaviour
         if (Mathf.Sign(currentX - previousX) != direction)
         {
             direction = Mathf.Sign(currentX - previousX);
-            SFXManager.Instance.Play("Woosh");
+            if (LidWiggleManager.instance.IsFillMax == false)
+            {
+                SFXManager.Instance.Play("Woosh");
+            }
         }
 
         previousX = currentX; // Upda
