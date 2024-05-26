@@ -132,7 +132,7 @@ public class MinigameLauncher : MonoBehaviour
             // Disable the minigame camera so it doesn't mess up the DragObject script
             () => cameraSwitcher.EnableMinigameCamera(isEnabled: false),
             // fire an event with the success bool after the monitor has rotated
-            () => minigameOver.Invoke(success)
+            () => minigameOver.Invoke(success),
             () => minigameObjectManager.SetActive(currentMinigame, active:false)
         };
         // Rotate monitor back to starting position
