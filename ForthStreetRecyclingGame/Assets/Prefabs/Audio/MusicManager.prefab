@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: 0.5
-  InitMusicLevel: 1
+  InitMusicLevel: 0.25
 --- !u!1 &4057566191780855270
 GameObject:
   m_ObjectHideFlags: 0
