@@ -74,6 +74,7 @@ public class LidWiggleManager : Minigame
         MouseMovement();
         if (fill.value == MAX) //  if the meter is full
         {
+            StopTimer();
             SFXManager.Instance.Play("BottleOpen");
             success = true;
             InvokeGameOver();
