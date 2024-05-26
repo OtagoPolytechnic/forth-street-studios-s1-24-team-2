@@ -31,10 +31,6 @@ public class MainCard : MonoBehaviour
 
     public void Unreveal()
     {
-        if (controller.gameStarted)
-        {
-            SFXManager.Instance.Play("DrawCard");
-        }
         Card_Back.SetActive(true);
     }
 }

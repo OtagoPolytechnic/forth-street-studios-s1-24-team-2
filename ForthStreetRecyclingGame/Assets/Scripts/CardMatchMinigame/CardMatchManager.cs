@@ -102,6 +102,7 @@ public class CardMatchManager : Minigame
 
     public void CardRevealed(MainCard card)
     {
+        SFXManager.Instance.Play("DrawCard");
         if (_firstRevealed == null)
         {
             _firstRevealed = card;

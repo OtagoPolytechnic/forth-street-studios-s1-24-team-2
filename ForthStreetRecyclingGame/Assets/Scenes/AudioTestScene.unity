@@ -188,9 +188,14 @@ MonoBehaviour:
   rotateMonitor: {fileID: 2072372223}
   <GameOverDelay>k__BackingField: 1.7
   currentMinigame: {fileID: 0}
+  minigameOver:
+    m_PersistentCalls:
+      m_Calls: []
   switchingMinigame:
     m_PersistentCalls:
       m_Calls: []
+  itemSpawner: {fileID: 0}
+  conveyorManager: {fileID: 0}
 --- !u!114 &43846607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10581,6 +10586,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b85a4d98f9573342bc8e839878a19b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  cam: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!4 &4199802506660598225
 Transform:
   m_ObjectHideFlags: 0
