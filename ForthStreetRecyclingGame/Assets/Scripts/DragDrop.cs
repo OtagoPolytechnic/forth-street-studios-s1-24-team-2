@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DragDrop : MonoBehaviour
 {
@@ -13,9 +14,27 @@ public class DragDrop : MonoBehaviour
 
     Vector2 ObjectInitPos; // Initial position of the Object
 
+    public TextMeshProUGUI timerText;
+    private float timer;
+
     void Start()
     {
         ObjectInitPos = Object.transform.position; // Save the initial position of the Object
+        timer = 10f;
+        UpdateTimerText();
+    }
+
+    void Update()
+    {
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            UpdateTimerText();
+        }
+        else
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
     }
 
     public void DragObject() // Method to drag the Object
@@ -39,5 +58,10 @@ public class DragDrop : MonoBehaviour
         {
             Object.transform.position = ObjectInitPos;
         }
+    }
+
+    private void UpdateTimerText()
+    {
+        timerText.text = "Timer: " + Mathf.Ceil(timer).ToString();
     }
 }
