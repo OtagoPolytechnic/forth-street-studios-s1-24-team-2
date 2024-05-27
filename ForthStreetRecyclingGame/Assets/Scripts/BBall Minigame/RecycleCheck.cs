@@ -20,7 +20,7 @@ public class RecycleCheck : MonoBehaviour
     /// Checks object collision for tag, incrementing the relevant counter, then destroys the gameobject
     /// </summary>
     /// <param name="other">Recycle/Rubbish gameobject being thrown into trigger area</param>
-    void OnTriggerEnter(Collider other) 
+    void OnTriggerEnter(Collider other)
     {
         //Check tag of the trigger area (Recycling/Rubbish)
         if (this.tag == "Recycling")
@@ -28,11 +28,13 @@ public class RecycleCheck : MonoBehaviour
             switch (other.tag) // Check the tag of the collided object
             {
                 case "Recycling":
+                    SFXManager.Instance.Play("Kobe"); //Play correct sound effect
                     manager.IncrementSuccessCount(); //Increment onscreen score display
                     Destroy(other.gameObject); //Destroy GameObject to help performance 
                     break;
 
                 case "Rubbish":
+                    SFXManager.Instance.Play("Miss"); //Play incorrect sound effect
                     manager.IncrementFailCount();
                     Destroy(other.gameObject);
                     break;
@@ -46,11 +48,13 @@ public class RecycleCheck : MonoBehaviour
             switch (other.tag)
             {
                 case "Recycling":
+                    SFXManager.Instance.Play("Miss");
                     manager.IncrementFailCount();
                     Destroy(other.gameObject);
                     break;
 
                 case "Rubbish":
+                    SFXManager.Instance.Play("Kobe");
                     manager.IncrementSuccessCount();
                     Destroy(other.gameObject);
                     break;

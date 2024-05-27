@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4837252550572747971}
   - component: {fileID: 8065306377001767586}
   - component: {fileID: 1532240496296560616}
+  - component: {fileID: 250140478441521332}
   m_Layer: 0
   m_Name: Soda Can Orange Crushed
   m_TagString: Rubbish
@@ -252,6 +253,19 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &250140478441521332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420257888725589558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230fbe65c99f44ee6b4096f3b247b5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 1
 --- !u!1 &8249033110545202424
 GameObject:
   m_ObjectHideFlags: 0

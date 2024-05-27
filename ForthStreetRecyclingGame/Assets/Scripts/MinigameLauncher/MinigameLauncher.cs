@@ -5,6 +5,7 @@
  * Contributions: Assisted by GitHub Copilot
  */
 
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,12 +16,17 @@ using UnityEngine.Events;
 public class MinigameLauncher : MonoBehaviour
 {
     public RotateMonitor rotateMonitor; // Reference to the RotateMonitor script, should be assigned in the inspector
+    // this a new way of using autoprops I've discovered. It let's you expose the backing field to the inspector while still using a property
+    [field: SerializeField] public float GameOverDelay { get; private set; } = 2.5f; // The delay before the game over event is fired
     private CameraSwitcher cameraSwitcher;  // Reference to the CameraSwitcher script
     public Minigame currentMinigame;   // Reference to the current minigame
     public UnityEvent<bool> minigameOver;    // Event that is fired when the minigame is over
     private MinigameObjectManager minigameObjectManager;  // Reference to the MinigameObjectManager script
+    public UnityEvent<string> switchingMinigame;    // Event fired when a minigame is launched
+
     [SerializeField] private ItemSpawner itemSpawner; //Pauses objects on minigame loading
     [SerializeField] private ConveyorManager conveyorManager; //Pauses objects on minigame loading 
+
 
     #region Singleton
     // Singleton pattern
@@ -84,6 +90,7 @@ public class MinigameLauncher : MonoBehaviour
     public void LaunchMinigame()
     {
         if (currentMinigame == null) return;
+        switchingMinigame.Invoke(currentMinigame.minigameName);
         cameraSwitcher.EnableMinigameCamera(isEnabled: true);
         minigameObjectManager.SetActive(currentMinigame, active:true);
         // These callbacks are called after the monitor has rotated
@@ -116,6 +123,7 @@ public class MinigameLauncher : MonoBehaviour
     /// <param name="success">Whether the player has won the minigame</param>
     private void HandleGameOver(bool success = false)
     {
+        switchingMinigame.Invoke("SortingFacility");
         cameraSwitcher.SwitchToMainCamera();
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
@@ -124,7 +132,7 @@ public class MinigameLauncher : MonoBehaviour
             // Disable the minigame camera so it doesn't mess up the DragObject script
             () => cameraSwitcher.EnableMinigameCamera(isEnabled: false),
             // fire an event with the success bool after the monitor has rotated
-            () => minigameOver.Invoke(success)
+            () => minigameOver.Invoke(success),
             () => minigameObjectManager.SetActive(currentMinigame, active:false)
         };
         // Rotate monitor back to starting position

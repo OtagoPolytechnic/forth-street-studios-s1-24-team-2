@@ -11,6 +11,7 @@ public class MainCard : MonoBehaviour
     {
         if (Card_Back.activeSelf && controller.canReveal)
         {
+            SFXManager.Instance.Play("DrawCard");
             Card_Back.SetActive(false);
             controller.CardRevealed(this);
         }

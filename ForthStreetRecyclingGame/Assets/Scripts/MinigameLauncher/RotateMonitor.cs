@@ -40,6 +40,7 @@ public class RotateMonitor : MonoBehaviour
     public void RotateToTarget(Action[] afterRotateCallbacks = null)
     {
         if (isRotating) { return; }
+        SFXManager.Instance.Play("MonitorDown");
         StartCoroutine(RotateToTargetCoroutine(afterRotateCallbacks));
     }
 
@@ -50,6 +51,7 @@ public class RotateMonitor : MonoBehaviour
     public void RotateToStart(Action[] afterRotateCallbacks = null)
     {
         if (isRotating) { return; }
+        SFXManager.Instance.Play("MonitorUp");
         // Switch back to the main camera before rotating
         // cameraSwitcher.SwitchToMainCamera();
         StartCoroutine(RotateToStartCoroutine(afterRotateCallbacks));
