@@ -82,10 +82,8 @@ public class MusicManager : MonoBehaviour
         {
             if (audioInfo.name == name)
             {
-                Debug.Log("Fading in " + audioInfo.name);
                 // set audio source to init volume  
                 float targetVolume = audioInfo.InitVolume * currentMusicLevel;
-                Debug.Log("Target volume: " + targetVolume + " = Init volume: " + audioInfo.InitVolume + " * Current music level: " + currentMusicLevel);
                 audioInfo.Player.volume = 0;
                 audioInfo.Player.Play();
                 StartCoroutine(FadeAudioSource.StartFade(audioInfo.Player, fadeTime, targetVolume));
@@ -93,7 +91,6 @@ public class MusicManager : MonoBehaviour
             // else if the audiosource is currently playing fade out the music and stop playback.
             else if (audioInfo.Player.isPlaying)
             {
-                Debug.Log("Fading out " + audioInfo.name);
                 // start fadeaudiosource coroutine
                 StartCoroutine(FadeAudioSource.StartFade(audioInfo.Player, fadeTime, 0f));
             }
