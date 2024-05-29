@@ -1,20 +1,33 @@
-using System.Collections;
+/* 
+ * File: InstructionMenu.cs
+ * Purpose: Controls the toggling of menu on/off from titlescreen/back button
+ *          Holds a list of panels that toggle visibility when next/prev buttons clicked
+ *          When end of list reached, wrap around to first panel
+ *          Loads the main scene instructions as the default panel (instructions[0])
+ *          Enable/Disable panel used to remove some repetitive code
+ * Author: Devon
+ */
+
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InstructionMenu : MonoBehaviour
 {
+    [Header("Canvas Objects")]
     [SerializeField] private GameObject instructionsCanvas;
     [SerializeField] private GameObject mainMenuCanvas;
 
-    [SerializeField] private List<GameObject> instructions; // Assuming instructions are GameObjects with TMPro panels
+    [Header("Instruction Panels")]
+    [SerializeField] private List<GameObject> instructions; //Panels with instructions
+    private int currentPanelIndex = 0; //Current panel to show
 
-    private int currentPanelIndex = 0;
-
-    private void Start()
+    /// <summary>
+    /// Sets the default panel to show on main menu button click
+    /// </summary>
+    public void LoadFromMenu()
     {
-        // Initialize by showing the first panel and hiding the others
-        ShowPanel(currentPanelIndex);
+        currentPanelIndex = 0; //Reset index so maingame instruction always shows on first load
+        EnablePanel(currentPanelIndex);
     }
 
     // <summary>
@@ -22,8 +35,9 @@ public class InstructionMenu : MonoBehaviour
     // </summary>
     public void BackButton()
     {
-        instructionsCanvas.SetActive(false);
-        mainMenuCanvas.SetActive(true);
+        instructionsCanvas.SetActive(false); //Hide the instruction menu
+        DisablePanel(currentPanelIndex); //Hide the panel so it doesnt overlap on reload of canvas
+        mainMenuCanvas.SetActive(true); //Show the main menu
     }
 
     // <summary>
@@ -31,14 +45,9 @@ public class InstructionMenu : MonoBehaviour
     // </summary>
     public void NextInstruction()
     {
-        // Hide the current panel
-        instructions[currentPanelIndex].SetActive(false);
-
-        // Increment the index and wrap around if at the end of the list
-        currentPanelIndex = (currentPanelIndex + 1) % instructions.Count;
-
-        // Show the next panel
-        ShowPanel(currentPanelIndex);
+        DisablePanel(currentPanelIndex);
+        GetNewIndex(1); //Get the next index
+        EnablePanel(currentPanelIndex);
     }
 
     // <summary>
@@ -46,24 +55,35 @@ public class InstructionMenu : MonoBehaviour
     // </summary>
     public void PreviousInstruction()
     {
-        // Hide the current panel
-        instructions[currentPanelIndex].SetActive(false);
-
-        // Decrement the index and wrap around if at the beginning of the list
-        currentPanelIndex = (currentPanelIndex - 1 + instructions.Count) % instructions.Count;
-
-        // Show the previous panel
-        ShowPanel(currentPanelIndex);
+        DisablePanel(currentPanelIndex);
+        GetNewIndex(-1); //Get previous index
+        EnablePanel(currentPanelIndex);
     }
 
-    // <summary>
-    // Show the panel at the specified index
-    // </summary>
-    private void ShowPanel(int index)
+    /// <summary>
+    /// Sets panel to inactive
+    /// </summary>
+    /// <param name="index">Index in instructions list to toggle off</param>
+    private void DisablePanel(int index)
     {
-        if (index >= 0 && index < instructions.Count)
-        {
-            instructions[index].SetActive(true);
-        }
+        instructions[index].SetActive(false); //Hide panel at specified index
+    }
+
+    /// <summary>
+    /// Updates the current list index depending on passed value
+    /// </summary>
+    /// <param name="value">Direction in list to move (+1 -> up list, -1 -> down list)</param>
+    private void GetNewIndex(int value) //List index increase/decrease value
+    {
+        currentPanelIndex = (currentPanelIndex + value + instructions.Count) % instructions.Count; // Increment/Decrement the index and wrap around if at the start/end of the list
+    }
+
+    /// <summary>
+    /// Sets panel to active
+    /// </summary>
+    /// <param name="index">Index in instructions list to toggle on</param>
+    private void EnablePanel(int index)
+    {
+        instructions[index].SetActive(true); //Show panel at specified index
     }
 }
