@@ -76,7 +76,7 @@ public class RotateMonitor : MonoBehaviour
             yield return null;
         }
 
-        isRotating = false;     
+        isRotating = false;
         if (afterRotateCallbacks != null)
         {
             foreach (var callback in afterRotateCallbacks)

@@ -6,6 +6,7 @@
  */
 
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,6 +28,10 @@ public class MinigameLauncher : MonoBehaviour
     [SerializeField] private ItemSpawner itemSpawner; //Pauses objects on minigame loading
     [SerializeField] private ConveyorManager conveyorManager; //Pauses objects on minigame loading 
 
+    // Countdown panel and text references
+    [SerializeField] public GameObject countdownPanel;
+    [SerializeField] private TMP_Text countdownText;
+    private const int COUNTDOWN_TIME = 3;
 
     #region Singleton
     // Singleton pattern
@@ -93,15 +98,36 @@ public class MinigameLauncher : MonoBehaviour
         switchingMinigame.Invoke(currentMinigame.minigameName);
         cameraSwitcher.EnableMinigameCamera(isEnabled: true);
         minigameObjectManager.SetActive(currentMinigame, active:true);
+
+        StartCoroutine(CountdownCoroutine()); // Start the countdown before enabling minigame
+
         // These callbacks are called after the monitor has rotated
-        System.Action[] afterRotateCallbacks = new System.Action[]
-        {
-            cameraSwitcher.SwitchToMinigameCamera,
-            currentMinigame.MinigameBegin
-        };
+        System.Action[] afterRotateCallbacks = new System.Action[]{}; //Not used anymore as SwitchCam/BeginGame moved to countdown coroutine. Seems to cause no bugs/issues doing it this way - Devon
+
         // Rotate monitor in front of main camera
         rotateMonitor.RotateToTarget(afterRotateCallbacks);
 
+    }
+
+    /// <summary>
+    /// Show a panel for a 3 second countdown before starting the minigame
+    /// </summary>
+    /// <returns>Wait to update current countdown value over time (i.e 3, 2, 1)</returns>
+    public IEnumerator CountdownCoroutine()
+    {   
+        countdownPanel.SetActive(true); //Show the panel
+
+        for (int i = COUNTDOWN_TIME; i > 0; i--)
+        {
+            countdownText.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+
+        countdownPanel.SetActive(false);
+
+        // Start the minigame after the countdown
+        cameraSwitcher.SwitchToMinigameCamera();
+        currentMinigame.MinigameBegin();
     }
 
     /// <summary>
