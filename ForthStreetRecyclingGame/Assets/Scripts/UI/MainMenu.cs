@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject scoreCanvas;
+    [SerializeField] private GameObject instructions;
 
     void Start()
     {
@@ -43,6 +44,15 @@ public class MainMenu : MonoBehaviour
     public void SettingsButton()
     {
         settings.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    /// <summary>
+    /// Button that opens the gameplay instructions
+    /// </summary>
+    public void InstructionsButton()
+    {
+        instructions.SetActive(true);
         mainMenu.SetActive(false);
     }
 
