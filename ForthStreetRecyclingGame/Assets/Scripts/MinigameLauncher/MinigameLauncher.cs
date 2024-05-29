@@ -99,8 +99,6 @@ public class MinigameLauncher : MonoBehaviour
         cameraSwitcher.EnableMinigameCamera(isEnabled: true);
         minigameObjectManager.SetActive(currentMinigame, active:true);
 
-        StartCoroutine(CountdownCoroutine()); // Start the countdown before enabling minigame
-
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]{}; //Not used anymore as SwitchCam/BeginGame moved to countdown coroutine. Seems to cause no bugs/issues doing it this way - Devon
 
@@ -115,8 +113,6 @@ public class MinigameLauncher : MonoBehaviour
     /// <returns>Wait to update current countdown value over time (i.e 3, 2, 1)</returns>
     public IEnumerator CountdownCoroutine()
     {   
-        countdownPanel.SetActive(true); //Show the panel
-
         for (int i = COUNTDOWN_TIME; i > 0; i--)
         {
             countdownText.text = i.ToString();
@@ -124,6 +120,7 @@ public class MinigameLauncher : MonoBehaviour
         }
 
         countdownPanel.SetActive(false);
+        countdownText.text = COUNTDOWN_TIME.ToString(); //Reset the countdown value for next time monitor rotates
 
         // Start the minigame after the countdown
         cameraSwitcher.SwitchToMinigameCamera();

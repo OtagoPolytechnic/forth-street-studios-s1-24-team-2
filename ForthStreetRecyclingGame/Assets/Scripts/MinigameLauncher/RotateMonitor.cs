@@ -24,6 +24,7 @@ public class RotateMonitor : MonoBehaviour
     public int rotateStart = 120; // The starting rotation of the monitor
     public int rotateTarget = 0; // The target rotation of the monitor
     public bool isRotating = false; // Flag to check if the monitor is currently rotating
+    [SerializeField] private MinigameLauncher launcher;
 
     /// <summary>
     /// Set the starting rotation of the monitor
@@ -64,6 +65,8 @@ public class RotateMonitor : MonoBehaviour
     private IEnumerator RotateToTargetCoroutine(Action[] afterRotateCallbacks = null)
     {
         isRotating = true;
+        launcher.countdownPanel.SetActive(true);
+
         while (transform.rotation.eulerAngles.z > rotateTarget)
         {
             // Decrease the z rotation
@@ -77,6 +80,8 @@ public class RotateMonitor : MonoBehaviour
         }
 
         isRotating = false;
+        StartCoroutine(launcher.CountdownCoroutine()); //Only start countdown once rotation is complete
+
         if (afterRotateCallbacks != null)
         {
             foreach (var callback in afterRotateCallbacks)

@@ -2619,6 +2619,7 @@ MonoBehaviour:
   rotateStart: 120
   rotateTarget: 0
   isRotating: 0
+  launcher: {fileID: 43846606}
 --- !u!1 &2103450892
 GameObject:
   m_ObjectHideFlags: 0
