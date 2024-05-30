@@ -1125,7 +1125,7 @@ GameObject:
   - component: {fileID: 1132464675}
   - component: {fileID: 1132464676}
   m_Layer: 5
-  m_Name: Meter Object
+  m_Name: Reputation Meter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
