@@ -6,9 +6,11 @@
  */
 
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.WSA;
 
 /// <summary>
 /// This class is used to launch the minigame and return to the main scene after the minigame is completed.
@@ -27,6 +29,10 @@ public class MinigameLauncher : MonoBehaviour
     [SerializeField] private ItemSpawner itemSpawner; //Pauses objects on minigame loading
     [SerializeField] private ConveyorManager conveyorManager; //Pauses objects on minigame loading 
 
+    // Countdown panel and text references
+    [SerializeField] public GameObject countdownPanel;
+    [SerializeField] private TMP_Text countdownText;
+    private const int COUNTDOWN_TIME = 3;
 
     #region Singleton
     // Singleton pattern
@@ -93,15 +99,37 @@ public class MinigameLauncher : MonoBehaviour
         switchingMinigame.Invoke(currentMinigame.minigameName);
         cameraSwitcher.EnableMinigameCamera(isEnabled: true);
         minigameObjectManager.SetActive(currentMinigame, active:true);
+
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
-            cameraSwitcher.SwitchToMinigameCamera,
-            currentMinigame.MinigameBegin
+            () => StartCoroutine(CountdownCoroutine()) //Only start countdown once rotation is complete
         };
+
         // Rotate monitor in front of main camera
+        countdownPanel.SetActive(true);
         rotateMonitor.RotateToTarget(afterRotateCallbacks);
 
+    }
+
+    /// <summary>
+    /// Show a panel for a 3 second countdown before starting the minigame
+    /// </summary>
+    /// <returns>Wait to update current countdown value over time (i.e 3, 2, 1)</returns>
+    public IEnumerator CountdownCoroutine()
+    {   
+        for (int i = COUNTDOWN_TIME; i > 0; i--)
+        {
+            countdownText.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+
+        countdownPanel.SetActive(false);
+        countdownText.text = COUNTDOWN_TIME.ToString(); //Reset the countdown value for next time monitor rotates
+
+        // Start the minigame after the countdown
+        cameraSwitcher.SwitchToMinigameCamera();
+        currentMinigame.MinigameBegin();
     }
 
     /// <summary>
