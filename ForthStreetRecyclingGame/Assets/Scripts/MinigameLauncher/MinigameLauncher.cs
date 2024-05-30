@@ -10,6 +10,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.WSA;
 
 /// <summary>
 /// This class is used to launch the minigame and return to the main scene after the minigame is completed.
@@ -100,9 +101,13 @@ public class MinigameLauncher : MonoBehaviour
         minigameObjectManager.SetActive(currentMinigame, active:true);
 
         // These callbacks are called after the monitor has rotated
-        System.Action[] afterRotateCallbacks = new System.Action[]{}; //Not used anymore as SwitchCam/BeginGame moved to countdown coroutine. Seems to cause no bugs/issues doing it this way - Devon
+        System.Action[] afterRotateCallbacks = new System.Action[]
+        {
+            () => StartCoroutine(CountdownCoroutine()) //Only start countdown once rotation is complete
+        };
 
         // Rotate monitor in front of main camera
+        countdownPanel.SetActive(true);
         rotateMonitor.RotateToTarget(afterRotateCallbacks);
 
     }

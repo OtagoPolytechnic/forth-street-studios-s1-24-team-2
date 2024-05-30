@@ -65,7 +65,6 @@ public class RotateMonitor : MonoBehaviour
     private IEnumerator RotateToTargetCoroutine(Action[] afterRotateCallbacks = null)
     {
         isRotating = true;
-        launcher.countdownPanel.SetActive(true);
 
         while (transform.rotation.eulerAngles.z > rotateTarget)
         {
@@ -80,7 +79,6 @@ public class RotateMonitor : MonoBehaviour
         }
 
         isRotating = false;
-        StartCoroutine(launcher.CountdownCoroutine()); //Only start countdown once rotation is complete
 
         if (afterRotateCallbacks != null)
         {
