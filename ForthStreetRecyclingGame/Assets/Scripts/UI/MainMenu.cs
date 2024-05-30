@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
     // </summary>
     public void PlayButton()
     {
+        MusicManager.Instance.Play("SortingFacility");
         //SceneManager.LoadScene("Main Scene");
         mainMenu.SetActive(false);
         settings.SetActive(false);

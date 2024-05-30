@@ -35,7 +35,6 @@ public abstract class Minigame : MonoBehaviour
     /// </summary>
     public virtual void MinigameBegin() 
     { 
-        Debug.Log($"Minigame {minigameName} Begin");    
         gameStarted = true; 
     }
 
