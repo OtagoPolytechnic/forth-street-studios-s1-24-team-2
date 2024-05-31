@@ -26,6 +26,7 @@ public class MinigameObjectManager : MonoBehaviour
 {
     // list of minigame object compositions, these should be assigned in the inspector
     public List<MinigameObjectComposition> minigameObjectCompositions = new();
+    private Minigame lastRandomMinigame;
 
     #region Singleton
     public static MinigameObjectManager instance;
@@ -61,6 +62,12 @@ public class MinigameObjectManager : MonoBehaviour
 
     public Minigame GetRandomMinigame()
     {
-        return minigameObjectCompositions[UnityEngine.Random.Range(0, minigameObjectCompositions.Count)].minigame;
+        Minigame game = minigameObjectCompositions[UnityEngine.Random.Range(0, minigameObjectCompositions.Count)].minigame;
+        if (minigameObjectCompositions.Count > 1 && game == lastRandomMinigame)
+        {
+            return GetRandomMinigame();
+        }
+        return game;
     }
+
 }
