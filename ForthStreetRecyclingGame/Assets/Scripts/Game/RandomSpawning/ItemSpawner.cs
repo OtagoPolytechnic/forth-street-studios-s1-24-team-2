@@ -33,18 +33,23 @@ public class ItemSpawner : MonoBehaviour
     private const int itemsBeforeDecrease = 5;
     private const float halfValue = 0.5f;
 
+    private MainGameManager mainGameManager;
     /// <summary>
     /// Set initial variable values and spawn first item without delay
     /// </summary>
     void Start()
     {
+        mainGameManager = MainGameManager.instance;
+        // consume MainGameOver from MainGameManager
+        mainGameManager.mainGameOver.AddListener(HandleGameOver);
+        mainGameManager.reset.AddListener(HandleReset);
         spawnInterval = 5f;
         spawnIntervalDecrease = 0.5f;
         minSpawnInterval = 1.5f;
         currentSpawnInterval = spawnInterval;
         timer = 0f;
         itemsSpawned = 0;
-        minigame = false; 
+        minigame = false;
         SpawnItem();
     }
 
@@ -63,7 +68,7 @@ public class ItemSpawner : MonoBehaviour
                 timer = 0.0f;
 
                 //Decrease spawn interval every 5 items spawned
-                if (itemsSpawned % itemsBeforeDecrease == 0) 
+                if (itemsSpawned % itemsBeforeDecrease == 0)
                 {
                     //Find the current interval between spawns
                     //Will decrease current interval unless it is below minimum spawn interval
@@ -85,7 +90,7 @@ public class ItemSpawner : MonoBehaviour
         if (item != null) //Check an available item was taken from object pool
         {
             Vector3 spawnPosition = GetRandomSpawnPosition(); //Get a random spawn position
-            Quaternion spawnRotation = Quaternion.Euler(Random.Range(0, maxAngle),Random.Range(0, maxAngle),Random.Range(0, maxAngle)); //Get a random rotation
+            Quaternion spawnRotation = Quaternion.Euler(Random.Range(0, maxAngle), Random.Range(0, maxAngle), Random.Range(0, maxAngle)); //Get a random rotation
 
             //Set the item transform and set active so player can see
             item.transform.position = spawnPosition;
@@ -141,5 +146,17 @@ public class ItemSpawner : MonoBehaviour
             Random.Range(bounds.min.y, bounds.max.y),
             Random.Range(bounds.min.z, bounds.max.z)
         );
+    }
+
+    private void HandleGameOver(bool success) => enabled = false;
+    private void HandleReset()
+    {
+        // log this
+        Debug.Log("Resetting item spawner");
+        enabled = true;
+        itemsSpawned = 0;
+        currentSpawnInterval = spawnInterval;
+        timer = 0f;
+        SpawnItem(); // spawn an item immediately
     }
 }
