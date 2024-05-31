@@ -7,6 +7,9 @@ TagManager:
   - Recycling
   - Rubbish
   - Destroyer
+  - Red
+  - Yellow
+  - Blue
   layers:
   - Default
   - TransparentFX
