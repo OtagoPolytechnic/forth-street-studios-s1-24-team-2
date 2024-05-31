@@ -9,8 +9,15 @@ using UnityEngine;
 
 public class ItemDespawn : MonoBehaviour
 {
+    private MainGameManager mainGameManager;
+    void Start()
+    {
+        mainGameManager = MainGameManager.instance;
+    }
+
     void OnTriggerEnter(Collider other) //Recycle or rubbish collider
     {
         other.gameObject.SetActive(false);
+        mainGameManager.HandleWastePlacement(correct:false);
     }
 }
