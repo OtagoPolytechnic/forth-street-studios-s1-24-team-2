@@ -38,6 +38,12 @@ public class ItemPoolManager : MonoBehaviour
         InitialisePool();
     }
 
+    void Start()
+    {
+        // Consume reset event from MainGameManager
+        MainGameManager.instance.mainGameOver.AddListener(HandleGameOver);
+    }
+
     /// <summary>
     /// Initilise empty object pool lists and call to instantiate both from list of prefabs
     /// </summary>
@@ -102,4 +108,22 @@ public class ItemPoolManager : MonoBehaviour
 
         return null;
     }
+
+    private void HandleGameOver(bool success)
+    {
+        // log the call
+        Debug.Log("Resetting item pools");
+        foreach (GameObject obj in recycleObjectPool)
+        {
+            // set grav to true
+            obj.GetComponent<Rigidbody>().useGravity = true;
+            obj.SetActive(false);
+        }
+
+        foreach (GameObject obj in rubbishObjectsPool)
+        {
+            obj.GetComponent<Rigidbody>().useGravity = true;
+            obj.SetActive(false);
+        }
+    }   
 }
