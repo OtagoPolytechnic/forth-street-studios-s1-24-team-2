@@ -144,6 +144,12 @@ public class MinigameLauncher : MonoBehaviour
         conveyorManager.minigame = true;
     }
 
+    public void LaunchRandomMinigame()
+    {
+        Minigame minigame = minigameObjectManager.GetRandomMinigame();
+        LaunchMinigame(minigame);
+    }
+
     /// <summary>
     /// Handle the game over event
     /// Switch back to the main camera and reset the minigame

@@ -58,4 +58,9 @@ public class MinigameObjectManager : MonoBehaviour
             }
         }
     }
+
+    public Minigame GetRandomMinigame()
+    {
+        return minigameObjectCompositions[UnityEngine.Random.Range(0, minigameObjectCompositions.Count)].minigame;
+    }
 }
