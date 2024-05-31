@@ -9,26 +9,22 @@ public enum WasteType
 public class BinTrigger : MonoBehaviour
 {
     private MinigameLauncher minigameLauncher;
+    private MainGameManager mainGameManager;
     public WasteType wasteType;
 
     void Start()
     {
         minigameLauncher = MinigameLauncher.instance;
+        mainGameManager = MainGameManager.instance;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(wasteType.ToString()))
-        {
-            Debug.Log("Correct bin");
-        }
-        else
-        {
-            Debug.Log("Wrong bin");
-        }
+        bool correctBin = other.gameObject.CompareTag(wasteType.ToString());
 
+        mainGameManager.HandleWastePlacement(correctBin);
         other.gameObject.SetActive(false);
-        minigameLauncher.LaunchRandomMinigame();
     }
-
+        
+    
 }
