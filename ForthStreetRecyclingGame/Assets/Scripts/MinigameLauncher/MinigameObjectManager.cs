@@ -67,6 +67,7 @@ public class MinigameObjectManager : MonoBehaviour
         {
             return GetRandomMinigame();
         }
+        lastRandomMinigame = game;
         return game;
     }
 
