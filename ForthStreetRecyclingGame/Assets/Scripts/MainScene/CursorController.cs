@@ -1,95 +1,83 @@
+/*
+ * File: BinTrigger.cs
+ * Author: Johnathan
+ * Contributions: Assisted by GitHub Copilot
+ */
+
 using UnityEngine;
 using System.Collections.Generic;
 
 public class CursorController : MonoBehaviour
 {
-    public GameObject selectedObject;
-    public List<GameObject> snapToObjects = new();
-    public float yOffset;
-    public List<Vector3> snapPoints = new();
-    public List<BinPanelController> binPanels = new(); // Changed to List<BinPanelController>
+    [SerializeField] private List<BinController> binControllers = new();
 
-    public static CursorController instance;
+    private GameObject selectedObject;
+
+    public bool IsHoldingObject => selectedObject != null;
+
+    #region Singleton
+    public static CursorController Instance { get; private set; }
 
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
             Destroy(this);
         }
     }
+    #endregion
 
-    void Start()
-    {
-        snapPoints = new List<Vector3>();
-
-        foreach (GameObject snapToObject in snapToObjects)
-        {
-            snapPoints.Add(snapToObject.transform.position);
-        }
-    }
-
-    void Update()
-    {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = -Camera.main.transform.position.z;
-        Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-        Vector3 closestSnapPoint = snapPoints[0];
-        int snapIndex = 0;
-        float closestDistance = Vector3.Distance(cursorPosition, closestSnapPoint);
-        foreach (Vector3 snapPoint in snapPoints)
-        {
-            float distance = Vector3.Distance(cursorPosition, snapPoint);
-            if (distance < closestDistance)
-            {
-                closestSnapPoint = snapPoint;
-                snapIndex = snapPoints.IndexOf(snapPoint);
-            }
-        }
-
-        closestSnapPoint.y += yOffset;
-
-        if (selectedObject != null)
-        {
-            selectedObject.transform.position = closestSnapPoint;
-            ActivatePanel(snapIndex);
-        }
-    }
-
+    /// <summary>
+    /// Pick up an object
+    /// This is called when the player clicks on a pickupable object
+    /// </summary>
     public void PickUpObject(GameObject obj)
     {
+        // Set the selected object to the object that was clicked
         selectedObject = obj;
+
+        // Move the object to the closest bin
+        BinController closestBin = GetClosetBin(obj.transform.position.x);
+        SelectBin(closestBin);
     }
 
-    public void DropObject()
+    /// <summary>
+    /// Drop the object
+    /// This is called when the player releases the mouse button
+    /// </summary>
+    public void DropObject() => selectedObject = null;
+
+    public void SelectBin(BinController bin)
     {
-        selectedObject = null;
-        for (int i = 0; i < binPanels.Count; i++) // Changed to binPanels.Count
+        MoveHeldObject(bin.DropPoint);
+
+        // Activate panel for current bin, deactivate others
+        foreach (BinController binController in binControllers)
         {
-            if (binPanels[i].IsOn)
-            {
-                binPanels[i].TurnOffPanel();
-            }
+            binController.ActivatePanel(binController == bin);
         }
     }
 
-    private void ActivatePanel(int index)
+    public void MoveHeldObject(Vector3 position) => selectedObject.transform.position = position;
+
+    public BinController GetClosetBin(float xPosition)
     {
-        for (int i = 0; i < binPanels.Count; i++) // Changed to binPanels.Count
+        BinController closestBin = binControllers[0];
+        float closestDistance = Mathf.Abs(binControllers[0].transform.position.x - xPosition);
+        foreach (BinController binController in binControllers)
         {
-            if (i == index && !binPanels[i].IsOn)
+            float distance = Mathf.Abs(binController.transform.position.x - xPosition);
+            if (distance < closestDistance)
             {
-                binPanels[i].TurnOnPanel();
-            }
-            else if (i != index && binPanels[i].IsOn)
-            {
-                binPanels[i].TurnOffPanel();
+                closestBin = binController;
+                closestDistance = distance;
             }
         }
+        return closestBin;
     }
+
 }

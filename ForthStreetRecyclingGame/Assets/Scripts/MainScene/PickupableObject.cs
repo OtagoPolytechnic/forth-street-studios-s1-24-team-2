@@ -3,20 +3,23 @@ using UnityEngine;
 public class PickableObject : MonoBehaviour
 {
     public CursorController cursorController;
+    private Rigidbody rb;
 
-    // on start assign the static instance of the cursor controller
     void Start()
     {
-        cursorController = CursorController.instance;
+        cursorController = CursorController.Instance;
+        rb = GetComponent<Rigidbody>();
     }   
     
     void OnMouseDown()
     {
+        rb.isKinematic = true;
         cursorController.PickUpObject(gameObject);
     }
 
     void OnMouseUp()
     {
+        rb.isKinematic = false;
         cursorController.DropObject();
     }
 }

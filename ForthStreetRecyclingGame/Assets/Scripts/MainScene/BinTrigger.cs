@@ -1,16 +1,31 @@
+/*
+ * File: BinTrigger.cs
+ * Author: Johnathan
+ * Contributions: Assisted by GitHub Copilot
+ */
+
 using UnityEngine;
+
+/// <summary>   
+/// Enum for the different types of waste
+/// </summary>
 public enum WasteType
 {
     Blue,
     Yellow,
-    Red
+    Red,
+    Green
 }
 
+/// <summary>
+/// Trigger for the waste bins in the main scene
+/// </summary>
 public class BinTrigger : MonoBehaviour
 {
     private MinigameLauncher minigameLauncher;
     private MainGameManager mainGameManager;
-    public WasteType wasteType;
+    [SerializeField] private WasteType wasteType;
+    [SerializeField] private BinController binController;
 
     void Start()
     {
@@ -20,11 +35,15 @@ public class BinTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // compare object tag with waste type
         bool correctBin = other.gameObject.CompareTag(wasteType.ToString());
 
         mainGameManager.HandleWastePlacement(correctBin);
+
+        // deactivate so ItemPoolManager will respawn it
         other.gameObject.SetActive(false);
+
+        // deactivate the bin panel
+        binController.ActivatePanel(false);
     }
-        
-    
 }
