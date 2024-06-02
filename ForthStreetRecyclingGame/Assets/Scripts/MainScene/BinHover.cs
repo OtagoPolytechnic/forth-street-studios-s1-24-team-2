@@ -1,16 +1,19 @@
 /*
- * File: Hoverable.cs
+ * File: BinHover.cs
  * Author: Johnathan
  * Contributions: Assisted by GitHub Copilot
  */
 
 using UnityEngine;
 
+/// <summary>
+/// Controls the hover effect for the waste bins in the main scene
+/// </summary>
 public class BinHover : MonoBehaviour
 {
-    private CursorController cursorController;
     [SerializeField] BinController binController;
 
+    private CursorController cursorController;
 
     void Start()
     {
