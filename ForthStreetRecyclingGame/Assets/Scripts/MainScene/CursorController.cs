@@ -45,12 +45,13 @@ public class CursorController : MonoBehaviour
         SelectBin(closestBin);
     }
 
-    /// <summary>
-    /// Drop the object
-    /// This is called when the player releases the mouse button
-    /// </summary>
     public void DropObject() => selectedObject = null;
 
+    /// <summary>
+    /// Select a bin
+    /// This is called when the player hovers over a bin
+    /// </summary>
+    /// <param name="bin">The bin that was hovered over</param>
     public void SelectBin(BinController bin)
     {
         MoveHeldObject(bin.DropPoint);
@@ -62,8 +63,14 @@ public class CursorController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Move the held object to a new position
+    /// </summary>
     public void MoveHeldObject(Vector3 position) => selectedObject.transform.position = position;
 
+    /// <summary>
+    /// Get the closest bin to a given x position
+    /// </summary>
     public BinController GetClosetBin(float xPosition)
     {
         BinController closestBin = binControllers[0];
