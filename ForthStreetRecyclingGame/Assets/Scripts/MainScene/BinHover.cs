@@ -1,6 +1,12 @@
+/*
+ * File: Hoverable.cs
+ * Author: Johnathan
+ * Contributions: Assisted by GitHub Copilot
+ */
+
 using UnityEngine;
 
-public class Hoverable : MonoBehaviour
+public class BinHover : MonoBehaviour
 {
     private CursorController cursorController;
     [SerializeField] BinController binController;
