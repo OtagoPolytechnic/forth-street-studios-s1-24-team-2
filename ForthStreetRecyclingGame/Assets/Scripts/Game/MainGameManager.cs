@@ -10,27 +10,35 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections;
+using System;
 
 /// <summary>
 /// Game manager for tracking the state of the game.
 /// </summary>
 public class MainGameManager : MonoBehaviour
 {
+    [Header("Optimisation")]
     [SerializeField] private int targetFrameRate = 60;
-    [field: SerializeField] public int Reputation { get; private set; } = 50; // The player's reputation
+
+    [Header("Gameplay")]
     [SerializeField] private int MinigameReputationChange = 10; // The amount of reputation the player gains or loses from a minigame
     [SerializeField] private int BinReputationChange = 5; // The amount of reputation the player gains or loses from putting an item in a bin / falling off the conveyor belt
-    [SerializeField] private Slider reputationSlider; // The slider that displays the player's reputation
     [SerializeField] private MinigameLauncher minigameLauncher; // Reference to the MinigameLauncher script
+    [SerializeField] private float minigameDelay = 1; // The delay before launching a minigame after placing waste in the correct bin
+
+    [Header("UI")]
+    [SerializeField] private Slider reputationSlider; // The slider that displays the player's reputation
     [SerializeField] private TMP_Text gameEndText;
     [SerializeField, TextArea] private string gameLostBlurb; // The blurb that is displayed when the game is over
     [SerializeField, TextArea] private string gameWonBlurb; // The blurb that is displayed when the game is over
     [SerializeField] private GameObject gameOverPanel; // The panel that is displayed when the game is over
-
-    public UnityEvent<bool> mainGameOver; // Event that is fired when the main game is over
-    public UnityEvent reset; // Event that is fired when the main game is over
+    [SerializeField] private float sliderAnimationDuration = 0.3f; // Duration of the animation in seconds
 
 
+    [HideInInspector] public UnityEvent<bool> mainGameOver; // Event that is fired when the main game is over
+    [HideInInspector] public UnityEvent reset; // Event that is fired when the main game is over
+
+    public int Reputation { get; private set; } = 50; // The player's reputation   
     
     /// <summary>
     /// Setter and getter for the target frame rate.
@@ -79,8 +87,13 @@ public class MainGameManager : MonoBehaviour
         minigameLauncher.minigameOver.AddListener(HandleMinigameOver);
     }
 
+    /// <summary>
+    /// Handle the placement of waste in the correct or incorrect bin.
+    /// </summary>
+    /// <param name="correct">Whether the waste was placed in the correct bin.</param>
     public void HandleWastePlacement(bool correct)
     {
+        // If correct, increase reputation and launch a minigame after a short delay
         if (correct)
         {
             Reputation += BinReputationChange;
@@ -95,17 +108,24 @@ public class MainGameManager : MonoBehaviour
         UpdateUI();
     }
 
+    /// <summary>
+    /// Update the UI to reflect the current reputation.
+    /// </summary>
     private void UpdateUI()
     {
-        Debug.Log("Reputation: " + Reputation);
         // Start the coroutine to animate the slider
         StartCoroutine(AnimateSliderChange(reputationSlider, (float)Reputation / 100));
     }
 
+    /// <summary>
+    /// Animate the change in the slider value.
+    /// </summary>
+    /// <param name="slider">The slider to animate.</param>
+    /// <param name="newValue">The new value of the slider.</param>
     private IEnumerator AnimateSliderChange(Slider slider, float newValue)
     {
         float elapsedTime = 0;
-        float animationDuration = 0.3f; // Duration of the animation in seconds
+        float animationDuration = sliderAnimationDuration; // Duration of the animation in seconds
         float startingValue = slider.value;
 
         while (elapsedTime < animationDuration)
@@ -125,9 +145,12 @@ public class MainGameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handle the end of the minigame.
+    /// </summary>
+    /// <param name="win">Whether the player won the minigame.</param>
     private void HandleMinigameOver(bool win)
     {
-        Debug.Log("Minigame over, success: " + win);
         if (win)
         {
             SFXManager.Instance.Play("Correct");
@@ -142,22 +165,31 @@ public class MainGameManager : MonoBehaviour
         UpdateUI();
     }
 
+    /// <summary>
+    /// Coroutine to handle the player placing waste in the correct bin.
+    /// </summary>
     private IEnumerator CorrectBinRoutine() 
     {
         SFXManager.Instance.Play("Correct");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(minigameDelay);
         minigameLauncher.LaunchRandomMinigame();
     }
 
+
+    /// <summary>
+    /// Handle the end of the game.
+    /// </summary>
+    /// <param name="win">Whether the player won the game.</param>
     private void HandleGameOver(bool win)
     {
-        Debug.Log("Game over, success: " + win);
-        Debug.Log("Final reputation: " + Reputation);
         mainGameOver.Invoke(win);
         gameEndText.text = win ? gameWonBlurb : gameLostBlurb;
         gameOverPanel.SetActive(true);  
     }
 
+    /// <summary>
+    /// Reset the game state.
+    /// </summary>
     public void ResetGame()
     {
         Reputation = 50;
@@ -166,7 +198,6 @@ public class MainGameManager : MonoBehaviour
         UpdateUI();
     }
 
-    // obligatory app quit function
     public void QuitGame()
     {
         Application.Quit();
