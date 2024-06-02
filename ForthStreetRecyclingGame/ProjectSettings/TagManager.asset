@@ -10,6 +10,8 @@ TagManager:
   - Red
   - Yellow
   - Blue
+  - SnapPoint
+  - Green
   layers:
   - Default
   - TransparentFX
