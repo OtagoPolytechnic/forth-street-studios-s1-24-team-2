@@ -16,9 +16,9 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private Collider spawnArea; // Reference to the spawn area collider where items can spawn
 
     [Header("Item Spawn Settings")]
-    [SerializeField] private float spawnInterval; // Initial time interval between item spawns
-    [SerializeField] private float spawnIntervalDecrease; // Amount to decrease the spawn interval after a certain number of items are spawned
-    [SerializeField] private float minSpawnInterval; // Minimum possible spawn interval
+    [SerializeField] private float spawnInterval = 5f; // Initial time interval between item spawns
+    [SerializeField] private float spawnIntervalDecrease = 0.5f; // Amount to decrease the spawn interval after a certain number of items are spawned
+    [SerializeField] private float minSpawnInterval = 1.5f; // Minimum possible spawn interval
     [SerializeField] private float currentSpawnInterval; // Current time interval between spawns
 
     [Header("Item Spawn Variables")]
@@ -43,9 +43,6 @@ public class ItemSpawner : MonoBehaviour
         // consume MainGameOver from MainGameManager
         mainGameManager.mainGameOver.AddListener(HandleGameOver);
         mainGameManager.reset.AddListener(HandleReset);
-        spawnInterval = 5f;
-        spawnIntervalDecrease = 0.5f;
-        minSpawnInterval = 1.5f;
         currentSpawnInterval = spawnInterval;
         timer = 0f;
         itemsSpawned = 0;
