@@ -10,7 +10,8 @@ using System.Collections.Generic;
 public class CursorController : MonoBehaviour
 {
     [SerializeField] private List<BinController> binControllers = new();
-
+    [SerializeField] private MainGameManager mainGameManager;
+    [field: SerializeField] public float ScaleIncrease { get; private set; } = 4;
     private GameObject selectedObject;
 
     public bool IsHoldingObject => selectedObject != null;
@@ -39,13 +40,17 @@ public class CursorController : MonoBehaviour
     {
         // Set the selected object to the object that was clicked
         selectedObject = obj;
-
+        
         // Move the object to the closest bin
         BinController closestBin = GetClosetBin(obj.transform.position.x);
         SelectBin(closestBin);
     }
 
-    public void DropObject() => selectedObject = null;
+    public void DropObject() 
+    {
+        selectedObject = null;
+        mainGameManager.BlockInput(true);
+    }
 
     /// <summary>
     /// Select a bin
