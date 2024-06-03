@@ -33,7 +33,10 @@ public class MainGameManager : MonoBehaviour
     [SerializeField, TextArea] private string gameWonBlurb; // The blurb that is displayed when the game is over
     [SerializeField] private GameObject gameOverPanel; // The panel that is displayed when the game is over
     [SerializeField] private float sliderAnimationDuration = 0.3f; // Duration of the animation in seconds
+    [SerializeField] private GameObject inputBlocker;
 
+    [Header("Managers")]
+    [SerializeField] private CursorController cursorController;
 
     [HideInInspector] public UnityEvent<bool> mainGameOver; // Event that is fired when the main game is over
     [HideInInspector] public UnityEvent reset; // Event that is fired when the main game is over
@@ -85,6 +88,7 @@ public class MainGameManager : MonoBehaviour
         reputationSlider.value = (float)Reputation / 100;
         // consume minigameover event from minigamelauncher
         minigameLauncher.minigameOver.AddListener(HandleMinigameOver);
+        BlockInput(false);
     }
 
     /// <summary>
@@ -101,6 +105,7 @@ public class MainGameManager : MonoBehaviour
         }
         else
         {
+            BlockInput(false);
             SFXManager.Instance.Play("Miss");
             Reputation -= BinReputationChange;
         }
@@ -153,12 +158,12 @@ public class MainGameManager : MonoBehaviour
     {
         if (win)
         {
-            SFXManager.Instance.Play("Correct");
+            SFXManager.Instance.Play("RepUp");
             Reputation += MinigameReputationChange;
         }
         else
         {
-            SFXManager.Instance.Play("Miss");
+            SFXManager.Instance.Play("RepDown");
             Reputation -= MinigameReputationChange;
         }
 
@@ -172,7 +177,10 @@ public class MainGameManager : MonoBehaviour
     {
         SFXManager.Instance.Play("Correct");
         yield return new WaitForSeconds(minigameDelay);
-        minigameLauncher.LaunchRandomMinigame();
+        if (Reputation > 0 && Reputation < 100)
+        {
+            minigameLauncher.LaunchRandomMinigame();
+        }
     }
 
 
@@ -183,6 +191,8 @@ public class MainGameManager : MonoBehaviour
     private void HandleGameOver(bool win)
     {
         mainGameOver.Invoke(win);
+        string sfx = win ? "GameWin" : "MinigameLose";
+        SFXManager.Instance.Play(sfx);
         gameEndText.text = win ? gameWonBlurb : gameLostBlurb;
         gameOverPanel.SetActive(true);  
     }
@@ -192,6 +202,7 @@ public class MainGameManager : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
+        BlockInput(false);
         Reputation = 50;
         reset.Invoke();
         gameOverPanel.SetActive(false);
@@ -201,6 +212,11 @@ public class MainGameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void BlockInput(bool block)
+    {
+        inputBlocker.SetActive(block);
     }
 }
 
