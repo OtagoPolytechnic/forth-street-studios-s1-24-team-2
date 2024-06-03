@@ -40,6 +40,12 @@ public class BinTrigger : MonoBehaviour
 
         mainGameManager.HandleWastePlacement(correctBin);
 
+        // get pickupable object script
+        PickableObject pickableObject = other.gameObject.GetComponent<PickableObject>();
+
+        // reset object scale
+        pickableObject.ResetScale();
+        
         // deactivate so ItemPoolManager will respawn it
         other.gameObject.SetActive(false);
 
