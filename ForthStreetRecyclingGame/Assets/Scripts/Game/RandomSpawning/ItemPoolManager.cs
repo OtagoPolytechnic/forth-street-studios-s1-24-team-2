@@ -111,8 +111,6 @@ public class ItemPoolManager : MonoBehaviour
 
     private void HandleGameOver(bool success)
     {
-        // log the call
-        Debug.Log("Resetting item pools");
         foreach (GameObject obj in recycleObjectPool)
         {
             // set grav to true
