@@ -28,6 +28,7 @@ public class MinigameLauncher : MonoBehaviour
 
     [SerializeField] private ItemSpawner itemSpawner; //Pauses objects on minigame loading
     [SerializeField] private ConveyorManager conveyorManager; //Pauses objects on minigame loading 
+    [SerializeField] private MainGameManager mainGameManager; // Reference to the MainGameManager script
 
     // Countdown panel and text references
     [SerializeField] public GameObject countdownPanel;
@@ -144,6 +145,12 @@ public class MinigameLauncher : MonoBehaviour
         conveyorManager.minigame = true;
     }
 
+    public void LaunchRandomMinigame()
+    {
+        Minigame minigame = minigameObjectManager.GetRandomMinigame();
+        LaunchMinigame(minigame);
+    }
+
     /// <summary>
     /// Handle the game over event
     /// Switch back to the main camera and reset the minigame
@@ -153,6 +160,7 @@ public class MinigameLauncher : MonoBehaviour
     {
         switchingMinigame.Invoke("SortingFacility");
         cameraSwitcher.SwitchToMainCamera();
+        mainGameManager.BlockInput(false);
         // These callbacks are called after the monitor has rotated
         System.Action[] afterRotateCallbacks = new System.Action[]
         {
