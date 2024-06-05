@@ -5970,8 +5970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeade9ee091a41b4c97e8a3efebe856b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCursor: {fileID: 0}
-  clickCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: 59dc6a68f174a49ae800aac03d8d8854, type: 3}
+  clickCursor: {fileID: 2800000, guid: 22af785b9179641379cd3f7833aebc30, type: 3}
 --- !u!4 &1812270976 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4669843790974243939, guid: f38d6dd81ca1648308cc40035c3d8aa5,
