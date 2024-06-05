@@ -1,42 +1,45 @@
+/*
+ * File: CursorUpdate.cs
+ * Author: Devon
+ * Purpose: Updates the current cursor depending if the user is clicking or not
+ */
 using UnityEngine;
 
-public class CursorManager : MonoBehaviour
+public class CursorUpdate : MonoBehaviour
 {
-    public Texture2D defaultCursor;
-    public Texture2D clickCursor;
-    private Vector2 cursorHotspotDefault;
-    private Vector2 cursorHotspotClick;
+    [SerializeField] private Texture2D defaultCursor; //Open hand cursor image
+    [SerializeField] private Texture2D clickCursor; //Closed hand cursor image
 
+    /// <summary>
+    /// Set the default cursor initially
+    /// </summary>
     private void Start()
     {
-        // Set the cursor hotspot to the center of the textures
-        cursorHotspotDefault = new Vector2(defaultCursor.width / 2, defaultCursor.height / 2);
-        cursorHotspotClick = new Vector2(clickCursor.width / 2, clickCursor.height / 2);
-
-        // Set the default cursor initially
-        SetDefaultCursor();
+        SetCursor(defaultCursor);
     }
 
+    /// <summary>
+    /// Sets the current cursor depending on if mouse is clicked/held
+    /// </summary>
     private void Update()
     {
-        // Check if the left mouse button is being clicked and held
         if (Input.GetMouseButton(0))
         {
-            SetClickCursor();
+            SetCursor(clickCursor);
         }
         else
         {
-            SetDefaultCursor();
+            SetCursor(defaultCursor);
         }
     }
 
-    private void SetDefaultCursor()
+    /// <summary>
+    /// Updates the current cursor with new Texture and calculates click location for image
+    /// </summary>
+    /// <param name="cursor"></param>
+    private void SetCursor(Texture2D cursor)
     {
-        Cursor.SetCursor(defaultCursor, cursorHotspotDefault, CursorMode.Auto);
-    }
-
-    private void SetClickCursor()
-    {
-        Cursor.SetCursor(clickCursor, cursorHotspotClick, CursorMode.Auto);
+        Vector2 cursorHotspot = new Vector2(cursor.width / 2, cursor.height / 2); //Centre of the cursor image registers the click position
+        Cursor.SetCursor(cursor, cursorHotspot, CursorMode.Auto);
     }
 }
