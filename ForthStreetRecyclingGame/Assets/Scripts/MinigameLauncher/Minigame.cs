@@ -45,11 +45,6 @@ public abstract class Minigame : MonoBehaviour
         yield return new WaitForSeconds(MinigameLauncher.instance.GameOverDelay);
         OnGameOver.Invoke(success);
         gameStarted = false;
-
-        if (success)
-        {
-            scoreScript.AddToScore();
-        }
     }
 
     public void InvokeGameOver()
