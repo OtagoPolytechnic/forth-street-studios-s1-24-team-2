@@ -21,8 +21,6 @@ public abstract class Minigame : MonoBehaviour
     public bool gameStarted;
     protected bool success;
 
-    [SerializeField]private Score scoreScript;
-
     /// <summary>
     /// Reset the minigame state.
     /// All minigames should implement this method.
