@@ -16,6 +16,7 @@ public class PickableObject : MonoBehaviour
     private CursorController cursorController;
     private Rigidbody rb;
     private Vector3 originalScale;
+    private Outline outline;
 
 
 
@@ -24,6 +25,8 @@ public class PickableObject : MonoBehaviour
         cursorController = CursorController.Instance;
         rb = GetComponent<Rigidbody>();
         originalScale = transform.localScale;
+        outline = GetComponent<Outline>();
+        outline.enabled = false;
     }   
 
     void OnMouseDown()
@@ -41,6 +44,9 @@ public class PickableObject : MonoBehaviour
         rb.isKinematic = false;
         cursorController.DropObject();
     }
+
+    private void OnMouseOver(){ outline.enabled = true; }
+    private void OnMouseExit(){ outline.enabled = false; }
 
     public void ResetScale()
     {
