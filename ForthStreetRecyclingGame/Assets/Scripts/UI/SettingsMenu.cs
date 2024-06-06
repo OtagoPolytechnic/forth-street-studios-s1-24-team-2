@@ -14,6 +14,7 @@ using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
+    [SerializeField] private MainMenu mainMenu;
     [SerializeField] private GameObject perfCanvas;
     [SerializeField] private Toggle perfToggle;
     [SerializeField] private GameObject settingsCanvas;
@@ -68,7 +69,14 @@ public class SettingsMenu : MonoBehaviour
     public void BackButton()
     {
         settingsCanvas.SetActive(false);
-        mainMenuCanvas.SetActive(true);
+        if (mainMenu.GameStarted)
+        {
+            Time.timeScale = 1;
+        }
+        else
+        {
+            mainMenuCanvas.SetActive(true);
+        }
     }
 
     // public void SetVolume()
