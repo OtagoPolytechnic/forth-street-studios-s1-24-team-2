@@ -20,8 +20,10 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Toggle perfToggle;
     [SerializeField] private GameObject settingsCanvas;
     [SerializeField] private GameObject mainMenuCanvas;
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider SFXSlider;
     [SerializeField] private MusicManager musicManager;
+    [SerializeField] private SFXManager sfxManager;
 
     private const float FPS_INTERVAL = 0.5f;
 
@@ -30,10 +32,9 @@ public class SettingsMenu : MonoBehaviour
         perfCanvas.SetActive(false);
         perfToggle.onValueChanged.AddListener(ToggleValueChange);
         perfToggle.isOn = false;
-        // audioSource = audioSourceObj.GetComponent<AudioSource>();
-        // audioSource.Play();
-        // audioSource.volume = volumeSlider.value;
-        volumeSlider.value = musicManager.InitMusicLevel;
+
+        musicSlider.value = musicManager.InitMusicLevel;
+        SFXSlider.value = sfxManager.InitSFXLevel;
     }
 
     // <summary>
@@ -81,10 +82,5 @@ public class SettingsMenu : MonoBehaviour
             mainMenuCanvas.SetActive(true);
         }
     }
-
-    // public void SetVolume()
-    // {
-    //     AudioListener.volume = volumeSlider.value; // sets the volume of the audio listener to the value of the slider
-    // }
     
 }
