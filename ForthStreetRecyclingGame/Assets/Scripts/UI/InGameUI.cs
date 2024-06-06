@@ -30,11 +30,13 @@ public class InGameUI : MonoBehaviour
         Time.timeScale = 0;
         instructions.SetActive(true);
         instructionMenu.LoadFromMenu();
+        gameObject.SetActive(false);
     }
 
     public void SettingsButton()
     {
         Time.timeScale = 0;
         settings.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
