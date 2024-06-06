@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour
     [Header("Canvases")]
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject inGameUI;
     //[SerializeField] private GameObject scoreCanvas;
     [SerializeField] private GameObject instructions;
     [field: SerializeField] public bool GameStarted { get; private set; } = false;
@@ -42,6 +43,7 @@ public class MainMenu : MonoBehaviour
         //scoreCanvas.SetActive(true);
         Time.timeScale = 1;
         GameStarted = true;
+        inGameUI.SetActive(true);
         instructionsCloseText.text = "Return to Game";
         settingsCloseText.text = "Return to Game";
     }

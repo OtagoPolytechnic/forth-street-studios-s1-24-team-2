@@ -14,6 +14,7 @@ using UnityEngine.UI;
 
 public class InstructionMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject inGameUI;
     [SerializeField] private MainMenu mainMenu;
 
     [Header("Canvas Objects")]
@@ -43,6 +44,7 @@ public class InstructionMenu : MonoBehaviour
         if (mainMenu.GameStarted)
         {
             Time.timeScale = 1;
+            inGameUI.SetActive(true);
         }
         else
         {

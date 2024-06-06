@@ -14,6 +14,7 @@ using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject inGameUI;
     [SerializeField] private MainMenu mainMenu;
     [SerializeField] private GameObject perfCanvas;
     [SerializeField] private Toggle perfToggle;
@@ -72,6 +73,8 @@ public class SettingsMenu : MonoBehaviour
         if (mainMenu.GameStarted)
         {
             Time.timeScale = 1;
+            inGameUI.SetActive(true);
+            
         }
         else
         {
