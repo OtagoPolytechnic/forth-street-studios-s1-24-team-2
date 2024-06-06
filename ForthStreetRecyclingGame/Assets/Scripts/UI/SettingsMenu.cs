@@ -61,7 +61,7 @@ public class SettingsMenu : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(FPS_INTERVAL);
-            perfCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "FPS:" + (int)(1.0f / Time.deltaTime);
+            perfCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "FPS: " + (int)(1.0f / Time.deltaTime);
         }
     }
 
@@ -75,7 +75,6 @@ public class SettingsMenu : MonoBehaviour
         {
             Time.timeScale = 1;
             inGameUI.SetActive(true);
-            
         }
         else
         {
