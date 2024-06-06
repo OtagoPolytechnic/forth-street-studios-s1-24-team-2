@@ -21,8 +21,6 @@ public abstract class Minigame : MonoBehaviour
     public bool gameStarted;
     protected bool success;
 
-
-
     /// <summary>
     /// Reset the minigame state.
     /// All minigames should implement this method.
