@@ -148,8 +148,6 @@ public class ItemSpawner : MonoBehaviour
     private void HandleGameOver(bool success) => enabled = false;
     private void HandleReset()
     {
-        // log this
-        Debug.Log("Resetting item spawner");
         enabled = true;
         itemsSpawned = 0;
         currentSpawnInterval = spawnInterval;

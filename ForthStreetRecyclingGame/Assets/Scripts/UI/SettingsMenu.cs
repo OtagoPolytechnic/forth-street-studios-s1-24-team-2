@@ -14,6 +14,8 @@ using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject inGameUI;
+    [SerializeField] private MainMenu mainMenu;
     [SerializeField] private GameObject perfCanvas;
     [SerializeField] private Toggle perfToggle;
     [SerializeField] private GameObject settingsCanvas;
@@ -59,7 +61,7 @@ public class SettingsMenu : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(FPS_INTERVAL);
-            perfCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "FPS:" + (int)(1.0f / Time.deltaTime);
+            perfCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "FPS: " + (int)(1.0f / Time.deltaTime);
         }
     }
 
@@ -69,7 +71,15 @@ public class SettingsMenu : MonoBehaviour
     public void BackButton()
     {
         settingsCanvas.SetActive(false);
-        mainMenuCanvas.SetActive(true);
+        if (mainMenu.GameStarted)
+        {
+            Time.timeScale = 1;
+            inGameUI.SetActive(true);
+        }
+        else
+        {
+            mainMenuCanvas.SetActive(true);
+        }
     }
     
 }

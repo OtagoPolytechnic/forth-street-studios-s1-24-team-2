@@ -9,20 +9,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro; 
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private TMP_Text instructionsCloseText;
+    [SerializeField] private TMP_Text settingsCloseText;
+
     [Header("Canvases")]
     [SerializeField] private GameObject settings;
     [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject scoreCanvas;
+    [SerializeField] private GameObject inGameUI;
+    //[SerializeField] private GameObject scoreCanvas;
     [SerializeField] private GameObject instructions;
+    [field: SerializeField] public bool GameStarted { get; private set; } = false;
 
     void Start()
     {
         settings.SetActive(false);
         Time.timeScale = 0;
-        scoreCanvas.SetActive(false);
+        //scoreCanvas.SetActive(false);
     }
 
     // <summary>
@@ -34,8 +40,12 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene("Main Scene");
         mainMenu.SetActive(false);
         settings.SetActive(false);
-        scoreCanvas.SetActive(true);
+        //scoreCanvas.SetActive(true);
         Time.timeScale = 1;
+        GameStarted = true;
+        inGameUI.SetActive(true);
+        instructionsCloseText.text = "Return to Game";
+        settingsCloseText.text = "Return to Game";
     }
 
     // <summary>

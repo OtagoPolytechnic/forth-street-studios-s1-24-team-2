@@ -10,9 +10,13 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InstructionMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject inGameUI;
+    [SerializeField] private MainMenu mainMenu;
+
     [Header("Canvas Objects")]
     [SerializeField] private GameObject instructionsCanvas;
     [SerializeField] private GameObject mainMenuCanvas;
@@ -37,8 +41,17 @@ public class InstructionMenu : MonoBehaviour
     {
         instructionsCanvas.SetActive(false); //Hide the instruction menu
         DisablePanel(currentPanelIndex); //Hide the panel so it doesnt overlap on reload of canvas
-        mainMenuCanvas.SetActive(true); //Show the main menu
+        if (mainMenu.GameStarted)
+        {
+            Time.timeScale = 1;
+            inGameUI.SetActive(true);
+        }
+        else
+        {
+            mainMenuCanvas.SetActive(true);
+        }
     }
+    
 
     // <summary>
     // Move to the next instruction panel
