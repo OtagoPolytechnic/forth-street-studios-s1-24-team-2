@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Old Scenes/TestMinigame.unity
     guid: ddfd31e98e9514e848ef1e688d12ac0d
+  - enabled: 1
+    path: Assets/Scenes/Sprint7MainScene.unity
+    guid: 579502fb07eed454b9d925699c514e82
   m_configObjects: {}

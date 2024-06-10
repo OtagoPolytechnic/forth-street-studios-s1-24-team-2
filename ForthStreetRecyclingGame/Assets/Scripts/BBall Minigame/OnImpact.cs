@@ -1,7 +1,5 @@
 // attach to a game object and play sfx on collision with another object
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OnImpact : MonoBehaviour

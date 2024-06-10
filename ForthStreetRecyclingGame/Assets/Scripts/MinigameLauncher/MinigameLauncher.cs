@@ -5,12 +5,10 @@
  * Contributions: Assisted by GitHub Copilot
  */
 
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.WSA;
 
 /// <summary>
 /// This class is used to launch the minigame and return to the main scene after the minigame is completed.

@@ -10,7 +10,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections;
-using System;
 
 /// <summary>
 /// Game manager for tracking the state of the game.
