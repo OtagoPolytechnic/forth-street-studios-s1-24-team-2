@@ -4,8 +4,8 @@
 /// To call use: StartCoroutine(FadeAudioSource.StartFade(AudioSource audioSource, float duration, float targetVolume));
 /// </summary>
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 public static class FadeAudioSource {
     public static IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
     {
