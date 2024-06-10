@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class FollowMouse : MonoBehaviour
@@ -9,6 +10,8 @@ public class FollowMouse : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private int buffer = 20;
     private Vector3 mousePos;
+    private float previousX, currentX; // Variables to store the x positions
+    private float direction = 0f;
 
     void Start()
     {
@@ -28,6 +31,21 @@ public class FollowMouse : MonoBehaviour
 
         Vector3 targetPos = new Vector3(mousePos.x, mousePos.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetPos, smoothVelocity * Time.deltaTime);
+
+        // Store the difference between current and previous x positions
+        currentX = transform.position.x; // Update currentX with the GameObject's x position
+
+        // Check if x direction has changed
+        if (Mathf.Sign(currentX - previousX) != direction)
+        {
+            direction = Mathf.Sign(currentX - previousX);
+            if (LidWiggleManager.instance.IsFillMax == false)
+            {
+                SFXManager.Instance.Play("Woosh");
+            }
+        }
+
+        previousX = currentX; // Upda
     }
 
     private bool IsMouseOnScreen()

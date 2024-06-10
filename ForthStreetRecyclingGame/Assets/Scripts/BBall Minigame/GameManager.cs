@@ -161,6 +161,7 @@ public class GameManager : Minigame
             EndGameDisplay(gameWonPanel);
             success = true;
             InvokeGameOver();
+            yield break;
         }
 
         if (failCount >= maxCount)
@@ -168,6 +169,7 @@ public class GameManager : Minigame
             EndGameDisplay(gameOverPanel);
             success = false;
             InvokeGameOver();
+            yield break;
         }
 
         if (shotsRemaining <= 0)
@@ -179,6 +181,7 @@ public class GameManager : Minigame
                 EndGameDisplay(gameOverPanel);
                 success = false;
                 InvokeGameOver();
+                yield break;
             }
 
         }

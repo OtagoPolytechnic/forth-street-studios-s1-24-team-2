@@ -89,6 +89,8 @@ public class SpawnerManager : MonoBehaviour
         // Randomly select an object from the chosen list and instantiate (with y rotation of 90deg)
         int chosenIndex = Random.Range(0, chosenList.Count);
         GameObject obj = Instantiate(chosenList[chosenIndex], transform.position, randomRotation);
+        // add the OnImpact component
+        obj.AddComponent<OnImpact>();
         spawnedItem = obj;
     }
 }

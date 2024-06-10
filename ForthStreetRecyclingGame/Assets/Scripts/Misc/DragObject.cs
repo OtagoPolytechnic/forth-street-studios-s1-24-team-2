@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
-    private GameObject item;
-    private GameObject cam;
-    private Vector3 targetPos;
+    public GameObject item;
+    public GameObject cam;
     private float speed;
     private float force;
     private bool pickedUp;
 
+    [Header("Referenced In SnapItemToBin.cs")]
+    public Vector3 targetPos;
+
     void Start()
     {
         speed = 30f;
-        force = 300;
+        force = 300; // used in Throw()
         cam = Camera.main.gameObject;
         targetPos = new Vector3(cam.transform.position.x + 1.5f, cam.transform.position.y - 1f, cam.transform.position.z + 2.5f); //offset to the camera in a conventional gaming "held" position
     }
@@ -66,7 +68,7 @@ public class DragObject : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            item.transform.position = new Vector3(0, item.transform.position.y, item.transform.position.z); //moves xpos back to 0 so it gets thrown into the centre
+            item.transform.position = new Vector3(cam.transform.position.x, item.transform.position.y, item.transform.position.z); //moves xpos back to 0 so it gets thrown into the centre
             item.GetComponent<Rigidbody>().isKinematic = false; //unfreezes item for gravity
             item.GetComponent<Rigidbody>().AddForce(cam.transform.forward * force); //adds force to the item
             pickedUp = false; //resets the bool so another item can be picked up

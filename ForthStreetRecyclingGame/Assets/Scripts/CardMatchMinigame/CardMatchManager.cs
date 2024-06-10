@@ -102,6 +102,7 @@ public class CardMatchManager : Minigame
 
     public void CardRevealed(MainCard card)
     {
+        SFXManager.Instance.Play("DrawCard");
         if (_firstRevealed == null)
         {
             _firstRevealed = card;
@@ -117,14 +118,16 @@ public class CardMatchManager : Minigame
     {
         if (_firstRevealed.id == _secondRevealed.id)
         {
+            SFXManager.Instance.Play("Correct");
             _score++;
             scoreLabel.text = "Score: " + _score;
         }
         else
-        {
+        {          
             yield return new WaitForSeconds(0.5f);
 
             _firstRevealed.Unreveal();
+            yield return new WaitForSeconds(0.05f);
             _secondRevealed.Unreveal();
         }
 
@@ -140,5 +143,11 @@ public class CardMatchManager : Minigame
         Deal();
         _score = 0;
         scoreLabel.text = "Score: " + _score;
+    }
+
+    public override void MinigameBegin()
+    {
+        base.MinigameBegin();
+        SFXManager.Instance.Play("DrawHand");
     }
 }

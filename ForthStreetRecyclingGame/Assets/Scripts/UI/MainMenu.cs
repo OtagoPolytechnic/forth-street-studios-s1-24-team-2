@@ -1,0 +1,76 @@
+// <remarks>
+// Author: Erika Stuart
+// Date Modified: 20/05/2024
+// </remarks>
+// <summary>
+// This script is used to control the main menu screen
+// </summary>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro; 
+
+public class MainMenu : MonoBehaviour
+{
+    [SerializeField] private TMP_Text instructionsCloseText;
+    [SerializeField] private TMP_Text settingsCloseText;
+
+    [Header("Canvases")]
+    [SerializeField] private GameObject settings;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject inGameUI;
+    //[SerializeField] private GameObject scoreCanvas;
+    [SerializeField] private GameObject instructions;
+    [field: SerializeField] public bool GameStarted { get; private set; } = false;
+
+    void Start()
+    {
+        settings.SetActive(false);
+        Time.timeScale = 0;
+        //scoreCanvas.SetActive(false);
+    }
+
+    // <summary>
+    // Button that starts the game and hides the canvas'
+    // </summary>
+    public void PlayButton()
+    {
+        MusicManager.Instance.Play("SortingFacility");
+        //SceneManager.LoadScene("Main Scene");
+        mainMenu.SetActive(false);
+        settings.SetActive(false);
+        //scoreCanvas.SetActive(true);
+        Time.timeScale = 1;
+        GameStarted = true;
+        inGameUI.SetActive(true);
+        instructionsCloseText.text = "Return to Game";
+        settingsCloseText.text = "Return to Game";
+    }
+
+    // <summary>
+    // Button that opens the settings menu
+    // </summary>
+    public void SettingsButton()
+    {
+        settings.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    /// <summary>
+    /// Button that opens the gameplay instructions
+    /// </summary>
+    public void InstructionsButton()
+    {
+        instructions.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+
+    // <summary>
+    // Button that quits the game
+    // </summary>
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
+}

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 9017824215506635500}
   - component: {fileID: 8391282370320005598}
   - component: {fileID: 2115198595871559286}
+  - component: {fileID: -4387631134611518810}
   m_Layer: 0
   m_Name: Soda Can Orange
   m_TagString: Recycling
@@ -335,3 +336,16 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-4387631134611518810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750867017524496478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230fbe65c99f44ee6b4096f3b247b5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 1
