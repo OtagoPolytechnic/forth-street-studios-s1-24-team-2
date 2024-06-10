@@ -3,18 +3,26 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Recycling
+  - Rubbish
+  - Destroyer
+  - Red
+  - Yellow
+  - Blue
+  - SnapPoint
+  - Green
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Main
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - LidWiggle
+  - Monitor
+  - TestMinigame
+  - BBall
   - 
   - 
   - 
@@ -40,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: TopLayer
+    uniqueID: 3038493285
     locked: 0
